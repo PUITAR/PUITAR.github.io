@@ -5,55 +5,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 6.0.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/master/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/master/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/master/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/master/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/master/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/master/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"puitar.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"puitar.github.io","root":"/master/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="操作系统第三部分作业作业范围 第26章1、2、3、4题 第28章1、2、3、4、5、6、7题 第30章1、2、4、8、9、10、11题 第31章1、2、4、5、6题  第26章1.首先查看这个程序，得到结果如下 123456789sh&gt; cat loop.s# 段符号.main.top# 重点看下面这4句sub  $1,%dx		# %dx &#x3D; %dx - 1test $0,%dx		# %">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OS-thread-homework">
-<meta property="og:url" content="https://puitar.github.io/2022/05/19/OS-thread-homework/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/index.html">
+<meta property="og:site_name" content="Puitar&#39;s Blog">
 <meta property="og:description" content="操作系统第三部分作业作业范围 第26章1、2、3、4题 第28章1、2、3、4、5、6、7题 第30章1、2、4、8、9、10、11题 第31章1、2、4、5、6题  第26章1.首先查看这个程序，得到结果如下 123456789sh&gt; cat loop.s# 段符号.main.top# 重点看下面这4句sub  $1,%dx		# %dx &#x3D; %dx - 1test $0,%dx		# %">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220516082241930.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220516085555854.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220516100021157.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220516101427280.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220516103344533.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220516105426143.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220516105828890.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220516112113947.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220516114048979.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220517094824131.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220517114856648.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220517115033332.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220517121316512.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220517123707241.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220517131624836.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220517133750012.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220517145756037.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220517145842415.png">
-<meta property="og:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220519222752600.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220516082241930.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220516085555854.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220516100021157.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220516101427280.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220516103344533.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220516105426143.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220516105828890.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220516112113947.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220516114048979.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220517094824131.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220517114856648.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220517115033332.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220517121316512.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220517123707241.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220517131624836.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220517133750012.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220517145756037.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220517145842415.png">
+<meta property="og:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220519222752600.png">
 <meta property="article:published_time" content="2022-05-19T14:26:30.000Z">
 <meta property="article:modified_time" content="2022-05-19T16:14:39.600Z">
 <meta property="article:author" content="Puitar">
 <meta property="article:tag" content="ostep-homework">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://puitar.github.io/2022/05/19/OS-thread-homework/image-20220516082241930.png">
+<meta name="twitter:image" content="https://puitar.github.io/master/2022/05/19/OS-thread-homework/image-20220516082241930.png">
 
-<link rel="canonical" href="https://puitar.github.io/2022/05/19/OS-thread-homework/">
+<link rel="canonical" href="https://puitar.github.io/master/2022/05/19/OS-thread-homework/">
 
 
 <script id="page-configurations">
@@ -66,7 +66,7 @@
   };
 </script>
 
-  <title>OS-thread-homework | Hexo</title>
+  <title>OS-thread-homework | Puitar's Blog</title>
   
 
 
@@ -115,9 +115,9 @@
 
   <div class="site-meta">
 
-    <a href="/" class="brand" rel="start">
+    <a href="/master/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Hexo</h1>
+      <h1 class="site-title">Puitar's Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -135,22 +135,22 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+    <a href="/master/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
 
   </li>
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/master/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+    <a href="/master/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/master/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
   </ul>
@@ -181,16 +181,16 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/05/19/OS-thread-homework/">
+    <link itemprop="mainEntityOfPage" href="https://puitar.github.io/master/2022/05/19/OS-thread-homework/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/master/images/avatar.gif">
       <meta itemprop="name" content="Puitar">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="博客萌新是不是送来没什么软用的文章">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Puitar's Blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -465,7 +465,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/ostep-homework/" rel="tag"># ostep-homework</a>
+              <a href="/master/tags/ostep-homework/" rel="tag"># ostep-homework</a>
           </div>
 
         
@@ -474,7 +474,7 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/02/22/hello-world/" rel="prev" title="Hello World">
+    <a href="/master/2022/02/22/hello-world/" rel="prev" title="Hello World">
       <i class="fa fa-chevron-left"></i> Hello World
     </a></div>
       <div class="post-nav-item"></div>
@@ -543,12 +543,12 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Puitar</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">博客萌新是不是送来没什么软用的文章</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
+          <a href="/master/archives/">
         
           <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">posts</span>
@@ -605,19 +605,19 @@
   </div>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="/master/lib/anime.min.js"></script>
+  <script src="/master/lib/velocity/velocity.min.js"></script>
+  <script src="/master/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+<script src="/master/js/utils.js"></script>
 
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
+<script src="/master/js/motion.js"></script>
 
 
-<script src="/js/next-boot.js"></script>
+<script src="/master/js/schemes/muse.js"></script>
+
+
+<script src="/master/js/next-boot.js"></script>
 
 
 
