@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"puitar.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="操作系统铧锺碘期末考占总评的40% 老师提到的考试复习指南：  注重应用，需要直到API怎么用，各个参数是什么 能够举一些例子 从网络上找一些经典的资料  四个简答题分值：5分一个 进程  各种调度算法是什么样的。各种调度算法有什么特点，还存在什么问题？ 多级反馈队列为什么常用，彩票调度算法和步长调度算法等公平份额算法为什么不行？   各种调度算法的特点和优缺点先进先出(FIFO) 先进先出（Fi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OS期末铧锺碘">
+<meta property="og:url" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/index.html">
+<meta property="og:site_name" content="Puitar&#39;s Blog">
+<meta property="og:description" content="操作系统铧锺碘期末考占总评的40% 老师提到的考试复习指南：  注重应用，需要直到API怎么用，各个参数是什么 能够举一些例子 从网络上找一些经典的资料  四个简答题分值：5分一个 进程  各种调度算法是什么样的。各种调度算法有什么特点，还存在什么问题？ 多级反馈队列为什么常用，彩票调度算法和步长调度算法等公平份额算法为什么不行？   各种调度算法的特点和优缺点先进先出(FIFO) 先进先出（Fi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614133547462.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614133837340.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614135705282.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614140940324.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614142733606.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614144327579.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614155546936.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614162257586.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163007021.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163049148.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163141209.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614164632169.png">
+<meta property="article:published_time" content="2022-06-14T08:53:07.000Z">
+<meta property="article:modified_time" content="2022-06-14T08:56:04.217Z">
+<meta property="article:author" content="Puitar">
+<meta property="article:tag" content="os">
+<meta property="article:tag" content="期末总复习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614133547462.png">
+
+<link rel="canonical" href="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>OS期末铧锺碘 | Puitar's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Puitar's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Puitar">
+      <meta itemprop="description" content="博客萌新时不时送来没什么软用的文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Puitar's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OS期末铧锺碘
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-14 16:53:07 / Modified: 16:56:04" itemprop="dateCreated datePublished" datetime="2022-06-14T16:53:07+08:00">2022-06-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/courses-learning/" itemprop="url" rel="index"><span itemprop="name">courses-learning</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="操作系统铧锺碘"><a href="#操作系统铧锺碘" class="headerlink" title="操作系统铧锺碘"></a>操作系统铧锺碘</h1><p>期末考占总评的40%</p>
+<p>老师提到的考试复习指南：</p>
+<ul>
+<li>注重应用，需要直到API怎么用，各个参数是什么</li>
+<li>能够举一些例子</li>
+<li>从网络上找一些经典的资料</li>
+</ul>
+<h2 id="四个简答题"><a href="#四个简答题" class="headerlink" title="四个简答题"></a>四个简答题</h2><p>分值：5分一个</p>
+<h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><blockquote>
+<ul>
+<li>各种调度算法是什么样的。各种调度算法有什么特点，还存在什么问题？</li>
+<li>多级反馈队列为什么常用，彩票调度算法和步长调度算法等公平份额算法为什么不行？</li>
+</ul>
+</blockquote>
+<h4 id="各种调度算法的特点和优缺点"><a href="#各种调度算法的特点和优缺点" class="headerlink" title="各种调度算法的特点和优缺点"></a>各种调度算法的特点和优缺点</h4><h5 id="先进先出-FIFO"><a href="#先进先出-FIFO" class="headerlink" title="先进先出(FIFO)"></a>先进先出(FIFO)</h5><ul>
+<li>先进先出（First In First Out，FIFO），或者又叫做先到先服务（First Come First Served，FCFS）</li>
+</ul>
+<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614133547462.png" alt="image-20220614133547462" style="zoom:80%;">
+
+<ul>
+<li>优点：简单，易于实现（最符合直觉的策略）</li>
+<li>存在问题：<ul>
+<li>存在护航效应（一些耗时较少的潜在资源消费 者被排在重量级的资源消费者之后）。简而言之就是：先到达的长进程让后到达的短进程饿死。</li>
+<li>周转时间和响应时间都是糟糕的。</li>
+</ul>
+</li>
+</ul>
+<h5 id="最短任务-作业-优先-SJF"><a href="#最短任务-作业-优先-SJF" class="headerlink" title="最短任务(作业)优先(SJF)"></a>最短任务(作业)优先(SJF)</h5><ul>
+<li>最短任务优先（First Job First，SJF）：先运行最短的任务，然后是次短的任务，如此下去。</li>
+</ul>
+<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614133837340.png" alt="image-20220614133837340" style="zoom:80%;">
+
+<ul>
+<li>特点：<ul>
+<li>SJF在所有作业同时到达的情况下是最优（optmial，opt）调度算法。</li>
+<li>它是非抢占式的，如果长任务比短任务先到达，还是会有护航效应。</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>周转时间很好</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>响应时间不好</li>
+</ul>
+</li>
+</ul>
+<h5 id="最短完成时间优先-STCF"><a href="#最短完成时间优先-STCF" class="headerlink" title="最短完成时间优先(STCF)"></a>最短完成时间优先(STCF)</h5><ul>
+<li>向SJF添加抢占，就是最短完成时间优先（Shortest Time-to-Completion First，STCF）或者称作抢占式最短作业优先（Preemptive Shortest Job）调度程序</li>
+</ul>
+<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614135705282.png" alt="image-20220614135705282" style="zoom:80%;">
+
+<ul>
+<li>特点：<ul>
+<li>STCF在作业不同时到达的情况下延续了SJF的最优性</li>
+<li>它是抢占式的，如果长任务先到达，短任务后到达，短任务会抢占CPU先执行。</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>周转时间很好</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>响应时间不好</li>
+</ul>
+</li>
+</ul>
+<h5 id="轮转"><a href="#轮转" class="headerlink" title="轮转"></a>轮转</h5><ul>
+<li>轮转（Round-Robin，RR），又称作时间切片（time-slicing）：RR在一个时间片（time slice，有时称为调度量子，scheduling quantum）内工作，然后切换到运行队列的下一个任务，而不是运行一个任务直到结束。它反复运行，直到所有任务完成。</li>
+</ul>
+<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614140940324.png" alt="image-20220614140940324" style="zoom:80%;">
+
+<ul>
+<li>时间片长度影响性能：越短，响应时间越好；太短，频繁切换上下文影响整体性能。</li>
+<li>特点：是一种公平调度算法</li>
+<li>优点：<ul>
+<li>响应时间好</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>周转时间差</li>
+</ul>
+</li>
+<li>进一步优化：重叠RR，考虑了IO，需要IO的任务让出CPU在完成前不参与调度。</li>
+</ul>
+<h5 id="多级反馈队列-MLFQ"><a href="#多级反馈队列-MLFQ" class="headerlink" title="多级反馈队列(MLFQ)"></a>多级反馈队列(MLFQ)</h5><ul>
+<li><strong>规则</strong>：其中考过了，我觉得不会再考，但是仍然很重要。<ul>
+<li>规则1：如果A的优先级&gt;B的优先级，运行A（不运行B）。</li>
+<li>规则2：如果A的优先级&#x3D;B的优先级，轮转运行A和B。</li>
+<li>规则3：工作进入系统时，放在最高优先级（最上层队列）。</li>
+<li>规则4：一旦工作用完了在某一层中的时间配额（无论中间主动放弃多少次CPU），就降低优先级（移入低一级队列）。</li>
+<li>规则5：经过一段时间S，就将系统中所有工作重新加入最高优先级队列。</li>
+</ul>
+</li>
+<li>特点：<ul>
+<li>在没有任务长短的先验知识情况下，同时优化了周转时间和响应时间。</li>
+<li>采用多级队列，每个队列代表一个优先级。</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>对于短时间运行的交互型工作，获得类似SJF&#x2F;STCF的很好的全局性能（周转时间）。</li>
+<li>同时对长时间运行的CPU密集型负载也可以公平地运行。</li>
+</ul>
+</li>
+</ul>
+<h5 id="彩票调度-Lottery"><a href="#彩票调度-Lottery" class="headerlink" title="彩票调度(Lottery)"></a>彩票调度(Lottery)</h5><ul>
+<li>给每个进程分发⼀定量的彩票，每次调 度时随机抽出⼀个号码，被抽中的进程 获得CPU。</li>
+<li>彩票数（tickets）代表了进程占有某个资源地份额。一个进程拥有的彩票占总数地百分比，就是占有资源地份额。</li>
+</ul>
+<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614142733606.png" alt="image-20220614142733606" style="zoom:80%;">
+
+<ul>
+<li>特点：<ul>
+<li>充分利用了随机性</li>
+<li>从概率上满足期望的比例，但不能确保。运行时间越长，得到的CPU时间比例越接近期望。</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>可以避免奇怪的边角情况。</li>
+<li>很轻量，几乎不需要记录任何状态</li>
+<li>随即方法很快</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>工作时间很短的时，平均不公平度很差。只有运行很多时间片时，才得到期望结果。</li>
+</ul>
+</li>
+</ul>
+<h5 id="步长调度算法-Stride"><a href="#步长调度算法-Stride" class="headerlink" title="步长调度算法(Stride)"></a>步长调度算法(Stride)</h5><ul>
+<li>给每个进程分发⼀定量的彩票，用一个大数除以彩票得到步长，程序被调度⼀次则累计⼀次行程值（pass值 +&#x3D; 步长），每次调度行程值最小的进程。</li>
+</ul>
+<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614144327579.png" alt="image-20220614144327579" style="zoom:80%;">
+
+<ul>
+<li>优点：在给定优先级的情况下，达到绝对公平，比彩票调度优化了确定性。</li>
+<li>缺点：需要一个全局状态(pass值)</li>
+</ul>
+<h4 id="为什么MLFQ可用，彩票步长不用"><a href="#为什么MLFQ可用，彩票步长不用" class="headerlink" title="为什么MLFQ可用，彩票步长不用"></a>为什么MLFQ可用，彩票步长不用</h4><ul>
+<li><p>MLFQ可用的原因就是它的优点：</p>
+<ul>
+<li>对于短时间运行的交互型工作，获得类似SJF&#x2F;STCF的很好的全局性能（周转时间）。</li>
+<li>同时对长时间运行的CPU密集型负载也可以公平地运行。</li>
+</ul>
+</li>
+<li><p>彩票步长不广泛使用的原因：</p>
+<ul>
+<li>一个原因是这两种方式都不能很好地适合I&#x2F;O；</li>
+<li>另一个原因是其中最难的票数分配问题并没有确定的解决方式。</li>
+</ul>
+</li>
+</ul>
+<h3 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h3><blockquote>
+<ul>
+<li>虚拟内存空间是什么？</li>
+<li>为什么需要虚拟内存空间而不是直接使用物理内存空间？</li>
+<li>使用虚拟内存空间的目标或者说是指标是什么？</li>
+</ul>
+</blockquote>
+<h4 id="什么时虚拟内存空间？"><a href="#什么时虚拟内存空间？" class="headerlink" title="什么时虚拟内存空间？"></a>什么时虚拟内存空间？</h4><p>虚拟内存是计算机系统<strong>内存管理的一种技术</strong>。它负责为程序提供一 个巨大的、稀疏的、私有的地址空间的假象，其中保存了程序的所有指令和数据。而实际上，它通常是被分隔成多个物理内存碎片，还有部分暂时存储在外部磁盘存储器上，在需要时进行数据交换。</p>
+<h4 id="为什么需要虚拟内存空间？"><a href="#为什么需要虚拟内存空间？" class="headerlink" title="为什么需要虚拟内存空间？"></a>为什么需要虚拟内存空间？</h4><p>主要是虚拟内存提供了三个主要的好处：易于使用，高性能，可靠。</p>
+<ul>
+<li><p>虚拟内存可以为进程提供独立的内存空间并引入多层的页表结构将虚拟内存翻译成物理内存，进程之间可以共享物理内存减少开销，也能简化程序的链接、装载以及内存分配过程；</p>
+</li>
+<li><p>虚拟内存可以结合磁盘和物理内存的优势为进程提供看起来速度足够快并且容量足够大的存储；</p>
+</li>
+<li><p>虚拟内存可以控制进程对物理内存的访问，隔离不同进程的访问权限，提高系统的安全性；</p>
+</li>
+</ul>
+<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><blockquote>
+<ul>
+<li>什么是并发？并发的概念是什么？</li>
+<li>竞态条件、临界区等概念</li>
+</ul>
+</blockquote>
+<h4 id="什么是并发"><a href="#什么是并发" class="headerlink" title="什么是并发"></a>什么是并发</h4><p><strong>并发</strong>当有多个线程在操作时,如果系统只有一个CPU,则它不可能真正同时进行一个以上的线程，它只能把CPU运行时间划分成若干个时间段,再将时间段分配给各个线程执行，在一个时间段的线程代码运行时，其它线程处于挂起状。这种方式我们称之为并发。</p>
+<h4 id="什么是临界区、竞态条件等"><a href="#什么是临界区、竞态条件等" class="headerlink" title="什么是临界区、竞态条件等"></a>什么是临界区、竞态条件等</h4><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614155546936.png" alt="image-20220614155546936" style="zoom:80%;">
+
+<h3 id="持久"><a href="#持久" class="headerlink" title="持久"></a>持久</h3><blockquote>
+<p>明确为：崩溃一致性</p>
+<ul>
+<li>什么是崩溃一致性</li>
+<li>崩溃一致性存在什么例子</li>
+</ul>
+</blockquote>
+<h4 id="什么是崩溃一致性问题"><a href="#什么是崩溃一致性问题" class="headerlink" title="什么是崩溃一致性问题"></a>什么是崩溃一致性问题</h4><p>文件系统如何在出现断电（power loss）或系统崩溃（system  crash）的情况下，更新持久数据结构。这称为崩溃一致性问题。</p>
+<h4 id="存在什么例子"><a href="#存在什么例子" class="headerlink" title="存在什么例子"></a>存在什么例子</h4><ul>
+<li><strong>课本42.1</strong></li>
+</ul>
+<h2 id="五个计算题加分析题"><a href="#五个计算题加分析题" class="headerlink" title="五个计算题加分析题"></a>五个计算题加分析题</h2><p>共计80分，其中由于计科期中考试进程考的比较多，进程部分的分值会少一点</p>
+<p>五个答题主要是1+2+1+1：进程一个，虚拟内存两个，并发一个，文件部分一个</p>
+<h3 id="进程x1"><a href="#进程x1" class="headerlink" title="进程x1"></a>进程x1</h3><h3 id="虚拟内存x2"><a href="#虚拟内存x2" class="headerlink" title="虚拟内存x2"></a>虚拟内存x2</h3><p>有两个题，由于现代操作系统普遍使用分页管理机制，而不是分段管理机制，所以着重在分页上（自己体会这句话）。而且他不怎么说分段，所以肯定考分页。</p>
+<blockquote>
+<ul>
+<li>首先要搞懂最简单的线性页表，它有什么缺陷？</li>
+<li>页表使得访存需要增加额外的访问页表的成本，所以很慢。为此有了TLB加速缓存。TLB是怎么工作的。</li>
+<li>线性页表存储太大，一级页表存储也很大，所以有了多级页表。搞清楚怎么做的特别是二级三级页表。（我觉得是三级页表，老师提到了两三次）</li>
+<li>在页表中除了物理页号，还有一些其他的属性位，都有些什么，它们代表什么含义？（例如有效位、存在位等）</li>
+<li>通过上面的页表机制，给定一个虚拟地址，怎么计算它的物理地址？</li>
+<li>超越物理内存（置换策略）</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>线性页表（linear page table），就是一个数组。操作系统通过虚拟页号（VPN）检索 该数组，并在该索引处查找页表项（PTE），以便找到期望的物理帧号（PFN）。</p>
+</li>
+<li><p>线性页表存在的问题就是太慢和太大</p>
+<ul>
+<li>对应的解决办法就是TLB和分级页表</li>
+</ul>
+</li>
+<li><p>TLB和多级页表很重要，但是请见书本。</p>
+</li>
+<li><p>一些属性位：</p>
+<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614162257586.png" alt="image-20220614162257586" style="zoom:80%;">
+
+<p>上图包含一个存在位（P），确定是否允 许写入该页面的读&#x2F;写位（R&#x2F;W） 确定用户模式进程是否可以访问该页面的用户&#x2F;超级用户位 （U&#x2F;S），有几位（PWT、PCD、PAT 和 G）确定硬件缓存如何为这些页面工作，一个访问位 （A）和一个脏位（D），最后是页帧号（PFN）本身。</p>
+<ul>
+<li>有效位：用于指定特定的地址转换是否有效</li>
+<li>保护位：表明页是否可以读取、写入或执行</li>
+<li>存在位：表示该页是在物理存储器上还是在磁盘交换区上</li>
+<li>参考位：又称访问位，用于追踪页是否被访问，也用于确定哪些页很受欢迎，应该保留在内存中。</li>
+<li>脏位：标示该页是否被写过</li>
+</ul>
+</li>
+<li><p>怎么用页表进行地址转换请看书</p>
+</li>
+<li><p>超越物理内存（置换策略）</p>
+<ul>
+<li><p>平均内存访问时间（Average  Memory Access Time，AMAT<br>$$<br>AMAT &#x3D; (PHit·TM) + (PMiss·TD)<br>$$</p>
+</li>
+<li><p>最优策略是MIN</p>
+</li>
+<li><p>简单策略FIFO</p>
+<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163007021.png" alt="image-20220614163007021" style="zoom:50%;">
+</li>
+<li><p>随机策略</p>
+<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163049148.png" alt="image-20220614163049148" style="zoom:50%;">
+</li>
+<li><p>最近最少使用（Least-Recently-Used，LRU）</p>
+<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163141209.png" alt="image-20220614163141209" style="zoom: 50%;">
+</li>
+<li><p>最不经常使用”（Least-Frequently-Used， LFU）（历史信息中使用频次最低的）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="并发x1"><a href="#并发x1" class="headerlink" title="并发x1"></a>并发x1</h3><p>由于并发的计算分析大题只考一个，而且老师又提示说会考一提编程相关的代码题，要会用函数，会用接口。肯定就是这题。</p>
+<blockquote>
+<p>用信号量解决理发师问题。如果有余力也可以看看信号量解决吸烟者问题。我觉得就是理发师</p>
+</blockquote>
+<h3 id="文件x1"><a href="#文件x1" class="headerlink" title="文件x1"></a>文件x1</h3><blockquote>
+<ul>
+<li>存储管理<ul>
+<li>磁盘结构是什么样的？旋转寻道传输以及这方面的知识以及有关的时间是怎么算的？</li>
+<li>RAID（0&#x2F;1&#x2F;4&#x2F;5）各自有什么特点和优缺点，稳态吞吐量怎么算的</li>
+</ul>
+</li>
+<li>文件系统<ul>
+<li>数据进行读写，要经历什么样的步骤</li>
+<li>元数据的成员有哪些：修改时间、…、直接指针、间接指针<ul>
+<li>放在一个应用场景中让你进行设计（大概率是设计分配直接指针和间接指针[二级、三级]）</li>
+<li>对应消耗多少空间，对应的数据块又有多大？</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="磁盘结构"><a href="#磁盘结构" class="headerlink" title="磁盘结构"></a>磁盘结构</h4><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614164632169.png" alt="image-20220614164632169" style="zoom: 80%;">
+$$
+T_{I/O} = T_{寻道} + T_{旋转} + T_{传输}
+$$
+
+<p>$$<br>R_{I&#x2F;O} &#x3D; \frac{传输大小}{T_{I&#x2F;O}}<br>$$</p>
+<p>其他看书更好。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/os/" rel="tag"><i class="fa fa-tag"></i> os</a>
+              <a href="/tags/%E6%9C%9F%E6%9C%AB%E6%80%BB%E5%A4%8D%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 期末总复习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/26/CSAPP-shlab-report/" rel="prev" title="CSAPP:shlab-report">
+      <i class="fa fa-chevron-left"></i> CSAPP:shlab-report
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%93%A7%E9%94%BA%E7%A2%98"><span class="nav-number">1.</span> <span class="nav-text">操作系统铧锺碘</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E4%B8%AA%E7%AE%80%E7%AD%94%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">四个简答题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%84%E7%A7%8D%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E7%89%B9%E7%82%B9%E5%92%8C%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">各种调度算法的特点和优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA-FIFO"><span class="nav-number">1.1.1.1.1.</span> <span class="nav-text">先进先出(FIFO)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E4%BB%BB%E5%8A%A1-%E4%BD%9C%E4%B8%9A-%E4%BC%98%E5%85%88-SJF"><span class="nav-number">1.1.1.1.2.</span> <span class="nav-text">最短任务(作业)优先(SJF)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E5%AE%8C%E6%88%90%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88-STCF"><span class="nav-number">1.1.1.1.3.</span> <span class="nav-text">最短完成时间优先(STCF)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AE%E8%BD%AC"><span class="nav-number">1.1.1.1.4.</span> <span class="nav-text">轮转</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E5%8F%8D%E9%A6%88%E9%98%9F%E5%88%97-MLFQ"><span class="nav-number">1.1.1.1.5.</span> <span class="nav-text">多级反馈队列(MLFQ)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BD%A9%E7%A5%A8%E8%B0%83%E5%BA%A6-Lottery"><span class="nav-number">1.1.1.1.6.</span> <span class="nav-text">彩票调度(Lottery)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A5%E9%95%BF%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-Stride"><span class="nav-number">1.1.1.1.7.</span> <span class="nav-text">步长调度算法(Stride)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88MLFQ%E5%8F%AF%E7%94%A8%EF%BC%8C%E5%BD%A9%E7%A5%A8%E6%AD%A5%E9%95%BF%E4%B8%8D%E7%94%A8"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">为什么MLFQ可用，彩票步长不用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="nav-number">1.1.2.</span> <span class="nav-text">虚拟内存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%EF%BC%9F"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">什么时虚拟内存空间？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%EF%BC%9F"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">为什么需要虚拟内存空间？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91"><span class="nav-number">1.1.3.</span> <span class="nav-text">并发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%B6%E5%8F%91"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">什么是并发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%B4%E7%95%8C%E5%8C%BA%E3%80%81%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6%E7%AD%89"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">什么是临界区、竞态条件等</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%81%E4%B9%85"><span class="nav-number">1.1.4.</span> <span class="nav-text">持久</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B4%A9%E6%BA%83%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">什么是崩溃一致性问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%98%E5%9C%A8%E4%BB%80%E4%B9%88%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">存在什么例子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E4%B8%AA%E8%AE%A1%E7%AE%97%E9%A2%98%E5%8A%A0%E5%88%86%E6%9E%90%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">五个计算题加分析题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8Bx1"><span class="nav-number">1.2.1.</span> <span class="nav-text">进程x1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98x2"><span class="nav-number">1.2.2.</span> <span class="nav-text">虚拟内存x2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91x1"><span class="nav-number">1.2.3.</span> <span class="nav-text">并发x1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6x1"><span class="nav-number">1.2.4.</span> <span class="nav-text">文件x1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">磁盘结构</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Puitar</p>
+  <div class="site-description" itemprop="description">博客萌新时不时送来没什么软用的文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/PUITAR" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;PUITAR" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1831979740@qq.com" title="E-Mail → 1831979740@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Puitar</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
