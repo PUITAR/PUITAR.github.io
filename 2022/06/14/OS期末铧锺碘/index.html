@@ -41,6 +41,7 @@
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615161654399.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615163218702.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615163231423.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/ML4YT3TK5Z~_Y1D9DP%60M4FP.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614162257586.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163007021.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163049148.png">
@@ -58,7 +59,7 @@
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615170926641.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615145705046.png">
 <meta property="article:published_time" content="2022-06-14T08:53:07.000Z">
-<meta property="article:modified_time" content="2022-06-15T09:18:04.801Z">
+<meta property="article:modified_time" content="2022-06-15T09:26:42.368Z">
 <meta property="article:author" content="Puitar">
 <meta property="article:tag" content="os">
 <meta property="article:tag" content="期末总复习">
@@ -228,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-15 17:18:04" itemprop="dateModified" datetime="2022-06-15T17:18:04+08:00">2022-06-15</time>
+                <time title="Modified: 2022-06-15 17:26:42" itemprop="dateModified" datetime="2022-06-15T17:26:42+08:00">2022-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -458,6 +459,7 @@
 </ul>
 <p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615163218702.png" alt="image-20220615163218702" style="zoom:80%;"></p>
 <p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615163231423.png" alt="image-20220615163231423"></p>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/ML4YT3TK5Z~_Y1D9DP`M4FP.png" alt="img"></p>
 <h3 id="虚拟内存x2"><a href="#虚拟内存x2" class="headerlink" title="虚拟内存x2"></a>虚拟内存x2</h3><p>有两个题，由于现代操作系统普遍使用分页管理机制，而不是分段管理机制，所以着重在分页上（自己体会这句话）。而且他不怎么说分段，所以肯定考分页。</p>
 <blockquote>
 <ul>
@@ -603,12 +605,18 @@ R_{I/O} = \frac{传输大小}{T_{I/O}}</script><p><img src="/2022/06/14/OS%E6%9C
 </li>
 </ul>
 <h4 id="文件系统相关"><a href="#文件系统相关" class="headerlink" title="文件系统相关"></a>文件系统相关</h4><ul>
-<li><p>文件系统的实现需要考虑元数据（metadata）的处理，请回答跟元数据相关的下列问题：</p>
+<li>真题:</li>
+</ul>
+<p>文件系统的实现需要考虑元数据（metadata）的处理，请回答跟元数据相关的下列问题：</p>
 <p>（1）文件系统中的<code>inode</code>的作用是什么？<code>inode</code>中一般包含哪些信息？（4分）</p>
 <p>（2）为了描述文件的大小，需要在元数据中给定指向数据的指针，指针一般分为直接指针（direct pointer）和间接指针（indirect pointer），假设数据块的大小为4KB，每个指针占用4字节的空间，那么10个直接指针和1个一级间接指针可以寻址的文件大小是多少？1个二级间接指针可以寻址的文件大小是多少？请给出分析和计算过程。（8分）</p>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615145705046.png" alt="image-20220615145705046" style="zoom:80%;"></p>
+<ul>
+<li>直接指针间接指针的好坏<ul>
+<li></li>
+</ul>
 </li>
 </ul>
-<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615145705046.png" alt="image-20220615145705046" style="zoom:80%;"></p>
 
     </div>
 

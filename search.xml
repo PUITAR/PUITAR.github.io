@@ -821,6 +821,7 @@
 </ul>
 <p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615163218702.png" alt="image-20220615163218702" style="zoom:80%;"></p>
 <p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615163231423.png" alt="image-20220615163231423"></p>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/ML4YT3TK5Z~_Y1D9DP`M4FP.png" alt="img"></p>
 <h3 id="虚拟内存x2"><a href="#虚拟内存x2" class="headerlink" title="虚拟内存x2"></a>虚拟内存x2</h3><p>有两个题，由于现代操作系统普遍使用分页管理机制，而不是分段管理机制，所以着重在分页上（自己体会这句话）。而且他不怎么说分段，所以肯定考分页。</p>
 <blockquote>
 <ul>
@@ -966,12 +967,18 @@ R_{I/O} = \frac{传输大小}{T_{I/O}}</script><p><img src="/2022/06/14/OS%E6%9C
 </li>
 </ul>
 <h4 id="文件系统相关"><a href="#文件系统相关" class="headerlink" title="文件系统相关"></a>文件系统相关</h4><ul>
-<li><p>文件系统的实现需要考虑元数据（metadata）的处理，请回答跟元数据相关的下列问题：</p>
+<li>真题:</li>
+</ul>
+<p>文件系统的实现需要考虑元数据（metadata）的处理，请回答跟元数据相关的下列问题：</p>
 <p>（1）文件系统中的<code>inode</code>的作用是什么？<code>inode</code>中一般包含哪些信息？（4分）</p>
 <p>（2）为了描述文件的大小，需要在元数据中给定指向数据的指针，指针一般分为直接指针（direct pointer）和间接指针（indirect pointer），假设数据块的大小为4KB，每个指针占用4字节的空间，那么10个直接指针和1个一级间接指针可以寻址的文件大小是多少？1个二级间接指针可以寻址的文件大小是多少？请给出分析和计算过程。（8分）</p>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615145705046.png" alt="image-20220615145705046" style="zoom:80%;"></p>
+<ul>
+<li>直接指针间接指针的好坏<ul>
+<li></li>
+</ul>
 </li>
 </ul>
-<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615145705046.png" alt="image-20220615145705046" style="zoom:80%;"></p>
 ]]></content>
       <categories>
         <category>courses-learning</category>
