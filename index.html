@@ -196,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-15 17:26:42" itemprop="dateModified" datetime="2022-06-15T17:26:42+08:00">2022-06-15</time>
+                <time title="Modified: 2022-06-15 17:55:18" itemprop="dateModified" datetime="2022-06-15T17:55:18+08:00">2022-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -572,11 +572,16 @@ R_{I/O} = \frac{传输大小}{T_{I/O}}</script><p><img src="/2022/06/14/OS%E6%9C
 <p>（2）为了描述文件的大小，需要在元数据中给定指向数据的指针，指针一般分为直接指针（direct pointer）和间接指针（indirect pointer），假设数据块的大小为4KB，每个指针占用4字节的空间，那么10个直接指针和1个一级间接指针可以寻址的文件大小是多少？1个二级间接指针可以寻址的文件大小是多少？请给出分析和计算过程。（8分）</p>
 <p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615145705046.png" alt="image-20220615145705046" style="zoom:80%;"></p>
 <ul>
-<li>直接指针间接指针的好坏<ul>
-<li></li>
+<li><p>直接指针间接指针的好坏(来不及了…略)</p>
+<ul>
+<li>主要就是直接指针数目多,索引快,但是指向的数据块小</li>
+<li>间接指针需要额外的索引时间,但是数目少,指向的块的总大小很大</li>
 </ul>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615175410707.png" alt="image-20220615175410707" style="zoom:80%;"></p>
 </li>
 </ul>
+<h4 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h4><p>日志记一下这五点吧,估计最多考这样</p>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615175448501.png" alt="image-20220615175448501"></p>
 
       
     </div>
