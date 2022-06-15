@@ -196,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-15 00:27:10" itemprop="dateModified" datetime="2022-06-15T00:27:10+08:00">2022-06-15</time>
+                <time title="Modified: 2022-06-15 02:16:30" itemprop="dateModified" datetime="2022-06-15T02:16:30+08:00">2022-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -236,8 +236,7 @@
 <h4 id="各种调度算法的特点和优缺点"><a href="#各种调度算法的特点和优缺点" class="headerlink" title="各种调度算法的特点和优缺点"></a>各种调度算法的特点和优缺点</h4><h5 id="先进先出-FIFO"><a href="#先进先出-FIFO" class="headerlink" title="先进先出(FIFO)"></a>先进先出(FIFO)</h5><ul>
 <li>先进先出（First In First Out，FIFO），或者又叫做先到先服务（First Come First Served，FCFS）</li>
 </ul>
-<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614133547462.png" alt="image-20220614133547462" style="zoom:80%;">
-
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614133547462.png" alt="image-20220614133547462" style="zoom:80%;"></p>
 <ul>
 <li>优点：简单，易于实现（最符合直觉的策略）</li>
 <li>存在问题：<ul>
@@ -249,8 +248,7 @@
 <h5 id="最短任务-作业-优先-SJF"><a href="#最短任务-作业-优先-SJF" class="headerlink" title="最短任务(作业)优先(SJF)"></a>最短任务(作业)优先(SJF)</h5><ul>
 <li>最短任务优先（First Job First，SJF）：先运行最短的任务，然后是次短的任务，如此下去。</li>
 </ul>
-<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614133837340.png" alt="image-20220614133837340" style="zoom:80%;">
-
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614133837340.png" alt="image-20220614133837340" style="zoom:80%;"></p>
 <ul>
 <li>特点：<ul>
 <li>SJF在所有作业同时到达的情况下是最优（optmial，opt）调度算法。</li>
@@ -269,8 +267,7 @@
 <h5 id="最短完成时间优先-STCF"><a href="#最短完成时间优先-STCF" class="headerlink" title="最短完成时间优先(STCF)"></a>最短完成时间优先(STCF)</h5><ul>
 <li>向SJF添加抢占，就是最短完成时间优先（Shortest Time-to-Completion First，STCF）或者称作抢占式最短作业优先（Preemptive Shortest Job）调度程序</li>
 </ul>
-<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614135705282.png" alt="image-20220614135705282" style="zoom:80%;">
-
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614135705282.png" alt="image-20220614135705282" style="zoom:80%;"></p>
 <ul>
 <li>特点：<ul>
 <li>STCF在作业不同时到达的情况下延续了SJF的最优性</li>
@@ -289,8 +286,7 @@
 <h5 id="轮转"><a href="#轮转" class="headerlink" title="轮转"></a>轮转</h5><ul>
 <li>轮转（Round-Robin，RR），又称作时间切片（time-slicing）：RR在一个时间片（time slice，有时称为调度量子，scheduling quantum）内工作，然后切换到运行队列的下一个任务，而不是运行一个任务直到结束。它反复运行，直到所有任务完成。</li>
 </ul>
-<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614140940324.png" alt="image-20220614140940324" style="zoom:80%;">
-
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614140940324.png" alt="image-20220614140940324" style="zoom:80%;"></p>
 <ul>
 <li>时间片长度影响性能：越短，响应时间越好；太短，频繁切换上下文影响整体性能。</li>
 <li>特点：是一种公平调度算法</li>
@@ -307,7 +303,7 @@
 <h5 id="多级反馈队列-MLFQ"><a href="#多级反馈队列-MLFQ" class="headerlink" title="多级反馈队列(MLFQ)"></a>多级反馈队列(MLFQ)</h5><ul>
 <li><strong>规则</strong>：其中考过了，我觉得不会再考，但是仍然很重要。<ul>
 <li>规则1：如果A的优先级&gt;B的优先级，运行A（不运行B）。</li>
-<li>规则2：如果A的优先级&#x3D;B的优先级，轮转运行A和B。</li>
+<li>规则2：如果A的优先级=B的优先级，轮转运行A和B。</li>
 <li>规则3：工作进入系统时，放在最高优先级（最上层队列）。</li>
 <li>规则4：一旦工作用完了在某一层中的时间配额（无论中间主动放弃多少次CPU），就降低优先级（移入低一级队列）。</li>
 <li>规则5：经过一段时间S，就将系统中所有工作重新加入最高优先级队列。</li>
@@ -319,7 +315,7 @@
 </ul>
 </li>
 <li>优点：<ul>
-<li>对于短时间运行的交互型工作，获得类似SJF&#x2F;STCF的很好的全局性能（周转时间）。</li>
+<li>对于短时间运行的交互型工作，获得类似SJF/STCF的很好的全局性能（周转时间）。</li>
 <li>同时对长时间运行的CPU密集型负载也可以公平地运行。</li>
 </ul>
 </li>
@@ -328,8 +324,7 @@
 <li>给每个进程分发⼀定量的彩票，每次调 度时随机抽出⼀个号码，被抽中的进程 获得CPU。</li>
 <li>彩票数（tickets）代表了进程占有某个资源地份额。一个进程拥有的彩票占总数地百分比，就是占有资源地份额。</li>
 </ul>
-<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614142733606.png" alt="image-20220614142733606" style="zoom:80%;">
-
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614142733606.png" alt="image-20220614142733606" style="zoom:80%;"></p>
 <ul>
 <li>特点：<ul>
 <li>充分利用了随机性</li>
@@ -348,10 +343,9 @@
 </li>
 </ul>
 <h5 id="步长调度算法-Stride"><a href="#步长调度算法-Stride" class="headerlink" title="步长调度算法(Stride)"></a>步长调度算法(Stride)</h5><ul>
-<li>给每个进程分发⼀定量的彩票，用一个大数除以彩票得到步长，程序被调度⼀次则累计⼀次行程值（pass值 +&#x3D; 步长），每次调度行程值最小的进程。</li>
+<li>给每个进程分发⼀定量的彩票，用一个大数除以彩票得到步长，程序被调度⼀次则累计⼀次行程值（pass值 += 步长），每次调度行程值最小的进程。</li>
 </ul>
-<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614144327579.png" alt="image-20220614144327579" style="zoom:80%;">
-
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614144327579.png" alt="image-20220614144327579" style="zoom:80%;"></p>
 <ul>
 <li>优点：在给定优先级的情况下，达到绝对公平，比彩票调度优化了确定性。</li>
 <li>缺点：需要一个全局状态(pass值)</li>
@@ -359,13 +353,13 @@
 <h4 id="为什么MLFQ可用，彩票步长不用"><a href="#为什么MLFQ可用，彩票步长不用" class="headerlink" title="为什么MLFQ可用，彩票步长不用"></a>为什么MLFQ可用，彩票步长不用</h4><ul>
 <li><p>MLFQ可用的原因就是它的优点：</p>
 <ul>
-<li>对于短时间运行的交互型工作，获得类似SJF&#x2F;STCF的很好的全局性能（周转时间）。</li>
+<li>对于短时间运行的交互型工作，获得类似SJF/STCF的很好的全局性能（周转时间）。</li>
 <li>同时对长时间运行的CPU密集型负载也可以公平地运行。</li>
 </ul>
 </li>
 <li><p>彩票步长不广泛使用的原因：</p>
 <ul>
-<li>一个原因是这两种方式都不能很好地适合I&#x2F;O；</li>
+<li>一个原因是这两种方式都不能很好地适合I/O；</li>
 <li>另一个原因是其中最难的票数分配问题并没有确定的解决方式。</li>
 </ul>
 </li>
@@ -380,13 +374,12 @@
 <h4 id="什么时虚拟内存空间？"><a href="#什么时虚拟内存空间？" class="headerlink" title="什么时虚拟内存空间？"></a>什么时虚拟内存空间？</h4><p>虚拟内存是计算机系统<strong>内存管理的一种技术</strong>。它负责为程序提供一 个巨大的、稀疏的、私有的地址空间的假象，其中保存了程序的所有指令和数据。而实际上，它通常是被分隔成多个物理内存碎片，还有部分暂时存储在外部磁盘存储器上，在需要时进行数据交换。</p>
 <h4 id="为什么需要虚拟内存空间？"><a href="#为什么需要虚拟内存空间？" class="headerlink" title="为什么需要虚拟内存空间？"></a>为什么需要虚拟内存空间？</h4><p>主要是虚拟内存提供了三个主要的好处：易于使用，高性能，可靠。</p>
 <ul>
-<li><p>虚拟内存可以为进程提供独立的内存空间并引入多层的页表结构将虚拟内存翻译成物理内存，进程之间可以共享物理内存减少开销，也能简化程序的链接、装载以及内存分配过程；</p>
-</li>
-<li><p>虚拟内存可以结合磁盘和物理内存的优势为进程提供看起来速度足够快并且容量足够大的存储；</p>
-</li>
-<li><p>虚拟内存可以控制进程对物理内存的访问，隔离不同进程的访问权限，提高系统的安全性；</p>
-</li>
+<li>虚拟内存可以为进程提供独立的内存空间并引入多层的页表结构将虚拟内存翻译成物理内存，进程之间可以共享物理内存减少开销，也能简化程序的链接、装载以及内存分配过程；</li>
+<li>虚拟内存可以结合磁盘和物理内存的优势为进程提供看起来速度足够快并且容量足够大的存储；</li>
+<li>虚拟内存可以控制进程对物理内存的访问，隔离不同进程的访问权限，提高系统的安全性；</li>
 </ul>
+<h4 id="虚拟内存的目标（指标）"><a href="#虚拟内存的目标（指标）" class="headerlink" title="虚拟内存的目标（指标）"></a>虚拟内存的目标（指标）</h4><p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615010114930.png" alt="image-20220615010114930" style="zoom:80%;"></p>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615010135694.png" alt="image-20220615010135694" style="zoom:80%;"></p>
 <h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><blockquote>
 <ul>
 <li>什么是并发？并发的概念是什么？</li>
@@ -394,8 +387,7 @@
 </ul>
 </blockquote>
 <h4 id="什么是并发"><a href="#什么是并发" class="headerlink" title="什么是并发"></a>什么是并发</h4><p><strong>并发</strong>当有多个线程在操作时,如果系统只有一个CPU,则它不可能真正同时进行一个以上的线程，它只能把CPU运行时间划分成若干个时间段,再将时间段分配给各个线程执行，在一个时间段的线程代码运行时，其它线程处于挂起状。这种方式我们称之为并发。</p>
-<h4 id="什么是临界区、竞态条件等"><a href="#什么是临界区、竞态条件等" class="headerlink" title="什么是临界区、竞态条件等"></a>什么是临界区、竞态条件等</h4><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614155546936.png" alt="image-20220614155546936" style="zoom:80%;">
-
+<h4 id="什么是临界区、竞态条件等"><a href="#什么是临界区、竞态条件等" class="headerlink" title="什么是临界区、竞态条件等"></a>什么是临界区、竞态条件等</h4><p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614155546936.png" alt="image-20220614155546936" style="zoom:80%;"></p>
 <h3 id="持久"><a href="#持久" class="headerlink" title="持久"></a>持久</h3><blockquote>
 <p>明确为：崩溃一致性</p>
 <ul>
@@ -409,7 +401,8 @@
 </ul>
 <h2 id="五个计算题加分析题"><a href="#五个计算题加分析题" class="headerlink" title="五个计算题加分析题"></a>五个计算题加分析题</h2><p>共计80分，其中由于计科期中考试进程考的比较多，进程部分的分值会少一点</p>
 <p>五个答题主要是1+2+1+1：进程一个，虚拟内存两个，并发一个，文件部分一个</p>
-<h3 id="进程x1"><a href="#进程x1" class="headerlink" title="进程x1"></a>进程x1</h3><h3 id="虚拟内存x2"><a href="#虚拟内存x2" class="headerlink" title="虚拟内存x2"></a>虚拟内存x2</h3><p>有两个题，由于现代操作系统普遍使用分页管理机制，而不是分段管理机制，所以着重在分页上（自己体会这句话）。而且他不怎么说分段，所以肯定考分页。</p>
+<h3 id="进程x1"><a href="#进程x1" class="headerlink" title="进程x1"></a>进程x1</h3><p>没给提示。</p>
+<h3 id="虚拟内存x2"><a href="#虚拟内存x2" class="headerlink" title="虚拟内存x2"></a>虚拟内存x2</h3><p>有两个题，由于现代操作系统普遍使用分页管理机制，而不是分段管理机制，所以着重在分页上（自己体会这句话）。而且他不怎么说分段，所以肯定考分页。</p>
 <blockquote>
 <ul>
 <li>首先要搞懂最简单的线性页表，它有什么缺陷？</li>
@@ -431,9 +424,8 @@
 <li><p>TLB和多级页表很重要，但是请见书本。</p>
 </li>
 <li><p>一些属性位：</p>
-<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614162257586.png" alt="image-20220614162257586" style="zoom:80%;">
-
-<p>上图包含一个存在位（P），确定是否允 许写入该页面的读&#x2F;写位（R&#x2F;W） 确定用户模式进程是否可以访问该页面的用户&#x2F;超级用户位 （U&#x2F;S），有几位（PWT、PCD、PAT 和 G）确定硬件缓存如何为这些页面工作，一个访问位 （A）和一个脏位（D），最后是页帧号（PFN）本身。</p>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614162257586.png" alt="image-20220614162257586" style="zoom:80%;"></p>
+<p>上图包含一个存在位（P），确定是否允 许写入该页面的读/写位（R/W） 确定用户模式进程是否可以访问该页面的用户/超级用户位 （U/S），有几位（PWT、PCD、PAT 和 G）确定硬件缓存如何为这些页面工作，一个访问位 （A）和一个脏位（D），最后是页帧号（PFN）本身。</p>
 <ul>
 <li>有效位：用于指定特定的地址转换是否有效</li>
 <li>保护位：表明页是否可以读取、写入或执行</li>
@@ -446,21 +438,27 @@
 </li>
 <li><p>超越物理内存（置换策略）</p>
 <ul>
-<li><p>平均内存访问时间（Average  Memory Access Time，AMAT<br>$$<br>AMAT &#x3D; (PHit·TM) + (PMiss·TD)<br>$$</p>
-</li>
+<li><p>平均内存访问时间（Average  Memory Access Time，AMAT</p>
+<script type="math/tex; mode=display">
+AMAT = (PHit·TM) + (PMiss·TD)</script></li>
 <li><p>最优策略是MIN</p>
 </li>
 <li><p>简单策略FIFO</p>
-<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163007021.png" alt="image-20220614163007021" style="zoom:50%;">
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163007021.png" alt="image-20220614163007021" style="zoom:50%;"></p>
 </li>
 <li><p>随机策略</p>
-<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163049148.png" alt="image-20220614163049148" style="zoom:50%;">
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163049148.png" alt="image-20220614163049148" style="zoom:50%;"></p>
 </li>
 <li><p>最近最少使用（Least-Recently-Used，LRU）</p>
-<img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163141209.png" alt="image-20220614163141209" style="zoom: 50%;">
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163141209.png" alt="image-20220614163141209" style="zoom: 50%;"></p>
 </li>
 <li><p>最不经常使用”（Least-Frequently-Used， LFU）（历史信息中使用频次最低的）</p>
 </li>
+</ul>
+</li>
+<li><p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615021516526.png" alt="image-20220615021516526"></p>
+<ul>
+<li>分段是指将虚拟地址空间中代码、堆、栈等段分别映射到物理内存，而不是将整 个虚拟地址空间全部映射到物理内存。分页是将虚拟地址空间等分为固定大小的页 （如 4KB），以页的方式将虚拟地址空间与物理内存进行映射。分段的优点是硬件支 持比较简单；缺点是可能会导致外部碎片、空闲空间的管理比较复杂。分页的优点是 空间管理简单、没有外部碎片，缺点是页表存储空间大、地址翻译慢（需要 TLB 加 速），因此需要硬件的支持较多。</li>
 </ul>
 </li>
 </ul>
@@ -469,14 +467,11 @@
 <p>用信号量解决理发师问题。如果有余力也可以看看信号量解决吸烟者问题。我觉得就是理发师</p>
 </blockquote>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> NUM_CHAIR 5					<span class="comment">// 最大等待椅子数目</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NUM_CUST  10				<span class="comment">// 顾客数量</span></span></span><br><span class="line"><span class="type">sem_t</span> customers;         			<span class="comment">// 表示有顾客的条件变量</span></span><br><span class="line"><span class="type">sem_t</span> barber;    	     			<span class="comment">// 表示理发师醒了的条件变量</span></span><br><span class="line"><span class="type">sem_t</span> mutex;              			<span class="comment">// 椅子是理发师和顾客精进程都可以访问的临界区，需要互斥量</span></span><br><span class="line"><span class="type">int</span> freechairs;      				<span class="comment">// 空椅子的数量</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> * <span class="title function_">Barber</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (ture) &#123;	     			<span class="comment">// 理发师持续不断工作或者睡眠</span></span><br><span class="line">        sem_wait(&amp;customers);		<span class="comment">// 试图为一个顾客理发，如果没有顾客就睡着</span></span><br><span class="line">        sem_wait(&amp;mutex);			<span class="comment">// 需要修改空椅子的数量(全局变量)，需要上锁</span></span><br><span class="line">        freechair++;			    <span class="comment">// 为一个顾客理发，空一张椅子出来</span></span><br><span class="line">        sem_post(&amp;barber);			<span class="comment">// 此时理发师可以工作，通知顾客不用等，过来理发</span></span><br><span class="line">        sem_post(&amp;mutex);			<span class="comment">// 修改完空椅子数目，释放锁</span></span><br><span class="line">        <span class="comment">/* 理发师在理发... */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> * <span class="title function_">Customers</span><span class="params">()</span> &#123; 	 			<span class="comment">// 一个线程仅仅表示一名顾客</span></span><br><span class="line">    sem_wait(&amp;mutex);    		 	<span class="comment">// 想要坐到一张椅子上等待</span></span><br><span class="line">    <span class="keyword">if</span> (freechairs &gt; <span class="number">0</span>) &#123;			<span class="comment">// 如果还有空椅子的话</span></span><br><span class="line">        freechairs--;				<span class="comment">// 顾客坐到一张椅子上等待</span></span><br><span class="line">        sem_post(&amp;customers);		<span class="comment">// 唤醒理发师，有顾客来了</span></span><br><span class="line">        sem_post(&amp;mutex);			<span class="comment">// 顾客已经坐到了椅子上等待，访问椅子结束，释放互斥量</span></span><br><span class="line">        sem_wait(&amp;barber);			<span class="comment">// 如果理发师还在忙，就等着</span></span><br><span class="line">        <span class="comment">/* 抢到理发师，此时顾客开始理发 */</span></span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123;							<span class="comment">// 没有空着的椅子 </span></span><br><span class="line">        sem_post(&amp;mutex);			<span class="comment">// 不要忘记被锁的椅子(19行)</span></span><br><span class="line">        <span class="comment">/* 没有椅子坐，直接走了 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="comment">/* 初始化 */</span></span><br><span class="line">    sem_init(&amp;customers, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    sem_init(&amp;barbers, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    sem_init(&amp;mutex, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">    freechairs = NUM_CHAIR;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 启动理发师和顾客 */</span></span><br><span class="line">    <span class="type">pthread_t</span> bar, cust[NUM_CUST];</span><br><span class="line">    Pthread_create(&amp;bar, <span class="literal">NULL</span>, Barber, <span class="literal">NULL</span>);	  		 <span class="comment">// 初始化理发师线程</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; NUM_CUST; i++) &#123;</span><br><span class="line">        Pthread_create(&amp;cust[i], <span class="literal">NULL</span>, Customers, <span class="literal">NULL</span>); <span class="comment">// 初始化顾客线程</span></span><br><span class="line">        sleep(randint(<span class="literal">NULL</span>));							 <span class="comment">// 随机睡一段时间，每隔一个随机时间来一个顾客</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="文件x1"><a href="#文件x1" class="headerlink" title="文件x1"></a>文件x1</h3><blockquote>
 <ul>
 <li>存储管理<ul>
 <li>磁盘结构是什么样的？旋转寻道传输以及这方面的知识以及有关的时间是怎么算的？</li>
-<li>RAID（0&#x2F;1&#x2F;4&#x2F;5）各自有什么特点和优缺点，稳态吞吐量怎么算的</li>
+<li>RAID（0/1/4/5）各自有什么特点和优缺点，稳态吞吐量怎么算的</li>
 </ul>
 </li>
 <li>文件系统<ul>
@@ -490,13 +485,32 @@
 </li>
 </ul>
 </blockquote>
-<h4 id="磁盘结构"><a href="#磁盘结构" class="headerlink" title="磁盘结构"></a>磁盘结构</h4><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614164632169.png" alt="image-20220614164632169" style="zoom: 80%;">
-$$
-T_{I/O} = T_{寻道} + T_{旋转} + T_{传输}
-$$
-
-<p>$$<br>R_{I&#x2F;O} &#x3D; \frac{传输大小}{T_{I&#x2F;O}}<br>$$</p>
-<p>其他看书更好。</p>
+<h4 id="磁盘结构"><a href="#磁盘结构" class="headerlink" title="磁盘结构"></a>磁盘结构</h4><p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614164632169.png" alt="image-20220614164632169" style="zoom: 80%;"></p>
+<script type="math/tex; mode=display">
+T_{I/O} = T_{寻道} + T_{旋转} + T_{传输}</script><script type="math/tex; mode=display">
+R_{I/O} = \frac{传输大小}{T_{I/O}}</script><p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615015619442.png" alt="image-20220615015619442" style="zoom:80%;"></p>
+<h4 id="RAID各级的优缺点以及特点"><a href="#RAID各级的优缺点以及特点" class="headerlink" title="RAID各级的优缺点以及特点"></a>RAID各级的优缺点以及特点</h4><ul>
+<li><p><strong>【RAID 0——RAID中速度最快】</strong></p>
+<p><strong>原理：</strong>采用数据分条技术（Striped），将数据分成“块”保存在不同磁盘上，读写时以并行的方式对各磁盘同时进行操作。</p>
+<p><strong>优点：</strong>组建低成本，且具有传输速度快、存储空间利用率高等优点；</p>
+<p><strong>缺点：</strong>不提供数据冗余保护，任何一块硬盘发生损坏，则所有的数据将不可恢复；</p>
+</li>
+<li><p><strong>【RAID 1——RAID中安全性最高】</strong></p>
+<p><strong>原理：</strong>俗称“磁盘镜像”，将数据完全一致地分别写到工作磁盘和镜像磁盘，一旦工作磁盘发生故障，系统自动从镜像磁盘读取数据，不会影响用户工作。</p>
+<p><strong>优点：</strong>磁盘数据呈现完全镜像，具有安全性好、技术简单、管理方便等优点；</p>
+<p><strong>缺点：</strong>实现成本高，磁盘空间利用率仅 50%；</p>
+</li>
+<li><p><strong>【RAID 4——条带分布+专用盘校验】</strong></p>
+<p><strong>原理：</strong>其中一块硬盘上存储校验数据，当某块硬盘出现故障时，其它硬盘可以通过校验数据将有故障的硬盘的数据重新恢复出来。</p>
+<p><strong>优点：</strong>1、磁盘利用率较高(N-1)；2、并行I/O传输，顺序读性能较高</p>
+<p><strong>缺点：</strong>1、专用校验盘成为性能瓶颈；2、每次读写牵动整个组，每次只能完成一次I/O 传输</p>
+</li>
+<li><p><strong>【RAID 5——RAID中综合性能最佳】</strong></p>
+<p><strong>原理：</strong>采用校验码冗余数据，校验信息分布在多个磁盘上，当某个磁盘出现故障，可以使用其他磁盘上校验信息来恢复数据。</p>
+<p><strong>优点：</strong>兼顾存储性能、数据安全和存储成本等；</p>
+<p><strong>缺点：</strong>1、写入性能相对低；2、重建数据时，性能会受到较大的影响；</p>
+</li>
+</ul>
 
       
     </div>
