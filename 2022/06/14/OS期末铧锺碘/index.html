@@ -38,6 +38,9 @@
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615010114930.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615010135694.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614155546936.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615161654399.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615163218702.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615163231423.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614162257586.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163007021.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163049148.png">
@@ -51,7 +54,7 @@
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615015619442.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615145705046.png">
 <meta property="article:published_time" content="2022-06-14T08:53:07.000Z">
-<meta property="article:modified_time" content="2022-06-15T07:52:13.038Z">
+<meta property="article:modified_time" content="2022-06-15T08:55:32.197Z">
 <meta property="article:author" content="Puitar">
 <meta property="article:tag" content="os">
 <meta property="article:tag" content="期末总复习">
@@ -221,7 +224,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-15 15:52:13" itemprop="dateModified" datetime="2022-06-15T15:52:13+08:00">2022-06-15</time>
+                <time title="Modified: 2022-06-15 16:55:32" itemprop="dateModified" datetime="2022-06-15T16:55:32+08:00">2022-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -403,7 +406,7 @@
 <li>使用虚拟内存空间的目标或者说是指标是什么？</li>
 </ul>
 </blockquote>
-<h4 id="什么时虚拟内存空间？"><a href="#什么时虚拟内存空间？" class="headerlink" title="什么时虚拟内存空间？"></a>什么时虚拟内存空间？</h4><p>虚拟内存是计算机系统<strong>内存管理的一种技术</strong>。它负责为程序提供一 个巨大的、稀疏的、私有的地址空间的假象，其中保存了程序的所有指令和数据。而实际上，它通常是被分隔成多个物理内存碎片，还有部分暂时存储在外部磁盘存储器上，在需要时进行数据交换。</p>
+<h4 id="什么时虚拟内存空间？"><a href="#什么时虚拟内存空间？" class="headerlink" title="什么时虚拟内存空间？"></a>什么时虚拟内存空间？</h4><p>虚拟内存是计算机系统<strong>内存管理的一种技术</strong>。它负责为程序提供一 个巨大的、稀疏的、私有的地址空间的假象，其中保存了程序的所有指令和数据。而实际上，它通常是被分隔成多个物理内存片段，还有部分暂时存储在外部磁盘存储器上，在需要时进行数据交换。</p>
 <h4 id="为什么需要虚拟内存空间？"><a href="#为什么需要虚拟内存空间？" class="headerlink" title="为什么需要虚拟内存空间？"></a>为什么需要虚拟内存空间？</h4><p>主要是虚拟内存提供了三个主要的好处：易于使用，高性能，可靠。</p>
 <ul>
 <li>虚拟内存可以为进程提供独立的内存空间并引入多层的页表结构将虚拟内存翻译成物理内存，进程之间可以共享物理内存减少开销，也能简化程序的链接、装载以及内存分配过程；</li>
@@ -431,22 +434,39 @@
 <h4 id="存在什么例子"><a href="#存在什么例子" class="headerlink" title="存在什么例子"></a>存在什么例子</h4><ul>
 <li><strong>课本42.1</strong></li>
 </ul>
+<p>简单描述就是：</p>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615161654399.png" alt="image-20220615161654399"></p>
+<p>考虑一种情况是将单个数据块附加到原有文件末尾。则这个过程文件需要更新的有：数据位图增加一个表示数据块有效的位；更新<code>inode</code>中的数据块指针等；更新数据块Db。</p>
+<p>现在我们考虑6种不一致现象：</p>
+<ul>
+<li><strong>只更新了数据块。</strong>此时，该文件的<code>inode</code>中没有指向Db的指针。Db的写入相当于无效。</li>
+<li><strong>只更新了<code>inode</code>。</strong>此时，数据块没有更新，导致读取这个块返回给用户垃圾数据。同时出现文件系统不一致，数据位图告诉我们Db这个块未分配，但是<code>inode</code>认为它分配了。</li>
+<li><strong>只更新了数据位图。</strong>此时，同样出现文件系统不一致，数据位图认为Db这个块分配了，但是<code>inode</code>没有指向它。如果不解决，会造成空间泄露。</li>
+<li><strong>只更新了<code>inode</code>和数据位图。</strong>此时文件系统的元数据是一致的。但是数据没有更新，造成了垃圾数据。</li>
+<li><strong>只更新了<code>inode</code>和数据块。</strong><code>inode</code>能够指向正确的数据块。但是又出现了文件系统给元数据不一致（<code>inode</code>和位图）。</li>
+<li><strong>只更新了数据位图和数据块。</strong><code>inode</code>和位图的不一致性问题。没有<code>inode</code>指向这个块。</li>
+</ul>
 <h2 id="五个计算题加分析题"><a href="#五个计算题加分析题" class="headerlink" title="五个计算题加分析题"></a>五个计算题加分析题</h2><p>共计80分，其中由于计科期中考试进程考的比较多，进程部分的分值会少一点</p>
 <p>五个答题主要是1+2+1+1：进程一个，虚拟内存两个，并发一个，文件部分一个</p>
-<h3 id="进程x1"><a href="#进程x1" class="headerlink" title="进程x1"></a>进程x1</h3><p>没给提示。</p>
+<h3 id="进程x1"><a href="#进程x1" class="headerlink" title="进程x1"></a>进程x1</h3><p>没给提示。有可能是fork和exec相关的。</p>
+<ul>
+<li>（12 分）描述进程与线程以及它们之间的区别和联系。分析给出下图代码（图 5-1）在控 制台可能输出的信息；代码（图 5-2）可能会创建多少个进程，多少个线程。（答案5，2）</li>
+</ul>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615163218702.png" alt="image-20220615163218702" style="zoom:80%;"></p>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615163231423.png" alt="image-20220615163231423"></p>
 <h3 id="虚拟内存x2"><a href="#虚拟内存x2" class="headerlink" title="虚拟内存x2"></a>虚拟内存x2</h3><p>有两个题，由于现代操作系统普遍使用分页管理机制，而不是分段管理机制，所以着重在分页上（自己体会这句话）。而且他不怎么说分段，所以肯定考分页。</p>
 <blockquote>
 <ul>
 <li>首先要搞懂最简单的线性页表，它有什么缺陷？</li>
 <li>页表使得访存需要增加额外的访问页表的成本，所以很慢。为此有了TLB加速缓存。TLB是怎么工作的。</li>
-<li>线性页表存储太大，一级页表存储也很大，所以有了多级页表。搞清楚怎么做的特别是二级三级页表。（我觉得是三级页表，老师提到了两三次）</li>
+<li>线性页表（一级）存储太大，所以有了多级页表。搞清楚怎么做的特别是二级三级页表。（我觉得是三级页表，老师提到了两三次）</li>
 <li>在页表中除了物理页号，还有一些其他的属性位，都有些什么，它们代表什么含义？（例如有效位、存在位等）</li>
 <li>通过上面的页表机制，给定一个虚拟地址，怎么计算它的物理地址？</li>
 <li>超越物理内存（置换策略）</li>
 </ul>
 </blockquote>
 <ul>
-<li><p>线性页表（linear page table），就是一个数组。操作系统通过虚拟页号（VPN）检索 该数组，并在该索引处查找页表项（PTE），以便找到期望的物理帧号（PFN）。</p>
+<li><p>线性页表（linear page table），就是一个数组。操作系统通过虚拟页号（VPN）检索该数组，并在该索引处查找页表项（PTE），以便找到期望的物理帧号（PFN）。</p>
 </li>
 <li><p>线性页表存在的问题就是太慢和太大</p>
 <ul>
@@ -459,30 +479,34 @@
 <p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614162257586.png" alt="image-20220614162257586" style="zoom:80%;"></p>
 <p>上图包含一个存在位（P），确定是否允 许写入该页面的读/写位（R/W） 确定用户模式进程是否可以访问该页面的用户/超级用户位 （U/S），有几位（PWT、PCD、PAT 和 G）确定硬件缓存如何为这些页面工作，一个访问位 （A）和一个脏位（D），最后是页帧号（PFN）本身。</p>
 <ul>
-<li>有效位：用于指定特定的地址转换是否有效</li>
-<li>保护位：表明页是否可以读取、写入或执行</li>
-<li>存在位：表示该页是在物理存储器上还是在磁盘交换区上</li>
-<li>参考位：又称访问位，用于追踪页是否被访问，也用于确定哪些页很受欢迎，应该保留在内存中。</li>
-<li>脏位：标示该页是否被写过</li>
+<li>有效位(V)：用于指定特定的地址转换是否有效</li>
+<li>保护位(R/W)：表明页是否可以读取、写入或执行</li>
+<li>存在位(P)：表示该页是在物理存储器上还是在磁盘交换区上</li>
+<li>参考位(A)：又称访问位，用于追踪页是否被访问，也用于确定哪些页很受欢迎，应该保留在内存中。</li>
+<li>脏位(D)：标示该页是否被写过</li>
 </ul>
 </li>
 <li><p>怎么用页表进行地址转换请看书</p>
+<ul>
+<li>不难，就是查表</li>
+<li>需要注意，物理页（帧）号拼上页偏移才是物理地址。</li>
+</ul>
 </li>
 <li><p>超越物理内存（置换策略）</p>
 <ul>
-<li><p>平均内存访问时间（Average  Memory Access Time，AMAT</p>
+<li><p>平均内存访问时间（Average  Memory Access Time，AMAT）</p>
 <script type="math/tex; mode=display">
-AMAT = (PHit·TM) + (PMiss·TD)</script></li>
-<li><p>最优策略是MIN</p>
+AMAT = (P_{Hit}·T_M) + (P_{Miss}·T_D)</script></li>
+<li><p>最优策略是MIN（无法实现，作为策略追求的性能上界）</p>
 </li>
 <li><p>简单策略FIFO</p>
-<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163007021.png" alt="image-20220614163007021" style="zoom:50%;"></p>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163007021.png" alt="image-20220614163007021" style="zoom: 80%;"></p>
 </li>
 <li><p>随机策略</p>
-<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163049148.png" alt="image-20220614163049148" style="zoom:50%;"></p>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163049148.png" alt="image-20220614163049148" style="zoom: 80%;"></p>
 </li>
 <li><p>最近最少使用（Least-Recently-Used，LRU）</p>
-<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163141209.png" alt="image-20220614163141209" style="zoom: 50%;"></p>
+<p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614163141209.png" alt="image-20220614163141209" style="zoom: 80%;"></p>
 </li>
 <li><p>最不经常使用”（Least-Frequently-Used， LFU）（历史信息中使用频次最低的）</p>
 </li>
@@ -490,7 +514,21 @@ AMAT = (PHit·TM) + (PMiss·TD)</script></li>
 </li>
 <li><p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220615021516526.png" alt="image-20220615021516526"></p>
 <ul>
-<li>分段是指将虚拟地址空间中代码、堆、栈等段分别映射到物理内存，而不是将整 个虚拟地址空间全部映射到物理内存。分页是将虚拟地址空间等分为固定大小的页 （如 4KB），以页的方式将虚拟地址空间与物理内存进行映射。分段的优点是硬件支 持比较简单；缺点是可能会导致外部碎片、空闲空间的管理比较复杂。分页的优点是 空间管理简单、没有外部碎片，缺点是页表存储空间大、地址翻译慢（需要 TLB 加 速），因此需要硬件的支持较多。</li>
+<li>基本思想：<ul>
+<li>分段是指将虚拟地址空间中代码、堆、栈等段分别映射到物理内存，而不是将整 个虚拟地址空间全部映射到物理内存。</li>
+<li>分页是将虚拟地址空间等分为固定大小的页 （如 4KB），以页的方式将虚拟地址空间与物理内存进行映射。</li>
+</ul>
+</li>
+<li>地址转换过程：<ul>
+<li>分段主要是把不同的段，借助两个寄存器（基址寄存器和界限寄存器），其中物理地址等同于基址寄存器中存储的段机制加上段内偏移。界限寄存器主要实现了段的保护功能。</li>
+<li>页的地址转换是将虚拟地址分成虚拟页号部分和页偏移部分。虚拟页号通过页表存储的物理帧号实现虚拟页号到物理页号的映射。由于偏移不变，所以把得到的物理页号拼上偏移就是物理地址。</li>
+</ul>
+</li>
+<li>优缺点：<ul>
+<li>分段的优点是硬件支 持比较简单；缺点是可能会导致外部碎片、空闲空间的管理比较复杂。</li>
+<li>分页的优点是 空间管理简单、没有外部碎片，缺点是页表存储空间大、地址翻译慢（需要 TLB 加 速），因此需要硬件的支持较多。</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
