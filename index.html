@@ -196,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-15 15:38:16" itemprop="dateModified" datetime="2022-06-15T15:38:16+08:00">2022-06-15</time>
+                <time title="Modified: 2022-06-15 15:52:13" itemprop="dateModified" datetime="2022-06-15T15:52:13+08:00">2022-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -301,7 +301,7 @@
 <li>进一步优化：重叠RR，考虑了IO，需要IO的任务让出CPU在完成前不参与调度。</li>
 </ul>
 <h5 id="多级反馈队列-MLFQ"><a href="#多级反馈队列-MLFQ" class="headerlink" title="多级反馈队列(MLFQ)"></a>多级反馈队列(MLFQ)</h5><ul>
-<li><strong>规则</strong>：其中考过了，我觉得不会再考，但是仍然很重要。<ul>
+<li><strong>规则</strong>：期中考过了，我觉得不会再考，但是仍然很重要。<ul>
 <li>规则1：如果A的优先级&gt;B的优先级，运行A（不运行B）。</li>
 <li>规则2：如果A的优先级=B的优先级，轮转运行A和B。</li>
 <li>规则3：工作进入系统时，放在最高优先级（最上层队列）。</li>
@@ -316,13 +316,13 @@
 </li>
 <li>优点：<ul>
 <li>对于短时间运行的交互型工作，获得类似SJF/STCF的很好的全局性能（周转时间）。</li>
-<li>同时对长时间运行的CPU密集型负载也可以公平地运行。</li>
+<li>同时对长时间运行的CPU密集型负载也可以公平地运行（响应时间）。</li>
 </ul>
 </li>
 </ul>
 <h5 id="彩票调度-Lottery"><a href="#彩票调度-Lottery" class="headerlink" title="彩票调度(Lottery)"></a>彩票调度(Lottery)</h5><ul>
-<li>给每个进程分发⼀定量的彩票，每次调 度时随机抽出⼀个号码，被抽中的进程 获得CPU。</li>
-<li>彩票数（tickets）代表了进程占有某个资源地份额。一个进程拥有的彩票占总数地百分比，就是占有资源地份额。</li>
+<li>给每个进程分发⼀定量的彩票，每次调 度时随机抽出⼀个号码，被抽中的进程获得CPU。</li>
+<li>彩票数（tickets）代表了进程占有某个资源地份额。一个进程拥有的彩票占总数地百分比，就是占有资源的份额。</li>
 </ul>
 <p><img src="/2022/06/14/OS%E6%9C%9F%E6%9C%AB%E9%93%A7%E9%94%BA%E7%A2%98/image-20220614142733606.png" alt="image-20220614142733606" style="zoom:80%;"></p>
 <ul>
@@ -334,7 +334,7 @@
 <li>优点：<ul>
 <li>可以避免奇怪的边角情况。</li>
 <li>很轻量，几乎不需要记录任何状态</li>
-<li>随即方法很快</li>
+<li>随机方法很快</li>
 </ul>
 </li>
 <li>缺点：<ul>
