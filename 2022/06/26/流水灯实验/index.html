@@ -34,8 +34,11 @@
 <meta property="og:image" content="https://puitar.github.io/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220626174347225.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/b8bf661c195bddcad5caf5d85ce46e12.png">
 <meta property="og:image" content="https://puitar.github.io/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220626184218824.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220627112449125.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220627112712761.png">
+<meta property="og:image" content="https://puitar.github.io/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220627112808166.png">
 <meta property="article:published_time" content="2022-06-26T03:02:25.000Z">
-<meta property="article:modified_time" content="2022-06-26T10:55:49.705Z">
+<meta property="article:modified_time" content="2022-06-27T03:28:23.609Z">
 <meta property="article:author" content="Puitar">
 <meta property="article:tag" content="单片机">
 <meta property="article:tag" content="C语言">
@@ -197,10 +200,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-06-26 11:02:25 / Modified: 18:55:49" itemprop="dateCreated datePublished" datetime="2022-06-26T11:02:25+08:00">2022-06-26</time>
+              <time title="Created: 2022-06-26 11:02:25" itemprop="dateCreated datePublished" datetime="2022-06-26T11:02:25+08:00">2022-06-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-27 11:28:23" itemprop="dateModified" datetime="2022-06-27T11:28:23+08:00">2022-06-27</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -282,6 +291,15 @@
 <p>首先要调用函数Init()对电路进行初始化，再循环地对P0口进行赋值，点亮流水灯。</p>
 <p>每一次流水灯对应点亮的位向左移动一位，具体就如“程序设计思路”的演示图所示。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 初始化LED灯</span></span><br><span class="line">	Init();</span><br><span class="line">    <span class="comment">// 从L0开始亮</span></span><br><span class="line">	led=<span class="number">0x01</span>;</span><br><span class="line">    <span class="comment">// 无休止闪烁</span></span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">        <span class="comment">// P0端口连接LED灯，所以把寄存器LED给P0</span></span><br><span class="line">		P0=led;</span><br><span class="line">		<span class="comment">// 延时200ms	</span></span><br><span class="line">		Delay200ms();</span><br><span class="line">        <span class="comment">// LED寄存器状态赋值</span></span><br><span class="line">		<span class="keyword">if</span>(led==<span class="number">0x80</span>) <span class="comment">// 如果到了L7灯，下一个状态又从L0开始</span></span><br><span class="line">			led=<span class="number">0x01</span>;</span><br><span class="line">		<span class="keyword">else</span>		  <span class="comment">// 否则左移一位</span></span><br><span class="line">			led=led&lt;&lt;<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="下载程序"><a href="#下载程序" class="headerlink" title="下载程序"></a>下载程序</h2><p>在学习资料里面下载相关工具。主要是<em>keil uvision 4</em>。</p>
+<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220627112449125.png" alt="image-20220627112449125"></p>
+<p>新建工程uprojx，然后编译生成hex文件，烧入程序，运行。</p>
+<blockquote>
+<p>如果编译没有生成<code>.hex</code>文件可以进行如下设置</p>
+</blockquote>
+<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220627112712761.png" alt="image-20220627112712761"></p>
+<p><strong>成功效果</strong>如下</p>
+<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220627112808166.png" alt="image-20220627112808166"></p>
 
     </div>
 
@@ -364,7 +382,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.</span> <span class="nav-text">流水灯实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-number">1.1.</span> <span class="nav-text">程序设计思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E4%BB%A3%E7%A0%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.</span> <span class="nav-text">关键代码说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%AE%9A%E4%B9%89%E4%BB%A5%E5%8F%8A%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.1.</span> <span class="nav-text">相关定义以及头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8C%E7%BA%A7%E7%AE%A1%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.2.</span> <span class="nav-text">对二级管初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%B6%E6%97%B6%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.3.</span> <span class="nav-text">延时函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.4.</span> <span class="nav-text">主函数</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.</span> <span class="nav-text">流水灯实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-number">1.1.</span> <span class="nav-text">程序设计思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E4%BB%A3%E7%A0%81%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.</span> <span class="nav-text">关键代码说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%AE%9A%E4%B9%89%E4%BB%A5%E5%8F%8A%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.1.</span> <span class="nav-text">相关定义以及头文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8C%E7%BA%A7%E7%AE%A1%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.2.</span> <span class="nav-text">对二级管初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%B6%E6%97%B6%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.3.</span> <span class="nav-text">延时函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.4.</span> <span class="nav-text">主函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.3.</span> <span class="nav-text">下载程序</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

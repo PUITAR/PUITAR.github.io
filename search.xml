@@ -101,6 +101,15 @@
 <p>首先要调用函数Init()对电路进行初始化，再循环地对P0口进行赋值，点亮流水灯。</p>
 <p>每一次流水灯对应点亮的位向左移动一位，具体就如“程序设计思路”的演示图所示。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 初始化LED灯</span></span><br><span class="line">	Init();</span><br><span class="line">    <span class="comment">// 从L0开始亮</span></span><br><span class="line">	led=<span class="number">0x01</span>;</span><br><span class="line">    <span class="comment">// 无休止闪烁</span></span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">        <span class="comment">// P0端口连接LED灯，所以把寄存器LED给P0</span></span><br><span class="line">		P0=led;</span><br><span class="line">		<span class="comment">// 延时200ms	</span></span><br><span class="line">		Delay200ms();</span><br><span class="line">        <span class="comment">// LED寄存器状态赋值</span></span><br><span class="line">		<span class="keyword">if</span>(led==<span class="number">0x80</span>) <span class="comment">// 如果到了L7灯，下一个状态又从L0开始</span></span><br><span class="line">			led=<span class="number">0x01</span>;</span><br><span class="line">		<span class="keyword">else</span>		  <span class="comment">// 否则左移一位</span></span><br><span class="line">			led=led&lt;&lt;<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="下载程序"><a href="#下载程序" class="headerlink" title="下载程序"></a>下载程序</h2><p>在学习资料里面下载相关工具。主要是<em>keil uvision 4</em>。</p>
+<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220627112449125.png" alt="image-20220627112449125"></p>
+<p>新建工程uprojx，然后编译生成hex文件，烧入程序，运行。</p>
+<blockquote>
+<p>如果编译没有生成<code>.hex</code>文件可以进行如下设置</p>
+</blockquote>
+<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220627112712761.png" alt="image-20220627112712761"></p>
+<p><strong>成功效果</strong>如下</p>
+<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220627112808166.png" alt="image-20220627112808166"></p>
 ]]></content>
       <categories>
         <category>STC-B</category>
