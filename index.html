@@ -165,6 +165,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/07/03/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Puitar">
+      <meta itemprop="description" content="博客萌新时不时送来没什么软用的文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Puitar's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/03/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/" class="post-title-link" itemprop="url">编译原理学习笔记1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-07-03 18:56:37 / Modified: 19:22:11" itemprop="dateCreated datePublished" datetime="2022-07-03T18:56:37+08:00">2022-07-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">编译原理笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="什么是编译"><a href="#什么是编译" class="headerlink" title="什么是编译"></a>什么是编译</h1><h2 id="计算机程序设计语言以及编译"><a href="#计算机程序设计语言以及编译" class="headerlink" title="计算机程序设计语言以及编译"></a>计算机程序设计语言以及编译</h2><ul>
+<li>机器语言<ul>
+<li>可以被计算机直接理解</li>
+<li>二进制和十六进制</li>
+<li>编写阅读困难</li>
+</ul>
+</li>
+<li>汇编语言<ul>
+<li>引入注记符</li>
+<li>依赖于特定机器</li>
+<li>书写效率低</li>
+</ul>
+</li>
+<li>高级语言<ul>
+<li>类似数学定义和自然语言</li>
+<li>更接近人类习惯</li>
+<li>不依赖特定机器</li>
+<li>简洁</li>
+</ul>
+</li>
+</ul>
+<p>将高级语言翻译成汇编语言或者直接翻译成机器语言的过程称为编译。</p>
+<p>将汇编语言翻译成机器语言的称为汇编。</p>
+<p><strong>编译的定义：</strong>将<u>高级语言</u>（源语言）翻译成<u>汇编语言或机器语言</u>（目标语言）的过程。</p>
+<h2 id="编译器在语言处理系统的位置"><a href="#编译器在语言处理系统的位置" class="headerlink" title="编译器在语言处理系统的位置"></a>编译器在语言处理系统的位置</h2><p><img src="/2022/07/03/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/image-20220630224930676.png" alt="image-20220630224930676"></p>
+<ul>
+<li><p>预处理器把存在不同文件中的源程序聚合在一块，把称为宏的编写语句转换为原始语句</p>
+</li>
+<li><p>加载器修改可重定位地址：将修改后的指令和数据放到内存中适当的位置</p>
+</li>
+<li><p>链接器将多个可重定位的机器代码文件（包括库文件）链接在一块，解决外部内存地址（引用其他文件对象或过程）问题</p>
+</li>
+<li><p>可重定位：在内存中存放的起始位置L不是固定的</p>
+</li>
+</ul>
+<h1 id="编译系统的结构"><a href="#编译系统的结构" class="headerlink" title="编译系统的结构"></a>编译系统的结构</h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/07/01/%E7%BA%A2%E5%A4%96%E6%A8%A1%E5%9D%97%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -243,108 +345,6 @@
 </ul>
 <p>具体位功能设计这里不强制说明，由使用者编写。</p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/06/30/%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Puitar">
-      <meta itemprop="description" content="博客萌新时不时送来没什么软用的文章">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Puitar's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/30/%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/" class="post-title-link" itemprop="url">汇编学习笔记1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-06-30 22:31:13 / Modified: 23:04:44" itemprop="dateCreated datePublished" datetime="2022-06-30T22:31:13+08:00">2022-06-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">编译原理笔记</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="什么是编译"><a href="#什么是编译" class="headerlink" title="什么是编译"></a>什么是编译</h1><h2 id="计算机程序设计语言以及编译"><a href="#计算机程序设计语言以及编译" class="headerlink" title="计算机程序设计语言以及编译"></a>计算机程序设计语言以及编译</h2><ul>
-<li>机器语言<ul>
-<li>可以被计算机直接理解</li>
-<li>二进制和十六进制</li>
-<li>编写阅读困难</li>
-</ul>
-</li>
-<li>汇编语言<ul>
-<li>引入注记符</li>
-<li>依赖于特定机器</li>
-<li>书写效率低</li>
-</ul>
-</li>
-<li>高级语言<ul>
-<li>类似数学定义和自然语言</li>
-<li>更接近人类习惯</li>
-<li>不依赖特定机器</li>
-<li>简洁</li>
-</ul>
-</li>
-</ul>
-<p>将高级语言翻译成汇编语言或者直接翻译成机器语言的过程称为编译。</p>
-<p>将汇编语言翻译成机器语言的称为汇编。</p>
-<p><strong>编译的定义：</strong>将<u>高级语言</u>（源语言）翻译成<u>汇编语言或机器语言</u>（目标语言）的过程。</p>
-<h2 id="编译器在语言处理系统的位置"><a href="#编译器在语言处理系统的位置" class="headerlink" title="编译器在语言处理系统的位置"></a>编译器在语言处理系统的位置</h2><p><img src="/2022/06/30/%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/image-20220630224930676.png" alt="image-20220630224930676"></p>
-<ul>
-<li><p>预处理器把存在不同文件中的源程序聚合在一块，把称为宏的编写语句转换为原始语句</p>
-</li>
-<li><p>加载器修改可重定位地址：将修改后的指令和数据放到内存中适当的位置</p>
-</li>
-<li><p>链接器将多个可重定位的机器代码文件（包括库文件）链接在一块，解决外部内存地址（引用其他文件对象或过程）问题</p>
-</li>
-<li><p>可重定位：在内存中存放的起始位置L不是固定的</p>
-</li>
-</ul>
-<h1 id="编译系统的结构"><a href="#编译系统的结构" class="headerlink" title="编译系统的结构"></a>编译系统的结构</h1>
       
     </div>
 
@@ -1213,7 +1213,7 @@
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
