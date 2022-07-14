@@ -165,6 +165,213 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/07/11/%E5%AE%9E%E4%BD%93%E8%81%94%E7%B3%BB%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Puitar">
+      <meta itemprop="description" content="博客萌新时不时送来没什么软用的文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Puitar's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/11/%E5%AE%9E%E4%BD%93%E8%81%94%E7%B3%BB%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">实体联系模型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-07-11 21:42:17" itemprop="dateCreated datePublished" datetime="2022-07-11T21:42:17+08:00">2022-07-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-14 14:59:38" itemprop="dateModified" datetime="2022-07-14T14:59:38+08:00">2022-07-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">数据库笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>实体-联系（E-R）数据模型：世界由一组称为实体的基本对象以及它们的联系组成。</p>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>E-R数据模型的三个主要概念：实体集、联系集、属性</p>
+<h2 id="实体集"><a href="#实体集" class="headerlink" title="实体集"></a>实体集</h2><p><strong>实体</strong>是现实世界可区分其他对象的事件或物体。<strong>实体集</strong>是具有相同类型及相同性质（或属性）的实体集合。实体集合可以相交。</p>
+<p>实体通过一组属性来表示，属性使得实体集中得每个成员具有描述性性质。</p>
+<p><img src="/2022/07/11/%E5%AE%9E%E4%BD%93%E8%81%94%E7%B3%BB%E6%A8%A1%E5%9E%8B/image-20220711215425002.png" alt="image-20220711215425002"></p>
+<p><strong>数据库包含一组实体集，每个实体集包含一些相同类型的实体。</strong>上图所示是银行数据库一部分，包含两个实体集：customer和loan</p>
+<p>实体集的属性将实体集映射到域。每一个实体集可能有多个属性，每个实体用<strong>（属性，数据值）对</strong>构成的集合表示。例如某个customer实体可以用集合{(name, puitar), (society-security, 12131), …}描述一个名叫puitar的人，他的society-security是12131…</p>
+<blockquote>
+<p>E-R模型中的属性可以按照如下的属性类型划分。</p>
+</blockquote>
+<ul>
+<li>简单属性和符合属性<ul>
+<li>简单属性是部分再划分的属性。</li>
+<li>符合属性可以再划分。</li>
+<li>例如customer-name属性可以被设计成包括first-name和last-name的成分属性。</li>
+<li>复合属性可以将相关属性聚集，使模型更清晰。</li>
+<li>符合属性可以是层次的。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2022/07/11/%E5%AE%9E%E4%BD%93%E8%81%94%E7%B3%BB%E6%A8%A1%E5%9E%8B/image-20220711220612081.png" alt="image-20220711220612081"></p>
+<ul>
+<li>单值属性和多值属性<ul>
+<li>单值属性对于特定实体只有一个值。例如一个客户实体的姓名属性（一个人只有一个姓名）</li>
+<li>多值属性可以有多个值。例如某个员工的亲戚属性，他可以有0个、1个或者多个亲戚。</li>
+</ul>
+</li>
+<li>NULL属性。实体在某个属性上没有值，就用null值。例如某个员工没有亲戚或者还没有登记亲戚数据，那么它的亲戚属性就是没有意义的。</li>
+<li>派生属性。这类属性从别的相关属性或者实体派生出来。例如某个客户有一个属性“贷款次数”，这个属性是通过计算贷款实体集中和该用户相关联的贷款实体数目得到的。或者某个员工有“开始工作日期”和“工作长度”两个属性，后者由当前日期和前者相减得到。那么后者就是前者的派生属性。开始工作日期称为<strong>基属性</strong>，或者存储属性。</li>
+</ul>
+<h2 id="联系集"><a href="#联系集" class="headerlink" title="联系集"></a>联系集</h2><p>联系是多个实体间的相互关联。</p>
+<p><img src="/2022/07/11/%E5%AE%9E%E4%BD%93%E8%81%94%E7%B3%BB%E6%A8%A1%E5%9E%8B/image-20220711223121468.png" alt="image-20220711223121468"></p>
+<p>实体集之间的关联称为<strong>参与</strong>，就是上面的两个实体集中实体之间的<strong>边</strong>。例如，这种联系表示在现实中叫做Hayes，它的保障号是677-89—9011，有编号为L-15的贷款。</p>
+<p>实体在联系中的<strong>作用</strong>称为实体的<strong>角色</strong>。参与一个联系的实体通常是不同的，因此角色是隐含的并且常常不声明。但是如果联系的含义需要解释，那么角色还是很有用的。主要是参与联系集的实体集并非互异的，也就是，同一个实体集在一个联系集中参与的次数大于一次，且每次参与具有不同角色。这类联系集（自环联系集），有必要显式角色名。例如，实体集employee记录银行所有员工的信息，我们可能用联系集works-for来对有序的employee实体进行建模。每一对实体的第一个是经理，后者是为前者工作的职员。（角色的作用就是让无向图边变成有向图边）。</p>
+<p>联系集也可能有属性，实体集customer和account之间的联系集depositor（存户）。可以将属性access-date属性和这个联系关联，表示客户访问一个账户最近的日期。</p>
+<p>我们常见的都是二元联系集，表示两个实体集的联系集。但是也有三元联系集甚至更多元。例如，把贷款编号和贷款支行两个实体集合并（形成“某个支行的某个贷款编号”这样的实体集合），然后和customer建立联系，就是一个三元联系。可以表示客户Hayes在Perryridge支行有贷款L-15。参与联系集的实体集数目称为联系集的度。二元联系集度是2，三元是3。</p>
+<h1 id="设计问题"><a href="#设计问题" class="headerlink" title="设计问题"></a>设计问题</h1><p>一些E-R模式设计的基本问题。</p>
+<h2 id="用实体集还是用属性"><a href="#用实体集还是用属性" class="headerlink" title="用实体集还是用属性"></a>用实体集还是用属性</h2><p>用一个例子来看看用实体集还是属性。实体集employee具有属性employee-name和telephone-number两个属性，显然电话可以作为一个单独的实体，它有属性telephone-number和location（电话在办公室的位置）。实体集可以这样定义：</p>
+<ul>
+<li>实体集employee具有属性employee-name</li>
+<li>实体集telephone具有属性telephone-number和location</li>
+<li>联系集emp-telephone表示员工和电话间的联系</li>
+</ul>
+<p><u>如果电话作为实体employee的一个属性的话，由于我们通常都是单值属性，所以一个员工在这种情况下只能有一个电话。</u>如果电话作为一个实体的话，由于实体还会有多个属性，同时实体间可能有多个联系（参与），这样每个员工就可以有多个电话，这种方法更加通用，更能够反映现实世界。</p>
+<p>对于employee-name就不适合用作一个单独的实体，原因是应该是一个人有这个名字，而不是有这么一个名字作为实际存在的实体。由于实体集里面每个实体具有互异性，所以如果名字作为单独的实体，这说明你的实体集中不允许重名的情况，这不合理。</p>
+<h2 id="用实体集还是联系集"><a href="#用实体集还是联系集" class="headerlink" title="用实体集还是联系集"></a>用实体集还是联系集</h2><p>在上面的描述中,把客户作为一个实体集，贷款作为另外一个实体。另一种方法，将贷款作为客户和银行分行的一个联系，这一联系具有描述性属性loan-number和amount，每次贷款都用客户和银行分行的一个联系来表示。就是用这两个实体的一条边来表示，允许有多条边，每条边的区别就是它的描述性属性。</p>
+<h2 id="二元联系集与n元联系集"><a href="#二元联系集与n元联系集" class="headerlink" title="二元联系集与n元联系集"></a>二元联系集与n元联系集</h2><p>一个非二元的（n元，n&gt;2）联系集总可以用一组不同的二元联系集代替。例如，一个三元（n=3）联系集R，它将实体集A、B和C联系起来。用实体集E替代联系集R，并建立三个联系集：Ra Rb Rc</p>
+<p>如果联系集R有属性，那么将这些属性给实体集E，否则给E建立特殊的标识符（每一个实体集都有至少一个属性，这是区分不同实体的东西）。然后在三个新的联系集中，加入新的联系（ei，ai）（ei，bi）（ei，ci）</p>
+<p>可以推广到n元联系集，所以概念上E-R模型，只包含二元联系集。就是把n元联系中的n个元和同一个实体联系起来，这样就能把n元联系降维成二元联系。但是这种降维的方法没有原来的n元联系集那么清晰表现多个实体参与到同一个联系中。</p>
+<h1 id="映射约束"><a href="#映射约束" class="headerlink" title="映射约束"></a>映射约束</h1><h2 id="映射的基数"><a href="#映射的基数" class="headerlink" title="映射的基数"></a>映射的基数</h2><p><u>映射的基数</u>，或<u>基数比例</u>，指明通过一个联系能够同另一个实体联系的实体数目。有四种情况。</p>
+<p><img src="C:/Users/18319/AppData/Roaming/Typora/typora-user-images/image-20220714141959190.png" alt="image-20220714141959190" style="zoom:80%;"></p>
+<p><strong>一对一或一对多的联系集的属性可以放到参与的实体集中，而不是放到联系集中。</strong>因此下面customer实体和account的depostor联系的access-date属性可以放到account实体集中，这和放在联系集中是同一个效果。</p>
+<p><img src="/2022/07/11/%E5%AE%9E%E4%BD%93%E8%81%94%E7%B3%BB%E6%A8%A1%E5%9E%8B/image-20220714142253596.png" alt="image-20220714142253596" style="zoom:67%;"></p>
+<blockquote>
+<p>一对多的联系集的属性，可以放到联系“多”的一方的实体集中（例如下面的account实体集）；</p>
+<p>对于一对一联系集而言，联系的属性可以放到参与联系的任何一个实体集中。</p>
+</blockquote>
+<p>再看一个例子，下面的customer和account存在的联系depositor是多对多的，也就是说一个用户可以拥有多个账户，同时一个账户也能够被多个用户共同拥有。这时候depositor的access-date属性，就只能放在depositor联系集中。</p>
+<p>如果你放在customer中，就不知道这个时间访问了哪个账户。如果你放在account中的话，不能确定是哪一个账户访问的。所以智能放在联系集中了。</p>
+<p><img src="C:/Users/18319/AppData/Roaming/Typora/typora-user-images/image-20220714143910343.png" alt="image-20220714143910343" style="zoom: 67%;"></p>
+<h2 id="存在依赖"><a href="#存在依赖" class="headerlink" title="存在依赖"></a>存在依赖</h2><p>如果实体x的存在依赖于实体y的存在，就称作<u>x存在依赖于y</u>。在操作上，如果y被删除，x也被删除。实体y是<u>支配实体</u>，x是<u>从属实体</u>。例如，一个贷款实体集和一个支付实体集，只有先有了贷款实体，才有了对应的实体，如果某个贷款实体被删除，那么对应的支付实体就会被删除。这里的贷款实体是支配实体，支付实体是从属实体。</p>
+<p>如果实体集E的每个实体至少参与联系集R中的一个联系，那么说实体集E<u>全部参与</u>联系集R，反过来就是<u>部分参与</u>。全部参与和存在依赖紧密相关。例如每一个支付实体必须通过loan-payment联系和一个loan联系起来，因此payment对联系集loan-payment的参与是全部的。反过来，一个人是银行的账户，但是不一定贷款，所以customer实体集和borrower之间的参与是部分的。</p>
+<h1 id="码"><a href="#码" class="headerlink" title="码"></a>码</h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Puitar">
+      <meta itemprop="description" content="博客萌新时不时送来没什么软用的文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Puitar's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/" class="post-title-link" itemprop="url">编译原理学习笔记3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-07-09 09:03:21 / Modified: 09:12:03" itemprop="dateCreated datePublished" datetime="2022-07-09T09:03:21+08:00">2022-07-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">编译原理笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p><u>正则表达式</u>（Regular Expression，RE）是一种用来描述正则语言的更紧凑的表示方法</p>
+<blockquote>
+<p>例如：r = a(a|b)*(ε|(.|_)(a|b)(a|b)*)</p>
+</blockquote>
+<p>正则表达式可以由较小的正则表达式按照特定规则递归构造。每个正则表达式r定义（表示）一个语言，记为L(r)。这个语言也根据r的子表达式所表示的语言递归定义。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/07/05/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -404,7 +611,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-07-04 15:35:35" itemprop="dateModified" datetime="2022-07-04T15:35:35+08:00">2022-07-04</time>
+                <time title="Modified: 2022-07-04 15:40:30" itemprop="dateModified" datetime="2022-07-04T15:40:30+08:00">2022-07-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1165,232 +1372,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/06/27/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1%E5%8A%A8%E6%80%81%E6%89%AB%E6%8F%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Puitar">
-      <meta itemprop="description" content="博客萌新时不时送来没什么软用的文章">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Puitar's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/27/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1%E5%8A%A8%E6%80%81%E6%89%AB%E6%8F%8F/" class="post-title-link" itemprop="url">八位数码管动态扫描</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-06-27 13:32:45 / Modified: 14:52:10" itemprop="dateCreated datePublished" datetime="2022-06-27T13:32:45+08:00">2022-06-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/STC-B/" itemprop="url" rel="index"><span itemprop="name">STC-B</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/STC-B/%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">基础编程</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="八位数码管动态扫描"><a href="#八位数码管动态扫描" class="headerlink" title="八位数码管动态扫描"></a>八位数码管动态扫描</h1><p>实验工程可以在学习通上面下载</p>
-<h2 id="程序设计流程图"><a href="#程序设计流程图" class="headerlink" title="程序设计流程图"></a>程序设计流程图</h2><p><img src="/2022/06/27/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1%E5%8A%A8%E6%80%81%E6%89%AB%E6%8F%8F/a30fcab29846191787fc9aaabeae05fa.png" alt="img"></p>
-<p>在程序启动的初期，需要对硬件有抽象的定义，这由我们的.h头文件表示，初始化硬件，实际是对一些寄存器的初始化，和上一个流水灯的<code>init</code>函数差不多。然后就是主要逻辑，扫描位选，并完成端口的赋值。</p>
-<h2 id="原理说明"><a href="#原理说明" class="headerlink" title="原理说明"></a>原理说明</h2><h3 id="什么是段选和位选"><a href="#什么是段选和位选" class="headerlink" title="什么是段选和位选"></a>什么是段选和位选</h3><p>简单说：段选信号是选择数码管的那一段灯管亮起，位选信号是选择八个数码管的哪一个。</p>
-<p><img src="/2022/06/27/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1%E5%8A%A8%E6%80%81%E6%89%AB%E6%8F%8F/image-20220627143830272.png" alt="image-20220627143830272"></p>
-<p>如下图，由于这八个数码管是通用的同一个GND，也就是共地的。（一次只能一个开漏地级接给一个数码管，否则不同的二极管会冲突）因此，一次只能有一个数码管亮起，比如下图中八个数码管一次显示0-7，则只能够从左到右，D1先显示0，D1熄灭，D2再显示1，D2熄灭，…，然后轮流下去，如果速度够快，人眼看起来就像灯是一起亮着的。</p>
-<p><img src="/2022/06/27/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1%E5%8A%A8%E6%80%81%E6%89%AB%E6%8F%8F/image-20220627135806124.png" alt="image-20220627135806124" style="zoom:50%;"></p>
-<h3 id="段选进一步说明"><a href="#段选进一步说明" class="headerlink" title="段选进一步说明"></a>段选进一步说明</h3><p><img src="/2022/06/27/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1%E5%8A%A8%E6%80%81%E6%89%AB%E6%8F%8F/image-20220627142752484.png" alt="image-20220627142752484"></p>
-<p><img src="/2022/06/27/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1%E5%8A%A8%E6%80%81%E6%89%AB%E6%8F%8F/image-20220627142912078.png" alt="image-20220627142912078" style="zoom:50%;"></p>
-<p>位选就是第几个数码管，段选是怎么来的？</p>
-<blockquote>
-<p>比如我们要左起第3个（01234567）数码管显示6，因此位选就是2，也就是P2  = 2，当然也可以用程序中的方法（多此一举）<code>P2 = weixuan[2]</code></p>
-<p>然后段选要显示6根据上面的图，我们知道，显示6，需要“a, c, d, f, g, e”这些灯管亮起。所以位选信息如下</p>
-<p><img src="/2022/06/27/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1%E5%8A%A8%E6%80%81%E6%89%AB%E6%8F%8F/image-20220627144325373.png" alt="image-20220627144325373" style="zoom:80%;"></p>
-<p>所以因此段选信息就是：<code>duanxuan[6] = 0b0111101 = 0x7d</code></p>
-<p>所以对应P0.7-P0.0就是0x7d</p>
-<p>类似上面的方法就可以枚举出所有的段选情况：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uchar duanxuan[]=&#123;<span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,<span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,<span class="number">0x7f</span>&#125;;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="代码说明"><a href="#代码说明" class="headerlink" title="代码说明"></a>代码说明</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 对硬件各个端口的定义的头文件，直接使用即可 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;STC15F2K60S2.h&gt;</span></span></span><br><span class="line"><span class="comment">/* 重定义类型名，简写 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> uint unsigned int</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> uchar unsigned char</span></span><br><span class="line"></span><br><span class="line">uint i=<span class="number">0</span>;</span><br><span class="line"><span class="comment">// 段选：选择亮灯</span></span><br><span class="line">uchar duanxuan[]=&#123;<span class="number">0x3f</span>,<span class="number">0x06</span>,<span class="number">0x5b</span>,<span class="number">0x4f</span>,<span class="number">0x66</span>,<span class="number">0x6d</span>,<span class="number">0x7d</span>,<span class="number">0x07</span>,<span class="number">0x7f</span>&#125;;</span><br><span class="line"><span class="comment">// 位选：选择哪一个数码管</span></span><br><span class="line">uchar weixuan[]=&#123;<span class="number">0x00</span>,<span class="number">0x01</span>,<span class="number">0x02</span>,<span class="number">0x03</span>,<span class="number">0x04</span>,<span class="number">0x05</span>,<span class="number">0x06</span>,<span class="number">0x07</span>&#125;;			 </span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Delay</span><span class="params">(<span class="type">int</span> n)</span>				<span class="comment">// 延时函数，单位毫秒</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">while</span>(n--);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* 设置推挽输出</span></span><br><span class="line"><span class="comment">     * 和流水灯实验类似，对P0端口和P2端口进行设置</span></span><br><span class="line"><span class="comment">     * 端口设置推挽输出，通道0设置“1”，通道0全0，具体见数据手册，流水灯也讲过了</span></span><br><span class="line"><span class="comment">     * 端口0的0通道，是表示位选，八个位对应八个灯管，所以全部设成1</span></span><br><span class="line"><span class="comment">     * 端口2的0通道，是表示段选，一次只能选一个数码管，由三位输入进行选择</span></span><br><span class="line"><span class="comment">     * 分别是：P2.2 P2.1 P2.0</span></span><br><span class="line"><span class="comment">     * 刚好是P2的第三位，所以赋值时候，只要P2 = weixuan[i]</span></span><br><span class="line"><span class="comment">     * 就可以</span></span><br><span class="line"><span class="comment">     * 这里简单将2的0通道全部设成1</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">	P2M0=<span class="number">0xff</span>;					</span><br><span class="line">   	P2M1=<span class="number">0x00</span>;</span><br><span class="line">    P0M0=<span class="number">0xff</span>;</span><br><span class="line">    P0M1=<span class="number">0x00</span>;</span><br><span class="line">	<span class="comment">/* 循环扫描数码管</span></span><br><span class="line"><span class="comment">     * 不断扫描数码管，使每一小段数码管都点亮一段时间</span></span><br><span class="line"><span class="comment">     * 视觉上一直是亮的状态</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			P0=<span class="number">0</span>;</span><br><span class="line">			P2=weixuan[i];		<span class="comment">// 选择数码管的位数</span></span><br><span class="line">			P0=duanxuan[i+<span class="number">1</span>];	<span class="comment">// 选择对应的数值</span></span><br><span class="line">			Delay(<span class="number">600</span>);			<span class="comment">// 延时</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Puitar">
-      <meta itemprop="description" content="博客萌新时不时送来没什么软用的文章">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Puitar's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/" class="post-title-link" itemprop="url">流水灯实验</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-06-26 11:02:25" itemprop="dateCreated datePublished" datetime="2022-06-26T11:02:25+08:00">2022-06-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-27 11:28:23" itemprop="dateModified" datetime="2022-06-27T11:28:23+08:00">2022-06-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/STC-B/" itemprop="url" rel="index"><span itemprop="name">STC-B</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/STC-B/%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">基础编程</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="流水灯实验"><a href="#流水灯实验" class="headerlink" title="流水灯实验"></a>流水灯实验</h1><h2 id="程序设计思路"><a href="#程序设计思路" class="headerlink" title="程序设计思路"></a>程序设计思路</h2><p>流水灯是经典实验。要点亮发光二极管，要把P0端口和P2.3端口设置成推挽输出，然后</p>
-<ul>
-<li>将P2.3设成“1”，这表示使能发光二极管</li>
-<li>对P0端口赋值，就可以点亮对应的led灯了</li>
-</ul>
-<p>而对于流水灯，基本思路就是点亮一个led灯，等待一段时间，然后熄灭它，同时点亮下一个led灯，然后如此循环下去，就可以看到流水效果如下</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">00000001</span><br><span class="line">00000010</span><br><span class="line">00000100</span><br><span class="line">00001000</span><br><span class="line">00010000</span><br><span class="line">00100000</span><br><span class="line">01000000</span><br><span class="line">10000000</span><br><span class="line">00000001</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h2 id="关键代码说明"><a href="#关键代码说明" class="headerlink" title="关键代码说明"></a>关键代码说明</h2><h3 id="相关定义以及头文件"><a href="#相关定义以及头文件" class="headerlink" title="相关定义以及头文件"></a>相关定义以及头文件</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 这个是我们的单片机的端口的定义 */</span></span><br><span class="line"><span class="comment">/* 如果仔细阅读头文件，可以看到就是用唯一的整数标识每一个端口 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;STC15F2K60S2.H&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 定义类型，简写 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> uchar unsigned char</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> uint unsigned int</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 选择位 */</span></span><br><span class="line">sbit led_sel=P2^<span class="number">3</span>; <span class="comment">// 端口P2.3</span></span><br><span class="line">uchar led;         <span class="comment">// 用一个uchar表示8个LED，每一个是1位</span></span><br></pre></td></tr></table></figure>
-<p>本程序主要是三个函数组成</p>
-<h3 id="对二级管初始化"><a href="#对二级管初始化" class="headerlink" title="对二级管初始化"></a>对二级管初始化</h3><blockquote>
-<p><code>void Init();</code></p>
-</blockquote>
-<p>这个函数主要是发光二极管的初始化设置：</p>
-<p><strong>只要将P0口和P2.3工作模式设置为推挽输出，同时将P2.3置“1”，使能发光二极管电路。</strong>（这里的置“1”是P2的bit3置为1）</p>
-<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220626175135866.png" alt="image-20220626175135866"></p>
-<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220626175208809.png" alt="image-20220626175208809"></p>
-<p>其中P0、P2这两个端口的设置通过对对应的寄存器赋值来设置实现。</p>
-<p>看看上面两个表，其中第一列，也就是通道1为0（八个位都是0），通道0为1（特定位为1），表示处于推挽模式。STC15F2K60S2数据手册4.1章节（322页）有详细的介绍，下面简单介绍进一步如何配置。</p>
-<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220626174347225.png" alt="image-20220626174347225"></p>
-<p>上面是STC-B的部分电路原理图。由于处于推挽输出模式，要求通道0为1，通道1为0。通道1为0，就把通道一八个位全部设置成低电平。但是通道0为1就要对特定位进行赋1。对于P0端口，我们可以在电路图中看到是红色框框，它对应了八个发光二极管的正极端，所以要让8个发光二极管统统发光，就要全部设置使能。所以对于P0的通道0，进行赋1，就要把八个位全部设置成1。另一方面，对于P2端口。我们看到上面对于这个实验的led灯，只有一个LED负极开漏端有一个LED_SEL选择信号，表示选择哪一个LED发光。可以看到蓝色框框，只是P2.3，也就是端口P2的0通道的第三个位赋1就好。</p>
-<p>因此我们得到如下初始化代码：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Init</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="comment">// P0的通道1全0</span></span><br><span class="line">	P0M1=<span class="number">0x00</span>;</span><br><span class="line">    <span class="comment">// P0的通道0全1</span></span><br><span class="line">	P0M0=<span class="number">0xff</span>;</span><br><span class="line">	<span class="comment">// P2的通道1全0</span></span><br><span class="line">	P2M1=<span class="number">0x00</span>;</span><br><span class="line">    <span class="comment">// P2的通道0只要bit3为1</span></span><br><span class="line">	P2M0=<span class="number">0x08</span>;</span><br><span class="line">	<span class="comment">// 流水灯从L0开始(00000001)</span></span><br><span class="line">	led_sel=<span class="number">1</span>;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="延时函数"><a href="#延时函数" class="headerlink" title="延时函数"></a>延时函数</h3><blockquote>
-<p><code>void delay_ms(uint n);</code></p>
-</blockquote>
-<p>函数<code>delay_ms</code>的功能是延时n毫秒，但时间不一定特别准确。单片机工作在同一的时钟脉冲控制下。这个脉冲式单片机控制器的时钟电路产生的。时钟电路由振荡器和分频器构成，振荡器产生基本振荡信号，然后分频，得到相应时钟。（这玩意了解一下就好了）</p>
-<p><strong>关于单片机中周期的说明：</strong></p>
-<ul>
-<li><p>振荡周期： 晶体振荡器的周期。</p>
-</li>
-<li><p>状态周期： 振荡信号经二分频后形成的时钟脉冲信号，用S表示。一个状态周期的两个振荡周期作为两个节拍分别称为节拍P1和节拍P2。P1有效时，通常完成算术逻辑操作；P2有效时，一般进行内部寄存器之间的传输。</p>
-</li>
-<li><p>机器周期： 完成一个基本操作所需的时间称为机器周期。一个机器周期包含6个状态周期，用S1、S2、….、S6表示；共12个节拍，依次可表示为S1P1、S1P2、S2P1、S2P2、……、S6P1、S6P2。</p>
-</li>
-<li><p>指令周期：CPU执行一条指令所需要的时间。CPU执行指令是在时钟脉冲控制下一步一步进行的，由于指令的功能和长短各不相同，因此，指令执行所需的时间也不一样。一个指令周期通常含有1～4个机器周期。 </p>
-</li>
-</ul>
-<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/b8bf661c195bddcad5caf5d85ce46e12.png" alt="img"></p>
-<p>上图是MCS-51单片机各种周期的相互关系。</p>
-<p>因此，根据指令执行的时间，可计算出1ms可以相应执行多少条指令，函数中可通过循环执行空指令来达到延时1ms的效果。此外延时函数也可以在STC-ISP中通过“软件延时计算器”功能自动生成指定延时时间的延时函数代码，如下：</p>
-<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220626184218824.png" alt="image-20220626184218824"></p>
-<p>直接用ISP串口助手生成延时200ms对应的代码即可</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Delay200ms</span><span class="params">()</span>		<span class="comment">//@11.0592MHz</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">char</span> i, j, k;</span><br><span class="line">	<span class="comment">//_nop_();</span></span><br><span class="line">	<span class="comment">//_nop_();</span></span><br><span class="line">	i = <span class="number">9</span>;</span><br><span class="line">	j = <span class="number">104</span>;</span><br><span class="line">	k = <span class="number">139</span>;</span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">do</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">while</span> (--k);</span><br><span class="line">		&#125; <span class="keyword">while</span> (--j);</span><br><span class="line">	&#125; <span class="keyword">while</span> (--i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h3><blockquote>
-<p>void main();</p>
-</blockquote>
-<p>首先要调用函数Init()对电路进行初始化，再循环地对P0口进行赋值，点亮流水灯。</p>
-<p>每一次流水灯对应点亮的位向左移动一位，具体就如“程序设计思路”的演示图所示。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 初始化LED灯</span></span><br><span class="line">	Init();</span><br><span class="line">    <span class="comment">// 从L0开始亮</span></span><br><span class="line">	led=<span class="number">0x01</span>;</span><br><span class="line">    <span class="comment">// 无休止闪烁</span></span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">        <span class="comment">// P0端口连接LED灯，所以把寄存器LED给P0</span></span><br><span class="line">		P0=led;</span><br><span class="line">		<span class="comment">// 延时200ms	</span></span><br><span class="line">		Delay200ms();</span><br><span class="line">        <span class="comment">// LED寄存器状态赋值</span></span><br><span class="line">		<span class="keyword">if</span>(led==<span class="number">0x80</span>) <span class="comment">// 如果到了L7灯，下一个状态又从L0开始</span></span><br><span class="line">			led=<span class="number">0x01</span>;</span><br><span class="line">		<span class="keyword">else</span>		  <span class="comment">// 否则左移一位</span></span><br><span class="line">			led=led&lt;&lt;<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="下载程序"><a href="#下载程序" class="headerlink" title="下载程序"></a>下载程序</h2><p>在学习资料里面下载相关工具。主要是<em>keil uvision 4</em>。</p>
-<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220627112449125.png" alt="image-20220627112449125"></p>
-<p>新建工程uprojx，然后编译生成hex文件，烧入程序，运行。</p>
-<blockquote>
-<p>如果编译没有生成<code>.hex</code>文件可以进行如下设置</p>
-</blockquote>
-<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220627112712761.png" alt="image-20220627112712761"></p>
-<p><strong>成功效果</strong>如下</p>
-<p><img src="/2022/06/26/%E6%B5%81%E6%B0%B4%E7%81%AF%E5%AE%9E%E9%AA%8C/image-20220627112808166.png" alt="image-20220627112808166"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1460,18 +1441,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
