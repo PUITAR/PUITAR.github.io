@@ -618,6 +618,23 @@
       </tags>
   </entry>
   <entry>
+    <title>编译原理学习笔记3</title>
+    <url>/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/</url>
+    <content><![CDATA[<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p><u>正则表达式</u>（Regular Expression，RE）是一种用来描述正则语言的更紧凑的表示方法</p>
+<blockquote>
+<p>例如：r = a(a|b)*(ε|(.|_)(a|b)(a|b)*)</p>
+</blockquote>
+<p>正则表达式可以由较小的正则表达式按照特定规则递归构造。每个正则表达式r定义（表示）一个语言，记为L(r)。这个语言也根据r的子表达式所表示的语言递归定义。</p>
+]]></content>
+      <categories>
+        <category>courses-learning</category>
+        <category>编译原理笔记</category>
+      </categories>
+      <tags>
+        <tag>编译原理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>编译原理学习笔记2</title>
     <url>/2022/07/05/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/</url>
     <content><![CDATA[<h1 id="词法语法分析基本概念"><a href="#词法语法分析基本概念" class="headerlink" title="词法语法分析基本概念"></a>词法语法分析基本概念</h1><h2 id="字母表"><a href="#字母表" class="headerlink" title="字母表"></a>字母表</h2><p>字母表（Alphabet）：字母表∑是一个<u>有穷符号集合</u></p>
@@ -755,23 +772,6 @@
 <p>大多数程序设计语言中都有这样的<strong>消歧规则：</strong>每一个else和最近的尚未匹配的if匹配。</p>
 <p>因此引入这条规则上面两棵分析树只能保留左边的分析树。</p>
 <p><img src="/2022/07/05/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/image-20220707082156672.png" alt="image-20220707082156672"></p>
-]]></content>
-      <categories>
-        <category>courses-learning</category>
-        <category>编译原理笔记</category>
-      </categories>
-      <tags>
-        <tag>编译原理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>编译原理学习笔记3</title>
-    <url>/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/</url>
-    <content><![CDATA[<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p><u>正则表达式</u>（Regular Expression，RE）是一种用来描述正则语言的更紧凑的表示方法</p>
-<blockquote>
-<p>例如：r = a(a|b)*(ε|(.|_)(a|b)(a|b)*)</p>
-</blockquote>
-<p>正则表达式可以由较小的正则表达式按照特定规则递归构造。每个正则表达式r定义（表示）一个语言，记为L(r)。这个语言也根据r的子表达式所表示的语言递归定义。</p>
 ]]></content>
       <categories>
         <category>courses-learning</category>
