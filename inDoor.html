@@ -1,0 +1,187 @@
+<!--
+	THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/zh/editor.html?c=geo-svg-custom-effect
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/jquery"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/extension/bmap.min.js"></script>
+  -->
+  <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    // var ROOT_PATH = 'https://echarts.apache.org/examples/data/asset/geo/Map_of_Iceland.svg';
+    var ROOT_PATH = 'https://puitar.github.io/2022/07/17/inDoor/zonghelou.svg';
+    var option;
+
+    $.get(ROOT_PATH, function (svg) {
+      echarts.registerMap('inDoor_svg', { svg: svg });
+      option = {
+        tooltip: {},
+        geo: {
+          tooltip: {
+            show: true
+          },
+          map: 'inDoor_svg',
+          roam: true
+        },
+        series: {
+          type: 'custom',
+          coordinateSystem: 'geo',
+          geoIndex: 0,
+          zlevel: 2,
+          data: [
+            [0, "设备不在线", 0],      // 必须加
+            ["设备不在线", 85, 100],   // 114
+            ["设备不在线", 85, 300],   // 112
+            ["设备不在线", 85, 220],   // 113
+            ["设备不在线", 85, 370],   // 111
+            ["设备不在线", 85, 490],   // 110  
+            ["设备不在线", 295, 100],  // 106 
+            ["设备不在线", 310, 50],   // 108
+            ["设备不在线", 245, 110],  // 107
+            ["设备不在线", 240, 50],   // 109
+            ["设备不在线", 270, 200],  // 105
+            ["设备不在线", 270, 260],  // 104
+            ["设备不在线", 270, 470],  // 102
+            ["设备已在线", 270, 530],   // 101
+            ["设备不在线", 190, 340],  // 103
+          ],
+          renderItem(params, api) {
+            const coord = api.coord([
+              api.value(1, params.dataIndex),
+              api.value(2, params.dataIndex),
+            ]);
+            const circles = [];
+            for (let i = 0; i < 5; i++) {
+              circles.push({
+                type: 'circle',
+                shape: {
+                  cx: 0,
+                  cy: 0,
+                  r: 30
+                },
+                style: {
+                  stroke: 'red',
+                  fill: 'none',
+                  lineWidth: 2
+                },
+                // Ripple animation
+                keyframeAnimation: {
+                  duration: 4000,
+                  loop: true,
+                  delay: (-i / 4) * 4000,
+                  keyframes: [
+                    {
+                      percent: 0,
+                      scaleX: 0,
+                      scaleY: 0,
+                      style: {
+                        opacity: 1
+                      }
+                    },
+                    {
+                      percent: 1,
+                      scaleX: 1,
+                      scaleY: 0.4,
+                      style: {
+                        opacity: 0
+                      }
+                    }
+                  ]
+                }
+              });
+            }
+            return {
+              type: 'group',
+              x: coord[0],
+              y: coord[1],
+              children: [
+                ...circles,
+                {
+                  type: 'path',
+                  shape: {
+                    d: 'M16 0c-5.523 0-10 4.477-10 10 0 10 10 22 10 22s10-12 10-22c0-5.523-4.477-10-10-10zM16 16c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6z',
+                    x: -10,
+                    y: -35,
+                    width: 20,
+                    height: 40
+                  },
+                  style: {
+                    fill: 'red'
+                  },
+                  // Jump animation.
+                  keyframeAnimation: {
+                    duration: 1000,
+                    loop: true,
+                    delay: Math.random() * 1000,
+                    keyframes: [
+                      {
+                        y: -10,
+                        percent: 0.5,
+                        easing: 'cubicOut'
+                      },
+                      {
+                        y: 0,
+                        percent: 1,
+                        easing: 'bounceOut'
+                      }
+                    ]
+                  }
+                }
+              ]
+            };
+          }
+        }
+      };
+      myChart.setOption(option);
+    });
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    myChart.on('click', function (params) {
+      console.log(params);
+      if (params.data[0] == "设备已在线") {
+        window.location.replace("http://10.68.247.65:5001/");
+      }
+      else {
+        alert("设备不在线!");
+      }
+    });
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+
+</html>
