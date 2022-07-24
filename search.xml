@@ -698,6 +698,37 @@
 <p>例如：r = a(a|b)*(ε|(.|_)(a|b)(a|b)*)</p>
 </blockquote>
 <p><strong>正则表达式</strong>可以由较小的正则表达式按照特定规则递归构造。每个正则表达式r定义（表示）一个语言，记为L(r)。这个语言也根据r的子表达式所表示的语言递归定义。</p>
+<blockquote>
+<p>例子：</p>
+<ul>
+<li>digit → 0|1|..|9</li>
+<li>digits → digit digit*</li>
+<li>可选小数部分：optionalFraction → .digits|ε </li>
+<li>可选指数指数部分：optionalExponent → (E(+|-|ε)digits)|ε</li>
+<li>number → digits optionalFraction optionalExponent</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 例子</span></span><br><span class="line">2	2.15	2.15E+3		2.15E-3		2.15E3		2E-3</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="有穷自动机"><a href="#有穷自动机" class="headerlink" title="有穷自动机"></a>有穷自动机</h1><h2 id="有穷自动机的定义"><a href="#有穷自动机的定义" class="headerlink" title="有穷自动机的定义"></a>有穷自动机的定义</h2><p>是对一类处理系统建立的数学模型。这一类系统具有一系列离散的输入输出信息和有穷数目的内部状态（状态：对过去输入信息处理的状态）。参考有限状态机。</p>
+<p>FA的典型例子：电梯控制装置</p>
+<ul>
+<li>输入：顾客乘电梯的需求（要达到的楼层号）</li>
+<li>状态：电梯所处的层数和运动方向</li>
+<li>电梯控制装置不需要记住先前全部的服务要求，只要记住电梯当前所处的状态以及还没满足的所有服务请求。</li>
+</ul>
+<p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724153635370.png" alt="image-20220724153635370"></p>
+<h2 id="FA定义（接收）的语言"><a href="#FA定义（接收）的语言" class="headerlink" title="FA定义（接收）的语言"></a>FA定义（接收）的语言</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724153914512.png" alt="image-20220724153914512"></p>
+<blockquote>
+<p>L(M) = 所有以abb结尾的字母表{a，b}上的串的集合</p>
+</blockquote>
+<h2 id="最长子串匹配原则"><a href="#最长子串匹配原则" class="headerlink" title="最长子串匹配原则"></a>最长子串匹配原则</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724154114487.png" alt="image-20220724154114487"></p>
+<p>所以上面的例子中，输入串中匹配的应该是“&lt;=”和“++”，而不是“&lt;”和“=”或者两个“+”</p>
+<h1 id="有穷自动机的分类"><a href="#有穷自动机的分类" class="headerlink" title="有穷自动机的分类"></a>有穷自动机的分类</h1><h2 id="确定的有穷自动机-DFA"><a href="#确定的有穷自动机-DFA" class="headerlink" title="确定的有穷自动机(DFA)"></a>确定的有穷自动机(DFA)</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724160205619.png" alt="image-20220724160205619"></p>
+<p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724160540181.png" alt="image-20220724160540181"></p>
+<p>转换图和转换表是等价的，所以可以不用转换表来表示状态转移。</p>
+<h2 id="非确定的有穷状态机-NFA"><a href="#非确定的有穷状态机-NFA" class="headerlink" title="非确定的有穷状态机(NFA)"></a>非确定的有穷状态机(NFA)</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724160802826.png" alt="image-20220724160802826"></p>
+<p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724160849386.png" alt></p>
+<p>不确定的FA就是，一个状态，沿着标记为a的边出发，不止到达一个状态。例如上面的状态0，沿着a的标记边出发，可以到达状态0和状态1。如果某个状态从一个标记的边出发不能到达任何状态，就把空集放到表项中，例如上面的状态1通过a边，就不能到任何状态。</p>
 ]]></content>
       <categories>
         <category>courses-learning</category>
