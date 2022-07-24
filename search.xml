@@ -681,8 +681,7 @@
 <p>大多数程序设计语言中都有这样的<strong>消歧规则：</strong>每一个else和最近的尚未匹配的if匹配。</p>
 <p>因此引入这条规则上面两棵分析树只能保留左边的分析树。</p>
 <p><img src="/2022/07/05/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/image-20220707082156672.png" alt="image-20220707082156672"></p>
-<script type="math/tex; mode=display">
-wu_{aaa}</script>]]></content>
+]]></content>
       <categories>
         <category>courses-learning</category>
         <category>编译原理笔记</category>
@@ -730,7 +729,8 @@ wu_{aaa}</script>]]></content>
 <h2 id="非确定的有穷状态机-NFA"><a href="#非确定的有穷状态机-NFA" class="headerlink" title="非确定的有穷状态机(NFA)"></a>非确定的有穷状态机(NFA)</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724160802826.png" alt="image-20220724160802826"></p>
 <p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724160849386.png" alt></p>
 <p>不确定的FA就是，一个状态，沿着标记为a的边出发，不止到达一个状态。例如上面的状态0，沿着a的标记边出发，可以到达状态0和状态1。如果某个状态从一个标记的边出发不能到达任何状态，就把空集放到表项中，例如上面的状态1通过a边，就不能到任何状态。</p>
-]]></content>
+<script type="math/tex; mode=display">
+wu_{aaa}</script>]]></content>
       <categories>
         <category>courses-learning</category>
         <category>编译原理笔记</category>
