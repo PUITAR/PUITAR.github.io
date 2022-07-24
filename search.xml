@@ -729,8 +729,57 @@
 <h2 id="非确定的有穷状态机-NFA"><a href="#非确定的有穷状态机-NFA" class="headerlink" title="非确定的有穷状态机(NFA)"></a>非确定的有穷状态机(NFA)</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724160802826.png" alt="image-20220724160802826"></p>
 <p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724160849386.png" alt></p>
 <p>不确定的FA就是，一个状态，沿着标记为a的边出发，不止到达一个状态。例如上面的状态0，沿着a的标记边出发，可以到达状态0和状态1。如果某个状态从一个标记的边出发不能到达任何状态，就把空集放到表项中，例如上面的状态1通过a边，就不能到任何状态。</p>
-<script type="math/tex; mode=display">wu_{bbb}</script><script type="math/tex; mode=display">
-wu_{aaa}</script>]]></content>
+<h2 id="DFA和NFA的等价性"><a href="#DFA和NFA的等价性" class="headerlink" title="DFA和NFA的等价性"></a>DFA和NFA的等价性</h2><ul>
+<li>对于任意的NFA <em>N</em>，存在识别同一语言的DFA <em>D</em></li>
+<li>对于任意的DFA <em>D</em>，存在识别同一语言的NFA <em>N</em></li>
+</ul>
+<p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724164312824.png" alt="image-20220724164312824"></p>
+<p>NFA看起来分析起来要更加直观简单，但是计算机实现DFA要更容易一点</p>
+<h2 id="带有“ε-边”的NFA"><a href="#带有“ε-边”的NFA" class="headerlink" title="带有“ε-边”的NFA"></a>带有“ε-边”的NFA</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724164550054.png" alt="image-20220724164550054"></p>
+<blockquote>
+<p>r = 0*1*2*</p>
+</blockquote>
+<p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724164719463.png" alt="image-20220724164719463"></p>
+<h2 id="DFA的算法实现"><a href="#DFA的算法实现" class="headerlink" title="DFA的算法实现"></a>DFA的算法实现</h2><blockquote>
+<p>前面说到DFA在计算机实现上要比NFA更加容易，下面是它的算法实现</p>
+</blockquote>
+<p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724164844160.png" alt="image-20220724164844160"></p>
+<p>s表示当前状态，如果最后s在接收状态集F中，则表示成功接收。否则到不确定状态了，就回答no。</p>
+<h1 id="从正则表达式到有穷自动机"><a href="#从正则表达式到有穷自动机" class="headerlink" title="从正则表达式到有穷自动机"></a>从正则表达式到有穷自动机</h1><blockquote>
+<p>前面说到DFA在计算机上要更容易实现，但是NFA要更加容易分析，所以我们通常先得到NFA，再得到DFA</p>
+</blockquote>
+<h2 id="根据RE-正则表达式-构造NFA"><a href="#根据RE-正则表达式-构造NFA" class="headerlink" title="根据RE(正则表达式)构造NFA"></a>根据RE(正则表达式)构造NFA</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724165517326.png" alt="image-20220724165517326"></p>
+<p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724165601319.png" alt="image-20220724165601319"></p>
+<p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724165711728.png" alt="image-20220724165711728"></p>
+<h2 id="从NFA到DFA的转换方法"><a href="#从NFA到DFA的转换方法" class="headerlink" title="从NFA到DFA的转换方法"></a>从NFA到DFA的转换方法</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724170114615.png" alt="image-20220724170114615"></p>
+<blockquote>
+<p>方法就是从初始状态开始，到第一个状态A，然后看所有的边，只有a可以进入非空下一状态，所以A通过a进入状态{A,B}，也就是DFA中的A,B状态；然后看状态A和状态B的所有边，首先是a，可以进入{A,B}和∅，它们的并集就是{A,B}，所以状态A,B可以通过a边进入自身，同理通过b可以进入{B,C}和∅的并集，所以状态A,B通过b边进入状态B,C；然后看状态B,C，方法和前面一样，最后得到通过b进入自身，通过c进入状态C,D；状态C,D是终止状态，只能通过c进入自身。</p>
+<p>最多只能进入到自身的状态就是终止状态太。不能进入到自身的状态同时不需要任何条件进入下一状态的一般是起始状态，这列的start就是自动进入状态A的</p>
+<p>如果类似于C,D状态这种状态，它包含在NFA中的终止状态D，那么在DFA中C,D状态就是终止状态</p>
+</blockquote>
+<p>在看一个例子</p>
+<p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724171239688.png" alt="image-20220724171239688"></p>
+<p>注意到，这里有三个终止状态，也就说DFA可以不止一个终止状态。只要包含NFA中的终止状态的状态就是DFA中的终止状态。</p>
+<h2 id="子集构造法"><a href="#子集构造法" class="headerlink" title="子集构造法"></a>子集构造法</h2><blockquote>
+<p>由于从NFA构造的DFA中的每一个状态都是NFA中状态集合的一个子集，因此NFA转换成DFA的算法又称作子集构造法</p>
+</blockquote>
+<p>这里伪代码就不写了，感兴趣可以搜索一下，原理上面都讲过了。</p>
+<h1 id="识别单词的DFA"><a href="#识别单词的DFA" class="headerlink" title="识别单词的DFA"></a>识别单词的DFA</h1><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724172022748.png" alt="image-20220724172022748"></p>
+<p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724172239405.png" alt="image-20220724172239405"></p>
+<p>通过上面NFA转DFA的方法，可以画出DFA</p>
+<p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724173247829.png" alt="image-20220724173247829"></p>
+<h2 id="识别各进制无符号整数的DFA"><a href="#识别各进制无符号整数的DFA" class="headerlink" title="识别各进制无符号整数的DFA"></a>识别各进制无符号整数的DFA</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724173527397.png" alt="image-20220724173527397"></p>
+<h2 id="识别注释的DFA"><a href="#识别注释的DFA" class="headerlink" title="识别注释的DFA"></a>识别注释的DFA</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724173810908.png" alt="image-20220724173810908"></p>
+<h2 id="识别Token的DFA"><a href="#识别Token的DFA" class="headerlink" title="识别Token的DFA"></a>识别Token的DFA</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724173906227.png" alt="image-20220724173906227"></p>
+<p>把上面讲的各类识别的DFA合到一个DFA下，就可以构造一个识别Token的DFA，可以识别不同类型单词的DFA，就达到了我们这一节的识别单词的DFA的目的</p>
+<p>这里没有提到<strong>关键字</strong>，但是可以用上图标志符（IDN）的识别方法。如果识别出来一个标识符它是在关键字表里面的就把他识别成一个关键字，否则就照常识别成一个标识符。</p>
+<h2 id="词法分析阶段的错误处理"><a href="#词法分析阶段的错误处理" class="headerlink" title="词法分析阶段的错误处理"></a>词法分析阶段的错误处理</h2><p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724174231290.png" alt="image-20220724174231290"></p>
+<p><img src="/2022/07/09/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03/image-20220724174318518.png" alt="image-20220724174318518"></p>
+<blockquote>
+<p>最简单的错误恢复策略是“恐慌模式（panic mode）”恢复：</p>
+<p>从剩余的输入中不断删除字符，直到词法分析器能够在剩余输入的开头发现一个正确的字符位置</p>
+</blockquote>
+]]></content>
       <categories>
         <category>courses-learning</category>
         <category>编译原理笔记</category>
