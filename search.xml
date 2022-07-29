@@ -1670,18 +1670,139 @@ R_{I/O} = \frac{传输大小}{T_{I/O}}</script><p><img src="/2022/06/14/OS%E6%9C
   <entry>
     <title>黑标签统计安排</title>
     <url>/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/</url>
-    <content><![CDATA[<h1 id="黑标签统计"><a href="#黑标签统计" class="headerlink" title="黑标签统计"></a>黑标签统计</h1><h2 id="实验安排（更新）"><a href="#实验安排（更新）" class="headerlink" title="实验安排（更新）"></a>实验安排（更新）</h2><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/image-20220724121024652.png" alt="image-20220724121024652"></p>
+    <content><![CDATA[<h1 id="黑标签统计"><a href="#黑标签统计" class="headerlink" title="黑标签统计"></a>黑标签统计</h1><h2 id="实验安排（更新）"><a href="#实验安排（更新）" class="headerlink" title="实验安排（更新）"></a>实验安排（更新）</h2><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/黑标签统计.png" alt></p>
 <h2 id="基于内存版本"><a href="#基于内存版本" class="headerlink" title="基于内存版本"></a>基于内存版本</h2><p>基于内存版本的黑标签统计，在这里不做过多介绍。项目地址</p>
 <blockquote>
 <p>[基于内存黑标签统计]: <a href="https://github.com/PUITAR/BlackLabelCount">https://github.com/PUITAR/BlackLabelCount</a></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:PUITAR/BlackLabelCount.git</span><br></pre></td></tr></table></figure>
 </blockquote>
-<h2 id="基于磁盘版本"><a href="#基于磁盘版本" class="headerlink" title="基于磁盘版本"></a>基于磁盘版本</h2><p>后续将会进行基于磁盘的黑标签统计实验。这里先使用<code>RockDB</code></p>
-<h3 id="RockDB的使用"><a href="#RockDB的使用" class="headerlink" title="RockDB的使用"></a>RockDB的使用</h3><p>待更新。。</p>
+<h2 id="基于磁盘版本"><a href="#基于磁盘版本" class="headerlink" title="基于磁盘版本"></a>基于磁盘版本</h2><p>由于后续实验需要一个基准baseline，因此这里使用<code>RocksDB</code>作为基准工作的基础。</p>
+<h3 id="1-0版本"><a href="#1-0版本" class="headerlink" title="1_0版本"></a>1_0版本</h3><blockquote>
+<p>版本设计思路分为两个模块：</p>
+<ul>
+<li>小世界模型图生成</li>
+<li>小世界模型图的读取和计算</li>
+</ul>
+</blockquote>
+<h4 id="小世界模型图的生成"><a href="#小世界模型图的生成" class="headerlink" title="小世界模型图的生成"></a>小世界模型图的生成</h4><figure class="highlight latex"><table><tr><td class="code"><pre><span class="line">/* `Watts-Strogatz`小世界网络生成算法伪码 */</span><br><span class="line">Function SmallWorldNetwork(n, k, p)</span><br><span class="line">Output: 小世界网络图</span><br><span class="line">Require: k是偶数且p∈[0, 1]</span><br><span class="line">begin</span><br><span class="line">	procedure 参数初始化</span><br><span class="line">    	n: 网络节点总数;</span><br><span class="line">        k: 每个节点的边连接数;</span><br><span class="line">        p: 每条边发生重连的概率;</span><br><span class="line">	end</span><br><span class="line">    procedure 初始边连接</span><br><span class="line">    	for 网络中的每一个结点v do</span><br><span class="line">    		将其与所有距离小于等于k/2的其他结点相连; // 要求k为偶数</span><br><span class="line">    	end</span><br><span class="line">    end</span><br><span class="line">    procedure 已有边重连</span><br><span class="line">    	for 网络中的每一条边e do</span><br><span class="line">    		以概率p重连此边; // 要求不能有自环或者重复边</span><br><span class="line">    	end</span><br><span class="line">    end</span><br><span class="line">end 	</span><br></pre></td></tr></table></figure>
+<p>生成的算法如上，但是实验还是先用已有数据集。</p>
+<h4 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h4><p>和前面内存版本一样，只是获取一阶好友的方式由从内存取到从磁盘取。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @description: 通过点的id从数据库获取一阶好友</span></span><br><span class="line"><span class="comment"> * @param &lt;str_t&gt; k 传入点id作为键</span></span><br><span class="line"><span class="comment"> * @param &lt;DB*&gt; db 传入数据库指针</span></span><br><span class="line"><span class="comment"> * @return &lt;*&gt; 返回一节好友的数组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="type">vec_t</span> <span class="title">GetFriends1Vec</span><span class="params">(<span class="type">str_t</span> k, DB* db)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">str_t</span> v;</span><br><span class="line">    <span class="type">vec_t</span> vec;</span><br><span class="line">    db-&gt;<span class="built_in">Get</span>(<span class="built_in">ReadOptions</span>(), k, &amp;v);</span><br><span class="line">    <span class="function">stringstream <span class="title">ss</span><span class="params">(v)</span></span>;</span><br><span class="line">    <span class="keyword">while</span> (ss &gt;&gt; v)</span><br><span class="line">        vec.<span class="built_in">push_back</span>(v);</span><br><span class="line">    <span class="keyword">return</span> vec;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于在数据库中以字节流的形式（字符串）存储，所以需要用<code>stringstream</code>读出每一个一阶好友。</p>
+<p>（暂时还没上多线程版本）</p>
+<h2 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h2><h3 id="HyperANF"><a href="#HyperANF" class="headerlink" title="HyperANF"></a>HyperANF</h3><blockquote>
+<p>HyperANF_ Approximating the Neighbourhood Function of Very Large Graphs  on a Budget</p>
+</blockquote>
+<h3 id="Triangle-Enumeration"><a href="#Triangle-Enumeration" class="headerlink" title="Triangle Enumeration"></a>Triangle Enumeration</h3><blockquote>
+<p>Improving I/O Complexity of Triangle Enumeration</p>
+</blockquote>
+<p>ICDE2023-VEND-524(RevisionOf-37)-C</p>
+<p>先看这篇文章Introduction部分Algorithm 2 Trigon的原理，有助于理解</p>
+<h2 id="GraphChi"><a href="#GraphChi" class="headerlink" title="GraphChi"></a>GraphChi</h2><p>（挂起）</p>
 ]]></content>
       <tags>
         <tag>并行计算</tag>
         <tag>黑标签统计</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>编译原理学习笔记4</title>
+    <url>/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/</url>
+    <content><![CDATA[<h1 id="自顶向下的分析"><a href="#自顶向下的分析" class="headerlink" title="自顶向下的分析"></a>自顶向下的分析</h1><blockquote>
+<ul>
+<li>从分析树的顶部（根节点）向底部（叶节点）方向构造分析树</li>
+<li>可以看成从文法开始符号S推导出词串w的过程</li>
+</ul>
+</blockquote>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725082423234.png" alt="image-20220725082423234"></p>
+<ul>
+<li>在每一步推导中，都需要做两个选择<ul>
+<li>替换当前句型中哪一个非终结符</li>
+<li>用该非终结符的哪一个候选式进行替换</li>
+</ul>
+</li>
+</ul>
+<h2 id="最左推导"><a href="#最左推导" class="headerlink" title="最左推导"></a>最左推导</h2><p>在最左推导中，总是选择每个句型的最左非终结符进行替换</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725082742910.png" alt="image-20220725082742910"></p>
+<p>最右归约过程是最左推导的逆过程。</p>
+<h2 id="最右推导"><a href="#最右推导" class="headerlink" title="最右推导"></a>最右推导</h2><p>最右推导，总是选择每个句型的最右非终结符进行替换</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725083615348.png" alt="image-20220725083615348" style="zoom: 50%;"></p>
+<h2 id="最左推导和最右推导的唯一性"><a href="#最左推导和最右推导的唯一性" class="headerlink" title="最左推导和最右推导的唯一性"></a>最左推导和最右推导的唯一性</h2><p>在推导的过程中，可以选择不同的非终结符，因此推导不一定具备唯一性。</p>
+<p>但是最左推导和最右推导总是选择最左或者最右的非终结符进行推导，因此最左推导和最右推导是唯一的。</p>
+<blockquote>
+<p>由于分析器总是自左向右扫描字串，因此自顶向下的语法分析总是最左推导。</p>
+</blockquote>
+<p>这个连接讲的非常清楚，可以直接看视频。</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084344378.png" alt="image-20220725084344378"></p>
+<h2 id="自顶向下语法分析的通用形式"><a href="#自顶向下语法分析的通用形式" class="headerlink" title="自顶向下语法分析的通用形式"></a>自顶向下语法分析的通用形式</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084542735.png" alt="image-20220725084542735"></p>
+<h2 id="预测分析"><a href="#预测分析" class="headerlink" title="预测分析"></a>预测分析</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084642107.png" alt="image-20220725084642107"></p>
+<h1 id="文法转换"><a href="#文法转换" class="headerlink" title="文法转换"></a>文法转换</h1><p>不是所有文法适合自定线下分析</p>
+<h2 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084803497.png" alt="image-20220725084803497"></p>
+<p>匹配abc的第一个a的时候，有两个可能的候选项。</p>
+<h2 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725085030543.png" alt="image-20220725085030543" style="zoom:80%;"></p>
+<p>左递归文法会使得递归下降分析器陷入无限循环。因此需要消除左递归</p>
+<h2 id="消除直接左递归"><a href="#消除直接左递归" class="headerlink" title="消除直接左递归"></a>消除直接左递归</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725085616801.png" alt="image-20220725085616801"></p>
+<h2 id="消除间接左递归"><a href="#消除间接左递归" class="headerlink" title="消除间接左递归"></a>消除间接左递归</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725085917479.png" alt="image-20220725085917479"></p>
+<p>把S的定义带入到下面的S中，转换成直接左递归的形式，再用直接左递归的消除方法来消除直接左递归。</p>
+<h2 id="提取左公因子"><a href="#提取左公因子" class="headerlink" title="提取左公因子"></a>提取左公因子</h2><p>文法中的某个符号的多个候选式存在公共前缀的情况</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725090839053.png" alt="image-20220725090839053"></p>
+<h2 id="消除左递归和回溯的方法-※"><a href="#消除左递归和回溯的方法-※" class="headerlink" title="消除左递归和回溯的方法(※)"></a>消除左递归和回溯的方法(※)</h2><h1 id="LL-1-文法"><a href="#LL-1-文法" class="headerlink" title="LL(1)文法"></a>LL(1)文法</h1><p>递归下降分析会遇到回溯，会影响效率，如果能预测每一步，就可以避免回溯。LL(1)文法可以使用预测分析技术。</p>
+<h2 id="S-文法"><a href="#S-文法" class="headerlink" title="S_文法"></a>S_文法</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222323392.png" alt="image-20220725222323392" style="zoom:80%;"></p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222535036.png" alt="image-20220725222535036"></p>
+<p>在上面的例子中，有两个输入字串，第一个使用空产生式没问题，第二个就有问题。但是不是所有都能使用。</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222705682.png" alt="image-20220725222705682"></p>
+<h2 id="非终结符的后继符号集"><a href="#非终结符的后继符号集" class="headerlink" title="非终结符的后继符号集"></a>非终结符的后继符号集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222900128.png" alt="image-20220725222900128" style="zoom: 33%;"></p>
+<h2 id="产生式的可选集"><a href="#产生式的可选集" class="headerlink" title="产生式的可选集"></a>产生式的可选集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725224732986.png" alt="image-20220725224732986" style="zoom: 33%;"></p>
+<h2 id="串首终结符集"><a href="#串首终结符集" class="headerlink" title="串首终结符集"></a>串首终结符集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725224941060.png" alt="image-20220725224941060"></p>
+<blockquote>
+<p>写成=&gt;*指可以通过n步推导出来，n可以为0</p>
+</blockquote>
+<h2 id="LL-1-文法-1"><a href="#LL-1-文法-1" class="headerlink" title="LL(1)文法"></a>LL(1)文法</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726104545972.png" alt="image-20220726104545972"></p>
+<blockquote>
+<p>由于LL(1)文法中同一非终结符的各个候选式的SELECT集互不相交，因此可以构造预测分析器</p>
+<ul>
+<li>第一个L表示的是从左向右扫描输入</li>
+<li>第二个L表示的是产生最左推导</li>
+<li>“1”表示在每一步中只需要向前看一个输入符号来决定一个输入符号来决定语法分析动作</li>
+</ul>
+</blockquote>
+<h1 id="FIRST集和FOLLOW集的计算"><a href="#FIRST集和FOLLOW集的计算" class="headerlink" title="FIRST集和FOLLOW集的计算"></a>FIRST集和FOLLOW集的计算</h1><h2 id="计算（一个）符号X的FIRST-X"><a href="#计算（一个）符号X的FIRST-X" class="headerlink" title="计算（一个）符号X的FIRST(X)"></a>计算（一个）符号X的FIRST(X)</h2><blockquote>
+<p>FIRST(X)：可以从X推导出的所有串首终结符构成的集合</p>
+<p>如果X=&gt;*ε，那么ε∈FIRST(X)</p>
+</blockquote>
+<p>先看一个例子，注意概念抽象，例子需要着重理解</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726105546013.png" alt="image-20220726105546013"></p>
+<p>需要着重理解非终结符的FIRST集的含义。其实就是说这个非终结符能够推导出什么终结符，它们的集合就是FIRST集。如果推导出的是非终结符，那么就和推导出的第一个非终结符的FIRST集相同。</p>
+<h2 id="计算串X-1-X-2-X-n-的FIRST集"><a href="#计算串X-1-X-2-X-n-的FIRST集" class="headerlink" title="计算串X_{1}X_{2}...X_{n}的FIRST集"></a>计算串<script type="math/tex">X_{1}X_{2}...X_{n}</script>的FIRST集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726110207539.png" alt="image-20220726110207539"></p>
+<p>就是加入最左的一个非终结符的FIRST集合，但是如果这个非终结符可以推导出ε的话，那么就考虑它右边的非终结符。</p>
+<h2 id="计算非终结符A的FOLLOW-A"><a href="#计算非终结符A的FOLLOW-A" class="headerlink" title="计算非终结符A的FOLLOW(A)"></a>计算非终结符A的FOLLOW(A)</h2><blockquote>
+<p>FOLLOW(A)：可能在耨个句型中紧跟在A后面的终结符的集合</p>
+<p>如果A是某个句型的最右符号，那么将结束符“$”加入到FOLLOW(A)中</p>
+</blockquote>
+<p>文法的开始符号本身就是一个句型，所以需要把$加入到开始符号的FOLLOW集中。同时终结符是不考虑空串ε的，所以第一个产生式的T后面跟了E‘，因此T的FOLLOW中应该有E’的FIRST集中的终结符（不包括ε）</p>
+<p>这一讲比较难理解，建议看看视频理解</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726113653932.png" alt="image-20220726113653932"></p>
+<p><strong>算法如下</strong></p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726113636491.png" alt="image-20220726113636491"></p>
+<p>这个算法最好在理解的基础上记忆，最好的办法就是能够做一个例题。</p>
+<h2 id="例：表达式文法各产生式的SELECT集"><a href="#例：表达式文法各产生式的SELECT集" class="headerlink" title="例：表达式文法各产生式的SELECT集"></a>例：表达式文法各产生式的SELECT集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726143426088.png" alt="image-20220726143426088"></p>
+<p>第（2）个表达式和第（3）个表达式有相同的左部E‘，但是它们的SELECT集不相交，第（5）个表达式和第（6）个表达式也是如此。因此上面的文法是LL(1)文法。构造预测分析表如下</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726143805504.png" alt="image-20220726143805504"></p>
+<h2 id="LL-1）文法的分析方法"><a href="#LL-1）文法的分析方法" class="headerlink" title="LL(1）文法的分析方法"></a>LL(1）文法的分析方法</h2><ul>
+<li>递归的预测分析法</li>
+<li>非递归的预测分析法</li>
+</ul>
+<h1 id="递归的预测分析法"><a href="#递归的预测分析法" class="headerlink" title="递归的预测分析法"></a>递归的预测分析法</h1><blockquote>
+<p>递归的预测分析法是指：在递归下降分析中，编写每一个非终结符对应的过程的时候，根据预测分析表进行产生式的选择</p>
+</blockquote>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726144719741.png" alt="image-20220726144719741"></p>
+]]></content>
+      <categories>
+        <category>courses-learning</category>
+        <category>编译原理笔记</category>
+      </categories>
+      <tags>
+        <tag>编译原理</tag>
       </tags>
   </entry>
 </search>

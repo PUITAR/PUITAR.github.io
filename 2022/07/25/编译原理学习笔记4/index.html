@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"puitar.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="自顶向下的分析  从分析树的顶部（根节点）向底部（叶节点）方向构造分析树 可以看成从文法开始符号S推导出词串w的过程     在每一步推导中，都需要做两个选择 替换当前句型中哪一个非终结符 用该非终结符的哪一个候选式进行替换    最左推导在最左推导中，总是选择每个句型的最左非终结符进行替换  最右归约过程是最左推导的逆过程。 最右推导最右推导，总是选择每个句型的最右非终结符进行替换  最左推导和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译原理学习笔记4">
+<meta property="og:url" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/index.html">
+<meta property="og:site_name" content="Puitar&#39;s Blog">
+<meta property="og:description" content="自顶向下的分析  从分析树的顶部（根节点）向底部（叶节点）方向构造分析树 可以看成从文法开始符号S推导出词串w的过程     在每一步推导中，都需要做两个选择 替换当前句型中哪一个非终结符 用该非终结符的哪一个候选式进行替换    最左推导在最左推导中，总是选择每个句型的最左非终结符进行替换  最右归约过程是最左推导的逆过程。 最右推导最右推导，总是选择每个句型的最右非终结符进行替换  最左推导和">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725082423234.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725082742910.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725083615348.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084344378.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084542735.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084642107.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084803497.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725085030543.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725085616801.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725085917479.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725090839053.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222323392.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222535036.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222705682.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222900128.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725224732986.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725224941060.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726104545972.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726105546013.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726110207539.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726113653932.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726113636491.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726143426088.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726143805504.png">
+<meta property="og:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726144719741.png">
+<meta property="article:published_time" content="2022-07-25T00:18:28.000Z">
+<meta property="article:modified_time" content="2022-07-26T07:55:03.461Z">
+<meta property="article:author" content="Puitar">
+<meta property="article:tag" content="编译原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725082423234.png">
+
+<link rel="canonical" href="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>编译原理学习笔记4 | Puitar's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Puitar's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Puitar">
+      <meta itemprop="description" content="博客萌新时不时送来没什么软用的文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Puitar's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          编译原理学习笔记4
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-07-25 08:18:28" itemprop="dateCreated datePublished" datetime="2022-07-25T08:18:28+08:00">2022-07-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-26 15:55:03" itemprop="dateModified" datetime="2022-07-26T15:55:03+08:00">2022-07-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/courses-learning/" itemprop="url" rel="index"><span itemprop="name">courses-learning</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/courses-learning/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">编译原理笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="自顶向下的分析"><a href="#自顶向下的分析" class="headerlink" title="自顶向下的分析"></a>自顶向下的分析</h1><blockquote>
+<ul>
+<li>从分析树的顶部（根节点）向底部（叶节点）方向构造分析树</li>
+<li>可以看成从文法开始符号S推导出词串w的过程</li>
+</ul>
+</blockquote>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725082423234.png" alt="image-20220725082423234"></p>
+<ul>
+<li>在每一步推导中，都需要做两个选择<ul>
+<li>替换当前句型中哪一个非终结符</li>
+<li>用该非终结符的哪一个候选式进行替换</li>
+</ul>
+</li>
+</ul>
+<h2 id="最左推导"><a href="#最左推导" class="headerlink" title="最左推导"></a>最左推导</h2><p>在最左推导中，总是选择每个句型的最左非终结符进行替换</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725082742910.png" alt="image-20220725082742910"></p>
+<p>最右归约过程是最左推导的逆过程。</p>
+<h2 id="最右推导"><a href="#最右推导" class="headerlink" title="最右推导"></a>最右推导</h2><p>最右推导，总是选择每个句型的最右非终结符进行替换</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725083615348.png" alt="image-20220725083615348" style="zoom: 50%;"></p>
+<h2 id="最左推导和最右推导的唯一性"><a href="#最左推导和最右推导的唯一性" class="headerlink" title="最左推导和最右推导的唯一性"></a>最左推导和最右推导的唯一性</h2><p>在推导的过程中，可以选择不同的非终结符，因此推导不一定具备唯一性。</p>
+<p>但是最左推导和最右推导总是选择最左或者最右的非终结符进行推导，因此最左推导和最右推导是唯一的。</p>
+<blockquote>
+<p>由于分析器总是自左向右扫描字串，因此自顶向下的语法分析总是最左推导。</p>
+</blockquote>
+<p>这个连接讲的非常清楚，可以直接看视频。</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084344378.png" alt="image-20220725084344378"></p>
+<h2 id="自顶向下语法分析的通用形式"><a href="#自顶向下语法分析的通用形式" class="headerlink" title="自顶向下语法分析的通用形式"></a>自顶向下语法分析的通用形式</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084542735.png" alt="image-20220725084542735"></p>
+<h2 id="预测分析"><a href="#预测分析" class="headerlink" title="预测分析"></a>预测分析</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084642107.png" alt="image-20220725084642107"></p>
+<h1 id="文法转换"><a href="#文法转换" class="headerlink" title="文法转换"></a>文法转换</h1><p>不是所有文法适合自定线下分析</p>
+<h2 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084803497.png" alt="image-20220725084803497"></p>
+<p>匹配abc的第一个a的时候，有两个可能的候选项。</p>
+<h2 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725085030543.png" alt="image-20220725085030543" style="zoom:80%;"></p>
+<p>左递归文法会使得递归下降分析器陷入无限循环。因此需要消除左递归</p>
+<h2 id="消除直接左递归"><a href="#消除直接左递归" class="headerlink" title="消除直接左递归"></a>消除直接左递归</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725085616801.png" alt="image-20220725085616801"></p>
+<h2 id="消除间接左递归"><a href="#消除间接左递归" class="headerlink" title="消除间接左递归"></a>消除间接左递归</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725085917479.png" alt="image-20220725085917479"></p>
+<p>把S的定义带入到下面的S中，转换成直接左递归的形式，再用直接左递归的消除方法来消除直接左递归。</p>
+<h2 id="提取左公因子"><a href="#提取左公因子" class="headerlink" title="提取左公因子"></a>提取左公因子</h2><p>文法中的某个符号的多个候选式存在公共前缀的情况</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725090839053.png" alt="image-20220725090839053"></p>
+<h2 id="消除左递归和回溯的方法-※"><a href="#消除左递归和回溯的方法-※" class="headerlink" title="消除左递归和回溯的方法(※)"></a>消除左递归和回溯的方法(※)</h2><h1 id="LL-1-文法"><a href="#LL-1-文法" class="headerlink" title="LL(1)文法"></a>LL(1)文法</h1><p>递归下降分析会遇到回溯，会影响效率，如果能预测每一步，就可以避免回溯。LL(1)文法可以使用预测分析技术。</p>
+<h2 id="S-文法"><a href="#S-文法" class="headerlink" title="S_文法"></a>S_文法</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222323392.png" alt="image-20220725222323392" style="zoom:80%;"></p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222535036.png" alt="image-20220725222535036"></p>
+<p>在上面的例子中，有两个输入字串，第一个使用空产生式没问题，第二个就有问题。但是不是所有都能使用。</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222705682.png" alt="image-20220725222705682"></p>
+<h2 id="非终结符的后继符号集"><a href="#非终结符的后继符号集" class="headerlink" title="非终结符的后继符号集"></a>非终结符的后继符号集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222900128.png" alt="image-20220725222900128" style="zoom: 33%;"></p>
+<h2 id="产生式的可选集"><a href="#产生式的可选集" class="headerlink" title="产生式的可选集"></a>产生式的可选集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725224732986.png" alt="image-20220725224732986" style="zoom: 33%;"></p>
+<h2 id="串首终结符集"><a href="#串首终结符集" class="headerlink" title="串首终结符集"></a>串首终结符集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725224941060.png" alt="image-20220725224941060"></p>
+<blockquote>
+<p>写成=&gt;*指可以通过n步推导出来，n可以为0</p>
+</blockquote>
+<h2 id="LL-1-文法-1"><a href="#LL-1-文法-1" class="headerlink" title="LL(1)文法"></a>LL(1)文法</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726104545972.png" alt="image-20220726104545972"></p>
+<blockquote>
+<p>由于LL(1)文法中同一非终结符的各个候选式的SELECT集互不相交，因此可以构造预测分析器</p>
+<ul>
+<li>第一个L表示的是从左向右扫描输入</li>
+<li>第二个L表示的是产生最左推导</li>
+<li>“1”表示在每一步中只需要向前看一个输入符号来决定一个输入符号来决定语法分析动作</li>
+</ul>
+</blockquote>
+<h1 id="FIRST集和FOLLOW集的计算"><a href="#FIRST集和FOLLOW集的计算" class="headerlink" title="FIRST集和FOLLOW集的计算"></a>FIRST集和FOLLOW集的计算</h1><h2 id="计算（一个）符号X的FIRST-X"><a href="#计算（一个）符号X的FIRST-X" class="headerlink" title="计算（一个）符号X的FIRST(X)"></a>计算（一个）符号X的FIRST(X)</h2><blockquote>
+<p>FIRST(X)：可以从X推导出的所有串首终结符构成的集合</p>
+<p>如果X=&gt;*ε，那么ε∈FIRST(X)</p>
+</blockquote>
+<p>先看一个例子，注意概念抽象，例子需要着重理解</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726105546013.png" alt="image-20220726105546013"></p>
+<p>需要着重理解非终结符的FIRST集的含义。其实就是说这个非终结符能够推导出什么终结符，它们的集合就是FIRST集。如果推导出的是非终结符，那么就和推导出的第一个非终结符的FIRST集相同。</p>
+<h2 id="计算串X-1-X-2-X-n-的FIRST集"><a href="#计算串X-1-X-2-X-n-的FIRST集" class="headerlink" title="计算串X_{1}X_{2}...X_{n}的FIRST集"></a>计算串<script type="math/tex">X_{1}X_{2}...X_{n}</script>的FIRST集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726110207539.png" alt="image-20220726110207539"></p>
+<p>就是加入最左的一个非终结符的FIRST集合，但是如果这个非终结符可以推导出ε的话，那么就考虑它右边的非终结符。</p>
+<h2 id="计算非终结符A的FOLLOW-A"><a href="#计算非终结符A的FOLLOW-A" class="headerlink" title="计算非终结符A的FOLLOW(A)"></a>计算非终结符A的FOLLOW(A)</h2><blockquote>
+<p>FOLLOW(A)：可能在耨个句型中紧跟在A后面的终结符的集合</p>
+<p>如果A是某个句型的最右符号，那么将结束符“$”加入到FOLLOW(A)中</p>
+</blockquote>
+<p>文法的开始符号本身就是一个句型，所以需要把$加入到开始符号的FOLLOW集中。同时终结符是不考虑空串ε的，所以第一个产生式的T后面跟了E‘，因此T的FOLLOW中应该有E’的FIRST集中的终结符（不包括ε）</p>
+<p>这一讲比较难理解，建议看看视频理解</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726113653932.png" alt="image-20220726113653932"></p>
+<p><strong>算法如下</strong></p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726113636491.png" alt="image-20220726113636491"></p>
+<p>这个算法最好在理解的基础上记忆，最好的办法就是能够做一个例题。</p>
+<h2 id="例：表达式文法各产生式的SELECT集"><a href="#例：表达式文法各产生式的SELECT集" class="headerlink" title="例：表达式文法各产生式的SELECT集"></a>例：表达式文法各产生式的SELECT集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726143426088.png" alt="image-20220726143426088"></p>
+<p>第（2）个表达式和第（3）个表达式有相同的左部E‘，但是它们的SELECT集不相交，第（5）个表达式和第（6）个表达式也是如此。因此上面的文法是LL(1)文法。构造预测分析表如下</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726143805504.png" alt="image-20220726143805504"></p>
+<h2 id="LL-1）文法的分析方法"><a href="#LL-1）文法的分析方法" class="headerlink" title="LL(1）文法的分析方法"></a>LL(1）文法的分析方法</h2><ul>
+<li>递归的预测分析法</li>
+<li>非递归的预测分析法</li>
+</ul>
+<h1 id="递归的预测分析法"><a href="#递归的预测分析法" class="headerlink" title="递归的预测分析法"></a>递归的预测分析法</h1><blockquote>
+<p>递归的预测分析法是指：在递归下降分析中，编写每一个非终结符对应的过程的时候，根据预测分析表进行产生式的选择</p>
+</blockquote>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726144719741.png" alt="image-20220726144719741"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 编译原理</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/" rel="prev" title="黑标签统计安排">
+      <i class="fa fa-chevron-left"></i> 黑标签统计安排
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E7%9A%84%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">自顶向下的分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B7%A6%E6%8E%A8%E5%AF%BC"><span class="nav-number">1.1.</span> <span class="nav-text">最左推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%8F%B3%E6%8E%A8%E5%AF%BC"><span class="nav-number">1.2.</span> <span class="nav-text">最右推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B7%A6%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%9C%80%E5%8F%B3%E6%8E%A8%E5%AF%BC%E7%9A%84%E5%94%AF%E4%B8%80%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">最左推导和最右推导的唯一性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90%E7%9A%84%E9%80%9A%E7%94%A8%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">自顶向下语法分析的通用形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E6%B5%8B%E5%88%86%E6%9E%90"><span class="nav-number">1.5.</span> <span class="nav-text">预测分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E6%B3%95%E8%BD%AC%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">文法转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%981"><span class="nav-number">2.1.</span> <span class="nav-text">问题1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%982"><span class="nav-number">2.2.</span> <span class="nav-text">问题2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E9%99%A4%E7%9B%B4%E6%8E%A5%E5%B7%A6%E9%80%92%E5%BD%92"><span class="nav-number">2.3.</span> <span class="nav-text">消除直接左递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E9%99%A4%E9%97%B4%E6%8E%A5%E5%B7%A6%E9%80%92%E5%BD%92"><span class="nav-number">2.4.</span> <span class="nav-text">消除间接左递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E5%8F%96%E5%B7%A6%E5%85%AC%E5%9B%A0%E5%AD%90"><span class="nav-number">2.5.</span> <span class="nav-text">提取左公因子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E9%99%A4%E5%B7%A6%E9%80%92%E5%BD%92%E5%92%8C%E5%9B%9E%E6%BA%AF%E7%9A%84%E6%96%B9%E6%B3%95-%E2%80%BB"><span class="nav-number">2.6.</span> <span class="nav-text">消除左递归和回溯的方法(※)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LL-1-%E6%96%87%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">LL(1)文法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#S-%E6%96%87%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">S_文法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E7%BB%88%E7%BB%93%E7%AC%A6%E7%9A%84%E5%90%8E%E7%BB%A7%E7%AC%A6%E5%8F%B7%E9%9B%86"><span class="nav-number">3.2.</span> <span class="nav-text">非终结符的后继符号集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A7%E7%94%9F%E5%BC%8F%E7%9A%84%E5%8F%AF%E9%80%89%E9%9B%86"><span class="nav-number">3.3.</span> <span class="nav-text">产生式的可选集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B2%E9%A6%96%E7%BB%88%E7%BB%93%E7%AC%A6%E9%9B%86"><span class="nav-number">3.4.</span> <span class="nav-text">串首终结符集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LL-1-%E6%96%87%E6%B3%95-1"><span class="nav-number">3.5.</span> <span class="nav-text">LL(1)文法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FIRST%E9%9B%86%E5%92%8CFOLLOW%E9%9B%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="nav-number">4.</span> <span class="nav-text">FIRST集和FOLLOW集的计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%EF%BC%88%E4%B8%80%E4%B8%AA%EF%BC%89%E7%AC%A6%E5%8F%B7X%E7%9A%84FIRST-X"><span class="nav-number">4.1.</span> <span class="nav-text">计算（一个）符号X的FIRST(X)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E4%B8%B2X-1-X-2-X-n-%E7%9A%84FIRST%E9%9B%86"><span class="nav-number">4.2.</span> <span class="nav-text">计算串X_{1}X_{2}...X_{n}的FIRST集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E9%9D%9E%E7%BB%88%E7%BB%93%E7%AC%A6A%E7%9A%84FOLLOW-A"><span class="nav-number">4.3.</span> <span class="nav-text">计算非终结符A的FOLLOW(A)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%EF%BC%9A%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%96%87%E6%B3%95%E5%90%84%E4%BA%A7%E7%94%9F%E5%BC%8F%E7%9A%84SELECT%E9%9B%86"><span class="nav-number">4.4.</span> <span class="nav-text">例：表达式文法各产生式的SELECT集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LL-1%EF%BC%89%E6%96%87%E6%B3%95%E7%9A%84%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95"><span class="nav-number">4.5.</span> <span class="nav-text">LL(1）文法的分析方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E7%9A%84%E9%A2%84%E6%B5%8B%E5%88%86%E6%9E%90%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">递归的预测分析法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Puitar</p>
+  <div class="site-description" itemprop="description">博客萌新时不时送来没什么软用的文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/PUITAR" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;PUITAR" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/1831979740@qq.com" title="E-Mail → 1831979740@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Puitar</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

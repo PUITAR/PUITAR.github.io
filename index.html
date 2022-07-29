@@ -165,6 +165,171 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Puitar">
+      <meta itemprop="description" content="博客萌新时不时送来没什么软用的文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Puitar's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/" class="post-title-link" itemprop="url">编译原理学习笔记4</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-07-25 08:18:28" itemprop="dateCreated datePublished" datetime="2022-07-25T08:18:28+08:00">2022-07-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-26 15:55:03" itemprop="dateModified" datetime="2022-07-26T15:55:03+08:00">2022-07-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/courses-learning/" itemprop="url" rel="index"><span itemprop="name">courses-learning</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/courses-learning/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">编译原理笔记</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="自顶向下的分析"><a href="#自顶向下的分析" class="headerlink" title="自顶向下的分析"></a>自顶向下的分析</h1><blockquote>
+<ul>
+<li>从分析树的顶部（根节点）向底部（叶节点）方向构造分析树</li>
+<li>可以看成从文法开始符号S推导出词串w的过程</li>
+</ul>
+</blockquote>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725082423234.png" alt="image-20220725082423234"></p>
+<ul>
+<li>在每一步推导中，都需要做两个选择<ul>
+<li>替换当前句型中哪一个非终结符</li>
+<li>用该非终结符的哪一个候选式进行替换</li>
+</ul>
+</li>
+</ul>
+<h2 id="最左推导"><a href="#最左推导" class="headerlink" title="最左推导"></a>最左推导</h2><p>在最左推导中，总是选择每个句型的最左非终结符进行替换</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725082742910.png" alt="image-20220725082742910"></p>
+<p>最右归约过程是最左推导的逆过程。</p>
+<h2 id="最右推导"><a href="#最右推导" class="headerlink" title="最右推导"></a>最右推导</h2><p>最右推导，总是选择每个句型的最右非终结符进行替换</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725083615348.png" alt="image-20220725083615348" style="zoom: 50%;"></p>
+<h2 id="最左推导和最右推导的唯一性"><a href="#最左推导和最右推导的唯一性" class="headerlink" title="最左推导和最右推导的唯一性"></a>最左推导和最右推导的唯一性</h2><p>在推导的过程中，可以选择不同的非终结符，因此推导不一定具备唯一性。</p>
+<p>但是最左推导和最右推导总是选择最左或者最右的非终结符进行推导，因此最左推导和最右推导是唯一的。</p>
+<blockquote>
+<p>由于分析器总是自左向右扫描字串，因此自顶向下的语法分析总是最左推导。</p>
+</blockquote>
+<p>这个连接讲的非常清楚，可以直接看视频。</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084344378.png" alt="image-20220725084344378"></p>
+<h2 id="自顶向下语法分析的通用形式"><a href="#自顶向下语法分析的通用形式" class="headerlink" title="自顶向下语法分析的通用形式"></a>自顶向下语法分析的通用形式</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084542735.png" alt="image-20220725084542735"></p>
+<h2 id="预测分析"><a href="#预测分析" class="headerlink" title="预测分析"></a>预测分析</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084642107.png" alt="image-20220725084642107"></p>
+<h1 id="文法转换"><a href="#文法转换" class="headerlink" title="文法转换"></a>文法转换</h1><p>不是所有文法适合自定线下分析</p>
+<h2 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725084803497.png" alt="image-20220725084803497"></p>
+<p>匹配abc的第一个a的时候，有两个可能的候选项。</p>
+<h2 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725085030543.png" alt="image-20220725085030543" style="zoom:80%;"></p>
+<p>左递归文法会使得递归下降分析器陷入无限循环。因此需要消除左递归</p>
+<h2 id="消除直接左递归"><a href="#消除直接左递归" class="headerlink" title="消除直接左递归"></a>消除直接左递归</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725085616801.png" alt="image-20220725085616801"></p>
+<h2 id="消除间接左递归"><a href="#消除间接左递归" class="headerlink" title="消除间接左递归"></a>消除间接左递归</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725085917479.png" alt="image-20220725085917479"></p>
+<p>把S的定义带入到下面的S中，转换成直接左递归的形式，再用直接左递归的消除方法来消除直接左递归。</p>
+<h2 id="提取左公因子"><a href="#提取左公因子" class="headerlink" title="提取左公因子"></a>提取左公因子</h2><p>文法中的某个符号的多个候选式存在公共前缀的情况</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725090839053.png" alt="image-20220725090839053"></p>
+<h2 id="消除左递归和回溯的方法-※"><a href="#消除左递归和回溯的方法-※" class="headerlink" title="消除左递归和回溯的方法(※)"></a>消除左递归和回溯的方法(※)</h2><h1 id="LL-1-文法"><a href="#LL-1-文法" class="headerlink" title="LL(1)文法"></a>LL(1)文法</h1><p>递归下降分析会遇到回溯，会影响效率，如果能预测每一步，就可以避免回溯。LL(1)文法可以使用预测分析技术。</p>
+<h2 id="S-文法"><a href="#S-文法" class="headerlink" title="S_文法"></a>S_文法</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222323392.png" alt="image-20220725222323392" style="zoom:80%;"></p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222535036.png" alt="image-20220725222535036"></p>
+<p>在上面的例子中，有两个输入字串，第一个使用空产生式没问题，第二个就有问题。但是不是所有都能使用。</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222705682.png" alt="image-20220725222705682"></p>
+<h2 id="非终结符的后继符号集"><a href="#非终结符的后继符号集" class="headerlink" title="非终结符的后继符号集"></a>非终结符的后继符号集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725222900128.png" alt="image-20220725222900128" style="zoom: 33%;"></p>
+<h2 id="产生式的可选集"><a href="#产生式的可选集" class="headerlink" title="产生式的可选集"></a>产生式的可选集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725224732986.png" alt="image-20220725224732986" style="zoom: 33%;"></p>
+<h2 id="串首终结符集"><a href="#串首终结符集" class="headerlink" title="串首终结符集"></a>串首终结符集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220725224941060.png" alt="image-20220725224941060"></p>
+<blockquote>
+<p>写成=&gt;*指可以通过n步推导出来，n可以为0</p>
+</blockquote>
+<h2 id="LL-1-文法-1"><a href="#LL-1-文法-1" class="headerlink" title="LL(1)文法"></a>LL(1)文法</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726104545972.png" alt="image-20220726104545972"></p>
+<blockquote>
+<p>由于LL(1)文法中同一非终结符的各个候选式的SELECT集互不相交，因此可以构造预测分析器</p>
+<ul>
+<li>第一个L表示的是从左向右扫描输入</li>
+<li>第二个L表示的是产生最左推导</li>
+<li>“1”表示在每一步中只需要向前看一个输入符号来决定一个输入符号来决定语法分析动作</li>
+</ul>
+</blockquote>
+<h1 id="FIRST集和FOLLOW集的计算"><a href="#FIRST集和FOLLOW集的计算" class="headerlink" title="FIRST集和FOLLOW集的计算"></a>FIRST集和FOLLOW集的计算</h1><h2 id="计算（一个）符号X的FIRST-X"><a href="#计算（一个）符号X的FIRST-X" class="headerlink" title="计算（一个）符号X的FIRST(X)"></a>计算（一个）符号X的FIRST(X)</h2><blockquote>
+<p>FIRST(X)：可以从X推导出的所有串首终结符构成的集合</p>
+<p>如果X=&gt;*ε，那么ε∈FIRST(X)</p>
+</blockquote>
+<p>先看一个例子，注意概念抽象，例子需要着重理解</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726105546013.png" alt="image-20220726105546013"></p>
+<p>需要着重理解非终结符的FIRST集的含义。其实就是说这个非终结符能够推导出什么终结符，它们的集合就是FIRST集。如果推导出的是非终结符，那么就和推导出的第一个非终结符的FIRST集相同。</p>
+<h2 id="计算串X-1-X-2-X-n-的FIRST集"><a href="#计算串X-1-X-2-X-n-的FIRST集" class="headerlink" title="计算串X_{1}X_{2}...X_{n}的FIRST集"></a>计算串<script type="math/tex">X_{1}X_{2}...X_{n}</script>的FIRST集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726110207539.png" alt="image-20220726110207539"></p>
+<p>就是加入最左的一个非终结符的FIRST集合，但是如果这个非终结符可以推导出ε的话，那么就考虑它右边的非终结符。</p>
+<h2 id="计算非终结符A的FOLLOW-A"><a href="#计算非终结符A的FOLLOW-A" class="headerlink" title="计算非终结符A的FOLLOW(A)"></a>计算非终结符A的FOLLOW(A)</h2><blockquote>
+<p>FOLLOW(A)：可能在耨个句型中紧跟在A后面的终结符的集合</p>
+<p>如果A是某个句型的最右符号，那么将结束符“$”加入到FOLLOW(A)中</p>
+</blockquote>
+<p>文法的开始符号本身就是一个句型，所以需要把$加入到开始符号的FOLLOW集中。同时终结符是不考虑空串ε的，所以第一个产生式的T后面跟了E‘，因此T的FOLLOW中应该有E’的FIRST集中的终结符（不包括ε）</p>
+<p>这一讲比较难理解，建议看看视频理解</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726113653932.png" alt="image-20220726113653932"></p>
+<p><strong>算法如下</strong></p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726113636491.png" alt="image-20220726113636491"></p>
+<p>这个算法最好在理解的基础上记忆，最好的办法就是能够做一个例题。</p>
+<h2 id="例：表达式文法各产生式的SELECT集"><a href="#例：表达式文法各产生式的SELECT集" class="headerlink" title="例：表达式文法各产生式的SELECT集"></a>例：表达式文法各产生式的SELECT集</h2><p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726143426088.png" alt="image-20220726143426088"></p>
+<p>第（2）个表达式和第（3）个表达式有相同的左部E‘，但是它们的SELECT集不相交，第（5）个表达式和第（6）个表达式也是如此。因此上面的文法是LL(1)文法。构造预测分析表如下</p>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726143805504.png" alt="image-20220726143805504"></p>
+<h2 id="LL-1）文法的分析方法"><a href="#LL-1）文法的分析方法" class="headerlink" title="LL(1）文法的分析方法"></a>LL(1）文法的分析方法</h2><ul>
+<li>递归的预测分析法</li>
+<li>非递归的预测分析法</li>
+</ul>
+<h1 id="递归的预测分析法"><a href="#递归的预测分析法" class="headerlink" title="递归的预测分析法"></a>递归的预测分析法</h1><blockquote>
+<p>递归的预测分析法是指：在递归下降分析中，编写每一个非终结符对应的过程的时候，根据预测分析表进行产生式的选择</p>
+</blockquote>
+<p><img src="/2022/07/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04/image-20220726144719741.png" alt="image-20220726144719741"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -188,10 +353,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-07-24 12:09:02 / Modified: 12:15:18" itemprop="dateCreated datePublished" datetime="2022-07-24T12:09:02+08:00">2022-07-24</time>
+              <time title="Created: 2022-07-24 12:09:02" itemprop="dateCreated datePublished" datetime="2022-07-24T12:09:02+08:00">2022-07-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-07-30 01:16:59" itemprop="dateModified" datetime="2022-07-30T01:16:59+08:00">2022-07-30</time>
+              </span>
 
           
 
@@ -204,14 +375,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="黑标签统计"><a href="#黑标签统计" class="headerlink" title="黑标签统计"></a>黑标签统计</h1><h2 id="实验安排（更新）"><a href="#实验安排（更新）" class="headerlink" title="实验安排（更新）"></a>实验安排（更新）</h2><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/image-20220724121024652.png" alt="image-20220724121024652"></p>
+          <h1 id="黑标签统计"><a href="#黑标签统计" class="headerlink" title="黑标签统计"></a>黑标签统计</h1><h2 id="实验安排（更新）"><a href="#实验安排（更新）" class="headerlink" title="实验安排（更新）"></a>实验安排（更新）</h2><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/黑标签统计.png" alt></p>
 <h2 id="基于内存版本"><a href="#基于内存版本" class="headerlink" title="基于内存版本"></a>基于内存版本</h2><p>基于内存版本的黑标签统计，在这里不做过多介绍。项目地址</p>
 <blockquote>
 <p>[基于内存黑标签统计]: <a target="_blank" rel="noopener" href="https://github.com/PUITAR/BlackLabelCount">https://github.com/PUITAR/BlackLabelCount</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:PUITAR/BlackLabelCount.git</span><br></pre></td></tr></table></figure>
 </blockquote>
-<h2 id="基于磁盘版本"><a href="#基于磁盘版本" class="headerlink" title="基于磁盘版本"></a>基于磁盘版本</h2><p>后续将会进行基于磁盘的黑标签统计实验。这里先使用<code>RockDB</code></p>
-<h3 id="RockDB的使用"><a href="#RockDB的使用" class="headerlink" title="RockDB的使用"></a>RockDB的使用</h3><p>待更新。。</p>
+<h2 id="基于磁盘版本"><a href="#基于磁盘版本" class="headerlink" title="基于磁盘版本"></a>基于磁盘版本</h2><p>由于后续实验需要一个基准baseline，因此这里使用<code>RocksDB</code>作为基准工作的基础。</p>
+<h3 id="1-0版本"><a href="#1-0版本" class="headerlink" title="1_0版本"></a>1_0版本</h3><blockquote>
+<p>版本设计思路分为两个模块：</p>
+<ul>
+<li>小世界模型图生成</li>
+<li>小世界模型图的读取和计算</li>
+</ul>
+</blockquote>
+<h4 id="小世界模型图的生成"><a href="#小世界模型图的生成" class="headerlink" title="小世界模型图的生成"></a>小世界模型图的生成</h4><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/* `Watts-Strogatz`小世界网络生成算法伪码 */</span><br><span class="line">Function SmallWorldNetwork(n, k, p)</span><br><span class="line">Output: 小世界网络图</span><br><span class="line">Require: k是偶数且p∈[0, 1]</span><br><span class="line">begin</span><br><span class="line">	procedure 参数初始化</span><br><span class="line">    	n: 网络节点总数;</span><br><span class="line">        k: 每个节点的边连接数;</span><br><span class="line">        p: 每条边发生重连的概率;</span><br><span class="line">	end</span><br><span class="line">    procedure 初始边连接</span><br><span class="line">    	for 网络中的每一个结点v do</span><br><span class="line">    		将其与所有距离小于等于k/2的其他结点相连; // 要求k为偶数</span><br><span class="line">    	end</span><br><span class="line">    end</span><br><span class="line">    procedure 已有边重连</span><br><span class="line">    	for 网络中的每一条边e do</span><br><span class="line">    		以概率p重连此边; // 要求不能有自环或者重复边</span><br><span class="line">    	end</span><br><span class="line">    end</span><br><span class="line">end 	</span><br></pre></td></tr></table></figure>
+<p>生成的算法如上，但是实验还是先用已有数据集。</p>
+<h4 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h4><p>和前面内存版本一样，只是获取一阶好友的方式由从内存取到从磁盘取。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @description: 通过点的id从数据库获取一阶好友</span></span><br><span class="line"><span class="comment"> * @param &lt;str_t&gt; k 传入点id作为键</span></span><br><span class="line"><span class="comment"> * @param &lt;DB*&gt; db 传入数据库指针</span></span><br><span class="line"><span class="comment"> * @return &lt;*&gt; 返回一节好友的数组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="type">vec_t</span> <span class="title">GetFriends1Vec</span><span class="params">(<span class="type">str_t</span> k, DB* db)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">str_t</span> v;</span><br><span class="line">    <span class="type">vec_t</span> vec;</span><br><span class="line">    db-&gt;<span class="built_in">Get</span>(<span class="built_in">ReadOptions</span>(), k, &amp;v);</span><br><span class="line">    <span class="function">stringstream <span class="title">ss</span><span class="params">(v)</span></span>;</span><br><span class="line">    <span class="keyword">while</span> (ss &gt;&gt; v)</span><br><span class="line">        vec.<span class="built_in">push_back</span>(v);</span><br><span class="line">    <span class="keyword">return</span> vec;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于在数据库中以字节流的形式（字符串）存储，所以需要用<code>stringstream</code>读出每一个一阶好友。</p>
+<p>（暂时还没上多线程版本）</p>
+<h2 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h2><h3 id="HyperANF"><a href="#HyperANF" class="headerlink" title="HyperANF"></a>HyperANF</h3><blockquote>
+<p>HyperANF_ Approximating the Neighbourhood Function of Very Large Graphs  on a Budget</p>
+</blockquote>
+<h3 id="Triangle-Enumeration"><a href="#Triangle-Enumeration" class="headerlink" title="Triangle Enumeration"></a>Triangle Enumeration</h3><blockquote>
+<p>Improving I/O Complexity of Triangle Enumeration</p>
+</blockquote>
+<p>ICDE2023-VEND-524(RevisionOf-37)-C</p>
+<p>先看这篇文章Introduction部分Algorithm 2 Trigon的原理，有助于理解</p>
+<h2 id="GraphChi"><a href="#GraphChi" class="headerlink" title="GraphChi"></a>GraphChi</h2><p>（挂起）</p>
 
       
     </div>
@@ -1257,110 +1449,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://puitar.github.io/2022/06/29/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1-%E6%B5%81%E6%B0%B4%E7%81%AF%EF%BC%88BSP%E7%89%88%E6%9C%AC%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Puitar">
-      <meta itemprop="description" content="博客萌新时不时送来没什么软用的文章">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Puitar's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/29/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1-%E6%B5%81%E6%B0%B4%E7%81%AF%EF%BC%88BSP%E7%89%88%E6%9C%AC%EF%BC%89/" class="post-title-link" itemprop="url">八位数码管+流水灯（BSP版本）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-06-29 15:06:45" itemprop="dateCreated datePublished" datetime="2022-06-29T15:06:45+08:00">2022-06-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-30 08:09:48" itemprop="dateModified" datetime="2022-06-30T08:09:48+08:00">2022-06-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/STC-B/" itemprop="url" rel="index"><span itemprop="name">STC-B</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/STC-B/%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">基础编程</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="八位数码管-流水灯（BSP版本）"><a href="#八位数码管-流水灯（BSP版本）" class="headerlink" title="八位数码管+流水灯（BSP版本）"></a>八位数码管+流水灯（BSP版本）</h1><p>因为不是专业的单片机专家，所以既然提供了带有BSP库的版本，自然就用BSP版本。这里介绍一下BSP版本的代码。</p>
-<h2 id="文件说明"><a href="#文件说明" class="headerlink" title="文件说明"></a>文件说明</h2><p><img src="/2022/06/29/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1-%E6%B5%81%E6%B0%B4%E7%81%AF%EF%BC%88BSP%E7%89%88%E6%9C%AC%EF%BC%89/image-20220629151028369.png" alt="image-20220629151028369"></p>
-<p>文件的主题部分如上图，除了main函数以外，我们看到<code>STC15F2K60S2.H</code>和前面一样是端口的地址定义的头文件</p>
-<p>然后是<code>displayer.h</code>头文件，</p>
-<blockquote>
-<p><img src="/2022/06/29/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1-%E6%B5%81%E6%B0%B4%E7%81%AF%EF%BC%88BSP%E7%89%88%E6%9C%AC%EF%BC%89/image-20220629151443888.png" alt="image-20220629151443888"></p>
-<p>这一部分就是显示功能的相关接口，STC单片机上的显示主要是数码管和LED灯。</p>
-<ul>
-<li><code>DisplayerInit</code>是显示模块初始化函数，会对对应的函数的硬件，以及相关针脚进行初始化，具体可以看看前面的博文，就是作P0、P2端口等以及其他相关寄存器的初始化</li>
-<li><code>SetDisplayerArea</code>是设置有效显示区域，根据[begin, end]设置数码管显示范围。如果begin = 0，end = 7，显示的就是所有的数码管。但是范围不仅仅是这样，如果你的end大于7，比如是255，这也是能够正常工作的，只是硬件地址只有0-7，但是其他的无效地址会消耗一定的时间，这样总体显示时间变长了，由于是动态扫描的，所以8个有效数码管显示会出现闪烁，亮度下降的现象。</li>
-<li><code>Seg7Print</code>参数是输入8个要显示的数据，这个可以根据输入的参数作为在<code>decode_table[]</code>中的索引，可以显示对应灯管的组合</li>
-<li><code>LedPrint</code>控制8个数码管开关，一个位对应一个数码管，1是亮，0是暗。</li>
-</ul>
-</blockquote>
-<p>还有一个文件是<code>sys.h</code>，这个是用来执行系统级别的操作，旨在对于用户以及系统的事件做出响应</p>
-<blockquote>
-<p><img src="/2022/06/29/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1-%E6%B5%81%E6%B0%B4%E7%81%AF%EF%BC%88BSP%E7%89%88%E6%9C%AC%EF%BC%89/image-20220629155718409.png" alt="image-20220629155718409"></p>
-<p><img src="/2022/06/29/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1-%E6%B5%81%E6%B0%B4%E7%81%AF%EF%BC%88BSP%E7%89%88%E6%9C%AC%EF%BC%89/image-20220629155747086.png" alt="image-20220629155747086"></p>
-<p>上面是系统相关的函数，注释写的很清楚，主要是初始化系统，并且定义了事件，以及响应事件的函数。这里不详细展开，用到的时候再进行说明。</p>
-</blockquote>
-<p>上面头文件涉及的函数，在<code>STCBSP_V3.6.LIB</code>静态库中进行定义，因此可以直接使用。</p>
-<p><img src="/2022/06/29/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1-%E6%B5%81%E6%B0%B4%E7%81%AF%EF%BC%88BSP%E7%89%88%E6%9C%AC%EF%BC%89/image-20220629154235232.png" alt="image-20220629154235232"></p>
-<h2 id="主函数逻辑说明"><a href="#主函数逻辑说明" class="headerlink" title="主函数逻辑说明"></a>主函数逻辑说明</h2><p><img src="/2022/06/29/%E5%85%AB%E4%BD%8D%E6%95%B0%E7%A0%81%E7%AE%A1-%E6%B5%81%E6%B0%B4%E7%81%AF%EF%BC%88BSP%E7%89%88%E6%9C%AC%EF%BC%89/image-20220629160509448.png" alt="image-20220629160509448" style="zoom:50%;"></p>
-<p><code>main.c</code>中需要将<code>SysClock</code>设置成和下载的<code>IRC</code>一样的频率</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 显示数码管和LED等需要的头文件，其中前面两个是必须的 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;STC15F2K60S2.H&quot;</span>        <span class="comment">// 端口地址定义</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;sys.H&quot;</span>                 <span class="comment">// 使用系统的函数定义</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;displayer.H&quot;</span> 			 <span class="comment">// 数码管显示</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 必须。定义系统工作时钟频率(Hz)，用户要修改成和实际工作频率(下载时)一致，如上图 */</span></span><br><span class="line">code <span class="type">unsigned</span> <span class="type">long</span> SysClock=<span class="number">11059200</span>;  <span class="comment">// code是告诉单片机这个变量的值刷写入ROM，不再改变</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 用户可以进行自定义数码管显示，主要是通过decode_table */</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _displayer_H_                         </span></span><br><span class="line">code <span class="type">char</span> decode_table[]=&#123;			<span class="comment">/* 值 */</span></span><br><span class="line">    <span class="number">0x3f</span>,							<span class="comment">// 0		</span></span><br><span class="line">    <span class="number">0x06</span>,							<span class="comment">// 1			 </span></span><br><span class="line">    <span class="number">0x5b</span>,							<span class="comment">// 2			 </span></span><br><span class="line">    <span class="number">0x4f</span>,							<span class="comment">// 3			 											</span></span><br><span class="line">    <span class="number">0x66</span>,							<span class="comment">// 4			 									</span></span><br><span class="line">    <span class="number">0x6d</span>,							<span class="comment">// 5			 											</span></span><br><span class="line">    <span class="number">0x7d</span>,							<span class="comment">// 6			 		</span></span><br><span class="line">    <span class="number">0x07</span>,							<span class="comment">// 7			 </span></span><br><span class="line">    <span class="number">0x7f</span>,							<span class="comment">// 8		     </span></span><br><span class="line">    <span class="number">0x6f</span>,							<span class="comment">// 9			 </span></span><br><span class="line">    <span class="number">0x00</span>,							<span class="comment">// 无</span></span><br><span class="line">    <span class="number">0x08</span>,							<span class="comment">// 下-</span></span><br><span class="line">    <span class="number">0x40</span>,							<span class="comment">// 中-</span></span><br><span class="line">    <span class="number">0x01</span>, 							<span class="comment">// 上-</span></span><br><span class="line">    <span class="number">0x41</span>, 							<span class="comment">// 上中-	</span></span><br><span class="line">    <span class="number">0x48</span>,                 			<span class="comment">// 中下-</span></span><br><span class="line">    <span class="number">0x3f</span>|<span class="number">0x80</span>,						<span class="comment">// 带小数点0		</span></span><br><span class="line">    <span class="number">0x06</span>|<span class="number">0x80</span>,						<span class="comment">// 带小数点1			</span></span><br><span class="line">&#125;;  <span class="comment">// 也可以采用上面的拼接方式进行段选信息的构造</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* LED显示函数，可回调 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">my100mS_callback</span><span class="params">()</span></span><br><span class="line">&#123; </span><br><span class="line">    <span class="comment">// 定义一个LED寄存器类型</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> a;</span><br><span class="line">    <span class="comment">// LED显示左移</span></span><br><span class="line">    <span class="keyword">if</span>(a != <span class="number">0</span>) a=a&lt;&lt;<span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 超出了，重置</span></span><br><span class="line">    <span class="keyword">else</span> a=<span class="number">0x01</span>;</span><br><span class="line">    <span class="comment">// 显示寄存器值</span></span><br><span class="line">    LedPrint(a);</span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 这里仅仅进行一次打印操作 </span></span><br><span class="line"><span class="comment">  	 * 但是每一次a的值从上一次继承下来，实现了移位操作</span></span><br><span class="line"><span class="comment">  	 * a是局部变量</span></span><br><span class="line"><span class="comment">  	 * 从局部变量声明的时候，它就在堆栈空间了，而不是调用函数的时候，才让它入栈的。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span> </span><br><span class="line">&#123; </span><br><span class="line">    <span class="comment">// 使用显示设备，需要进行初始化</span></span><br><span class="line">    DisplayerInit();  </span><br><span class="line">    <span class="comment">// 设置显示范围为0-64，实际有效只有0-7，因此有无效地址消耗时间，数码管会出现闪烁变暗</span></span><br><span class="line">    SetDisplayerArea(<span class="number">0</span>,<span class="number">64</span>);	</span><br><span class="line">    <span class="comment">// 八个数码管分别显示1-8</span></span><br><span class="line">    Seg7Print(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>);	</span><br><span class="line">    <span class="comment">// 利用回调函数，每100ms，就调用一次函数，这么做是为了节省栈空间，因为单片机的栈很小</span></span><br><span class="line">    SetEventCallBack(enumEventSys100mS, my100mS_callback);</span><br><span class="line">    <span class="comment">/* 这里是初始化系统并循环等待事件，如果没有下面这部分，程序运行结束，板子就死了 */</span></span><br><span class="line">    MySTC_Init();	    </span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>) &#123; </span><br><span class="line">        MySTC_OS();    </span><br><span class="line">    &#125;	             </span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
-<h2 id="C语言版本"><a href="#C语言版本" class="headerlink" title="C语言版本"></a>C语言版本</h2><p>整体和上一个版本差不多，这里不做赘述。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**********************</span></span><br><span class="line"><span class="comment">    :八位数码管+流水灯</span></span><br><span class="line"><span class="comment">型号:STC15F2K60S2 主频:11.0592MHz</span></span><br><span class="line"><span class="comment">************************/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;STC15F2K60S2.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> uint unsigned int</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> uchar unsigned char</span></span><br><span class="line"></span><br><span class="line">uchar arrSeg7Select[] = &#123;<span class="number">0x3f</span>, <span class="number">0x06</span>, <span class="number">0x5b</span>, <span class="number">0x4f</span>, <span class="number">0x66</span>, <span class="number">0x6d</span>, <span class="number">0x7d</span>, <span class="number">0x07</span>, <span class="number">0x7f</span>&#125;; <span class="comment">//显示0-8</span></span><br><span class="line">uchar arrDigitSelect[] = &#123;<span class="number">0x00</span>, <span class="number">0x01</span>, <span class="number">0x02</span>, <span class="number">0x03</span>, <span class="number">0x04</span>, <span class="number">0x05</span>, <span class="number">0x06</span>, <span class="number">0x07</span>&#125;;   	<span class="comment">//数码管0-7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*---------引脚别名定义---------*/</span></span><br><span class="line">sbit sbtLedSel = P2 ^ <span class="number">3</span>;   <span class="comment">//数码管与LED灯切换引脚</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*---------变量定义---------*/</span></span><br><span class="line">uchar uiLed = <span class="number">0x01</span>;        <span class="comment">//LED灯值寄存</span></span><br><span class="line">uint  uiLedCnt = <span class="number">0</span>;        <span class="comment">//LED灯累计计数器</span></span><br><span class="line">uchar i = <span class="number">0</span>;               <span class="comment">//数码管扫描显示循环</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*---------初始化函数---------*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Init</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    P0M1 = <span class="number">0x00</span>;</span><br><span class="line">    P0M0 = <span class="number">0xff</span>;</span><br><span class="line">    P2M1 = <span class="number">0x00</span>;</span><br><span class="line">    P2M0 = <span class="number">0x08</span>;</span><br><span class="line">    sbtLedSel = <span class="number">0</span>;  <span class="comment">//先选择数码管亮</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*---------延时函数---------*/</span></span><br><span class="line"><span class="comment">//下为生成1ms的延时函数，通过传入参数n，函数可以延时n毫秒</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">delay_ms</span><span class="params">( uint n )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>( n )</span><br><span class="line">    &#123;</span><br><span class="line">        uchar i, j;</span><br><span class="line">        i = <span class="number">11</span>;</span><br><span class="line">        j = <span class="number">190</span>;</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> ( --j );</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> ( --i );</span><br><span class="line">        n--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*---------主函数---------*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    Init();</span><br><span class="line">    <span class="keyword">while</span>( <span class="number">1</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        sbtLedSel = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>( i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++ )</span><br><span class="line">        &#123;</span><br><span class="line">            P0 = <span class="number">0</span>;</span><br><span class="line">            P2 = arrDigitSelect[i];     <span class="comment">//选择数码管的位数</span></span><br><span class="line">            P0 = arrSeg7Select[i + <span class="number">1</span>];  <span class="comment">//显示对应的数值</span></span><br><span class="line">            delay_ms( <span class="number">1</span> );</span><br><span class="line">        &#125;</span><br><span class="line">        uiLedCnt++;</span><br><span class="line">        sbtLedSel = <span class="number">1</span>;</span><br><span class="line">        P0 = uiLed;                     <span class="comment">//LED显示</span></span><br><span class="line">        delay_ms( <span class="number">1</span> );                  <span class="comment">//延时200ms</span></span><br><span class="line">        <span class="keyword">if</span>( uiLedCnt == <span class="number">50</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>( uiLed == <span class="number">0x80</span> )        <span class="comment">//value等于0x80时，重新赋初值0x01</span></span><br><span class="line">                uiLed = <span class="number">0x01</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                uiLed = uiLed &lt;&lt; <span class="number">1</span>;    <span class="comment">//value值逐一左移</span></span><br><span class="line">            uiLedCnt = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1430,7 +1518,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
