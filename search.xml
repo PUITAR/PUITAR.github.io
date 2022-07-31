@@ -1699,7 +1699,8 @@ R_{I/O} = \frac{传输大小}{T_{I/O}}</script><p><img src="/2022/06/14/OS%E6%9C
 <tr>
 <th>点总数</th>
 <th>黑点数目</th>
-<th>时间</th>
+<th>计算时间</th>
+<th>IO时间</th>
 <th>版本</th>
 </tr>
 </thead>
@@ -1708,36 +1709,42 @@ R_{I/O} = \frac{传输大小}{T_{I/O}}</script><p><img src="/2022/06/14/OS%E6%9C
 <td>1791489</td>
 <td>8957</td>
 <td>20m44.408s</td>
+<td>-</td>
 <td>磁盘；12线程；PC；</td>
 </tr>
 <tr>
 <td>1791489</td>
 <td>8957</td>
 <td>51s</td>
+<td>-</td>
 <td>内存；12线程；PC；</td>
 </tr>
 <tr>
 <td>1791489</td>
 <td>8957</td>
-<td>10m31.302s</td>
+<td>636.3100 s</td>
+<td>4.8200 s</td>
 <td>磁盘；40线程；服务器；</td>
 </tr>
 <tr>
 <td>1791489</td>
 <td>8957</td>
-<td>10m30.668s</td>
+<td>639.8700 s</td>
+<td>5.0600 s</td>
 <td>磁盘；20线程；服务器；</td>
 </tr>
 <tr>
 <td>1791489</td>
 <td>8957</td>
-<td>10m25.065s</td>
+<td>635.7200 s</td>
+<td>4.5100 s</td>
 <td>磁盘；10线程；服务器；</td>
 </tr>
 <tr>
 <td>1791489</td>
 <td>8957</td>
-<td>10m23.144s</td>
+<td>630.5800 s</td>
+<td>4.3300 s</td>
 <td>磁盘；1线程；服务器；</td>
 </tr>
 </tbody>
