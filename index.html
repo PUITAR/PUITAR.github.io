@@ -361,7 +361,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-02 06:59:31" itemprop="dateModified" datetime="2022-08-02T06:59:31+08:00">2022-08-02</time>
+                <time title="Modified: 2022-08-02 07:23:11" itemprop="dateModified" datetime="2022-08-02T07:23:11+08:00">2022-08-02</time>
               </span>
 
           
@@ -395,10 +395,10 @@
 <p>和前面内存版本一样，只是获取一阶好友的方式由从内存取到从磁盘取。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @description: 通过点的id从数据库获取一阶好友</span></span><br><span class="line"><span class="comment"> * @param &lt;str_t&gt; k 传入点id作为键</span></span><br><span class="line"><span class="comment"> * @param &lt;DB*&gt; db 传入数据库指针</span></span><br><span class="line"><span class="comment"> * @return &lt;*&gt; 返回一阶好友的数组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="type">vec_t</span> <span class="title">GetFriends1Vec</span><span class="params">(<span class="type">str_t</span> k, DB* db)</span> </span>&#123;</span><br><span class="line">    <span class="type">str_t</span> v;</span><br><span class="line">    <span class="type">vec_t</span> vec;</span><br><span class="line">    db-&gt;<span class="built_in">Get</span>(<span class="built_in">ReadOptions</span>(), k, &amp;v);</span><br><span class="line">    <span class="function">stringstream <span class="title">ss</span><span class="params">(v)</span></span>;</span><br><span class="line">    <span class="keyword">while</span> (ss &gt;&gt; v)</span><br><span class="line">        vec.<span class="built_in">push_back</span>(v);</span><br><span class="line">    <span class="keyword">return</span> vec;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>由于在数据库中以字节流的形式（字符串）存储，所以需要用<code>stringstream</code>读出每一个一阶好友。</p>
-<h3 id="2-0"><a href="#2-0" class="headerlink" title="2_0"></a>2_0</h3><blockquote>
-<p>该版本是多线程版本，代码放在<strong>附录A</strong>中</p>
+<h3 id="2-0统计结果"><a href="#2-0统计结果" class="headerlink" title="2_0统计结果"></a>2_0统计结果</h3><blockquote>
+<p>该版本是多线程版本，代码放在<strong>附录A</strong>中，其中计算时间和IO时间单位都是时钟周期数</p>
 </blockquote>
-<h4 id="统计结果"><a href="#统计结果" class="headerlink" title="统计结果"></a>统计结果</h4><h5 id="wiki-topcats"><a href="#wiki-topcats" class="headerlink" title="wiki-topcats"></a>wiki-topcats</h5><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/表1.png"></p>
+<h5 id="wiki-topcats"><a href="#wiki-topcats" class="headerlink" title="wiki-topcats"></a>wiki-topcats</h5><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/表1.png"></p>
 <blockquote>
 <p>下图是wiki数据集在黑点比例为0.005的情况下，<strong>计算总时间</strong>和<strong>IO所用的时间</strong>，其中<u>纵轴单位是时钟周期</u></p>
 </blockquote>
@@ -408,75 +408,7 @@
 </blockquote>
 <p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/wiki_io_ratio.png" style="zoom:67%;"></p>
 <p>就wiki的数据集来看，当线程数量较大的时候的计算时间很长，而且IO占总时间的比例很大（大于30%）。但是，随着现成的数量减少，计算时间和IO占比都下降。可以推测，限制计算的瓶颈是磁盘的IO，而磁盘的IO瓶颈在图计算的随机读过程中充分体现，这种现象会随着线程数目的增加而加剧。</p>
-<h5 id="twitter-2010"><a href="#twitter-2010" class="headerlink" title="twitter-2010"></a>twitter-2010</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>数据集</th>
-<th>点集大小</th>
-<th>最大组成</th>
-<th>边集大小</th>
-<th>平均度数</th>
-<th>平均距离</th>
-<th>黑点数目（占比）</th>
-<th>计算时间（时钟周期数）</th>
-<th>IO时间（时钟周期数）</th>
-<th>版本</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>twitter-2010</td>
-<td>41,652,230</td>
-<td>33,479,734 (80.38%)</td>
-<td>1,468,365,182</td>
-<td>35.253</td>
-<td>4.46 (± 0.002)</td>
-<td>421（1E-05）</td>
-<td>6,099,700,000</td>
-<td>1,819,260,000</td>
-<td>磁盘；40线程；服务器；</td>
-</tr>
-<tr>
-<td>twitter-2010</td>
-<td>41,652,230</td>
-<td>33,479,734 (80.38%)</td>
-<td>1,468,365,182</td>
-<td>35.253</td>
-<td>4.46 (± 0.002)</td>
-<td>421（1E-05）</td>
-<td>3,414,300,000</td>
-<td>566,660,000</td>
-<td>磁盘；20线程；服务器；</td>
-</tr>
-<tr>
-<td>twitter-2010</td>
-<td>41,652,230</td>
-<td>33,479,734 (80.38%)</td>
-<td>1,468,365,182</td>
-<td>35.253</td>
-<td>4.46 (± 0.002)</td>
-<td>421（1E-05）</td>
-<td>3,370,610,000</td>
-<td>306,980,000</td>
-<td>磁盘；10线程；服务器；</td>
-</tr>
-<tr>
-<td>twitter-2010</td>
-<td>41,652,230</td>
-<td>33,479,734 (80.38%)</td>
-<td>1,468,365,182</td>
-<td>35.253</td>
-<td>4.46 (± 0.002)</td>
-<td>421（1E-05）</td>
-<td>633400,000</td>
-<td>5120000</td>
-<td>磁盘；1线程；服务器；</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h2><h3 id="HyperANF"><a href="#HyperANF" class="headerlink" title="HyperANF"></a>HyperANF</h3><blockquote>
+<h5 id="twitter-2010"><a href="#twitter-2010" class="headerlink" title="twitter-2010"></a>twitter-2010</h5><h2 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h2><h3 id="HyperANF"><a href="#HyperANF" class="headerlink" title="HyperANF"></a>HyperANF</h3><blockquote>
 <p>HyperANF_ Approximating the Neighbourhood Function of Very Large Graphs  on a Budget</p>
 </blockquote>
 <h3 id="Triangle-Enumeration"><a href="#Triangle-Enumeration" class="headerlink" title="Triangle Enumeration"></a>Triangle Enumeration</h3><blockquote>
