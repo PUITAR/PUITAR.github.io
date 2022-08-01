@@ -1696,10 +1696,12 @@ R_{I/O} = \frac{传输大小}{T_{I/O}}</script><p><img src="/2022/06/14/OS%E6%9C
 <h5 id="wiki-topcats"><a href="#wiki-topcats" class="headerlink" title="wiki-topcats"></a>wiki-topcats</h5><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/表1.png"></p>
 <blockquote>
 <p>下图是wiki数据集在黑点比例为0.005的情况下，<strong>计算总时间</strong>和<strong>IO所用的时间</strong>，其中<u>纵轴单位是时钟周期</u></p>
+<p>[可视化链接]: <a href="https://puitar.github.io/echarts/wiki_chart1">https://puitar.github.io/echarts/wiki_chart1</a></p>
 </blockquote>
 <p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/wiki_clocks.png" style="zoom: 67%;"></p>
 <blockquote>
 <p>下图是wiki数据集在黑点比例为0.005的情况下，<strong>IO所用时间占总体计算时间的占比</strong>的折线图，纵轴单位是“1”</p>
+<p>[可视化链接]: <a href="https://puitar.github.io/echarts/wiki_chart2">https://puitar.github.io/echarts/wiki_chart2</a></p>
 </blockquote>
 <p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/wiki_io_ratio.png" style="zoom:67%;"></p>
 <p>就wiki的数据集来看，当线程数量较大的时候的计算时间很长，而且IO占总时间的比例很大（大于30%）。但是，随着现成的数量减少，计算时间和IO占比都下降。可以推测，限制计算的瓶颈是磁盘的IO，而磁盘的IO瓶颈在图计算的随机读过程中充分体现，这种现象会随着线程数目的增加而加剧。</p>

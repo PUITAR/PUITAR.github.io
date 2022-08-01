@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://puitar.github.io/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/wiki_clocks.png">
 <meta property="og:image" content="https://puitar.github.io/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/wiki_io_ratio.png">
 <meta property="article:published_time" content="2022-07-24T04:09:02.000Z">
-<meta property="article:modified_time" content="2022-08-01T22:59:31.272Z">
+<meta property="article:modified_time" content="2022-08-01T23:58:29.734Z">
 <meta property="article:author" content="Puitar">
 <meta property="article:tag" content="并行计算">
 <meta property="article:tag" content="黑标签统计">
@@ -204,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-02 06:59:31" itemprop="dateModified" datetime="2022-08-02T06:59:31+08:00">2022-08-02</time>
+                <time title="Modified: 2022-08-02 07:58:29" itemprop="dateModified" datetime="2022-08-02T07:58:29+08:00">2022-08-02</time>
               </span>
 
           
@@ -245,88 +245,22 @@
 <p>和前面内存版本一样，只是获取一阶好友的方式由从内存取到从磁盘取。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @description: 通过点的id从数据库获取一阶好友</span></span><br><span class="line"><span class="comment"> * @param &lt;str_t&gt; k 传入点id作为键</span></span><br><span class="line"><span class="comment"> * @param &lt;DB*&gt; db 传入数据库指针</span></span><br><span class="line"><span class="comment"> * @return &lt;*&gt; 返回一阶好友的数组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="type">vec_t</span> <span class="title">GetFriends1Vec</span><span class="params">(<span class="type">str_t</span> k, DB* db)</span> </span>&#123;</span><br><span class="line">    <span class="type">str_t</span> v;</span><br><span class="line">    <span class="type">vec_t</span> vec;</span><br><span class="line">    db-&gt;<span class="built_in">Get</span>(<span class="built_in">ReadOptions</span>(), k, &amp;v);</span><br><span class="line">    <span class="function">stringstream <span class="title">ss</span><span class="params">(v)</span></span>;</span><br><span class="line">    <span class="keyword">while</span> (ss &gt;&gt; v)</span><br><span class="line">        vec.<span class="built_in">push_back</span>(v);</span><br><span class="line">    <span class="keyword">return</span> vec;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>由于在数据库中以字节流的形式（字符串）存储，所以需要用<code>stringstream</code>读出每一个一阶好友。</p>
-<h3 id="2-0"><a href="#2-0" class="headerlink" title="2_0"></a>2_0</h3><blockquote>
-<p>该版本是多线程版本，代码放在<strong>附录A</strong>中</p>
+<h3 id="2-0统计结果"><a href="#2-0统计结果" class="headerlink" title="2_0统计结果"></a>2_0统计结果</h3><blockquote>
+<p>该版本是多线程版本，代码放在<strong>附录A</strong>中，其中计算时间和IO时间单位都是时钟周期数</p>
 </blockquote>
-<h4 id="统计结果"><a href="#统计结果" class="headerlink" title="统计结果"></a>统计结果</h4><h5 id="wiki-topcats"><a href="#wiki-topcats" class="headerlink" title="wiki-topcats"></a>wiki-topcats</h5><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/表1.png"></p>
+<h5 id="wiki-topcats"><a href="#wiki-topcats" class="headerlink" title="wiki-topcats"></a>wiki-topcats</h5><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/表1.png"></p>
 <blockquote>
 <p>下图是wiki数据集在黑点比例为0.005的情况下，<strong>计算总时间</strong>和<strong>IO所用的时间</strong>，其中<u>纵轴单位是时钟周期</u></p>
+<p>[可视化链接]: <a href="https://puitar.github.io/echarts/wiki_chart1">https://puitar.github.io/echarts/wiki_chart1</a></p>
 </blockquote>
 <p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/wiki_clocks.png" style="zoom: 67%;"></p>
 <blockquote>
 <p>下图是wiki数据集在黑点比例为0.005的情况下，<strong>IO所用时间占总体计算时间的占比</strong>的折线图，纵轴单位是“1”</p>
+<p>[可视化链接]: <a href="https://puitar.github.io/echarts/wiki_chart2">https://puitar.github.io/echarts/wiki_chart2</a></p>
 </blockquote>
 <p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/wiki_io_ratio.png" style="zoom:67%;"></p>
 <p>就wiki的数据集来看，当线程数量较大的时候的计算时间很长，而且IO占总时间的比例很大（大于30%）。但是，随着现成的数量减少，计算时间和IO占比都下降。可以推测，限制计算的瓶颈是磁盘的IO，而磁盘的IO瓶颈在图计算的随机读过程中充分体现，这种现象会随着线程数目的增加而加剧。</p>
-<h5 id="twitter-2010"><a href="#twitter-2010" class="headerlink" title="twitter-2010"></a>twitter-2010</h5><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>数据集</th>
-<th>点集大小</th>
-<th>最大组成</th>
-<th>边集大小</th>
-<th>平均度数</th>
-<th>平均距离</th>
-<th>黑点数目（占比）</th>
-<th>计算时间（时钟周期数）</th>
-<th>IO时间（时钟周期数）</th>
-<th>版本</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>twitter-2010</td>
-<td>41,652,230</td>
-<td>33,479,734 (80.38%)</td>
-<td>1,468,365,182</td>
-<td>35.253</td>
-<td>4.46 (± 0.002)</td>
-<td>421（1E-05）</td>
-<td>6,099,700,000</td>
-<td>1,819,260,000</td>
-<td>磁盘；40线程；服务器；</td>
-</tr>
-<tr>
-<td>twitter-2010</td>
-<td>41,652,230</td>
-<td>33,479,734 (80.38%)</td>
-<td>1,468,365,182</td>
-<td>35.253</td>
-<td>4.46 (± 0.002)</td>
-<td>421（1E-05）</td>
-<td>3,414,300,000</td>
-<td>566,660,000</td>
-<td>磁盘；20线程；服务器；</td>
-</tr>
-<tr>
-<td>twitter-2010</td>
-<td>41,652,230</td>
-<td>33,479,734 (80.38%)</td>
-<td>1,468,365,182</td>
-<td>35.253</td>
-<td>4.46 (± 0.002)</td>
-<td>421（1E-05）</td>
-<td>3,370,610,000</td>
-<td>306,980,000</td>
-<td>磁盘；10线程；服务器；</td>
-</tr>
-<tr>
-<td>twitter-2010</td>
-<td>41,652,230</td>
-<td>33,479,734 (80.38%)</td>
-<td>1,468,365,182</td>
-<td>35.253</td>
-<td>4.46 (± 0.002)</td>
-<td>421（1E-05）</td>
-<td>633400,000</td>
-<td>5120000</td>
-<td>磁盘；1线程；服务器；</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h2><h3 id="HyperANF"><a href="#HyperANF" class="headerlink" title="HyperANF"></a>HyperANF</h3><blockquote>
+<h5 id="twitter-2010"><a href="#twitter-2010" class="headerlink" title="twitter-2010"></a>twitter-2010</h5><h2 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h2><h3 id="HyperANF"><a href="#HyperANF" class="headerlink" title="HyperANF"></a>HyperANF</h3><blockquote>
 <p>HyperANF_ Approximating the Neighbourhood Function of Very Large Graphs  on a Budget</p>
 </blockquote>
 <h3 id="Triangle-Enumeration"><a href="#Triangle-Enumeration" class="headerlink" title="Triangle Enumeration"></a>Triangle Enumeration</h3><blockquote>
@@ -422,7 +356,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">黑标签统计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E5%AE%89%E6%8E%92%EF%BC%88%E6%9B%B4%E6%96%B0%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">实验安排（更新）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AD%98%E7%89%88%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">基于内存版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%A3%81%E7%9B%98%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.</span> <span class="nav-text">基于磁盘版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-0%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.1.</span> <span class="nav-text">1_0版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-0"><span class="nav-number">1.3.2.</span> <span class="nav-text">2_0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E7%BB%93%E6%9E%9C"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">统计结果</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#wiki-topcats"><span class="nav-number">1.3.2.1.1.</span> <span class="nav-text">wiki-topcats</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#twitter-2010"><span class="nav-number">1.3.2.1.2.</span> <span class="nav-text">twitter-2010</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87"><span class="nav-number">1.4.</span> <span class="nav-text">论文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HyperANF"><span class="nav-number">1.4.1.</span> <span class="nav-text">HyperANF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Triangle-Enumeration"><span class="nav-number">1.4.2.</span> <span class="nav-text">Triangle Enumeration</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GraphChi"><span class="nav-number">1.5.</span> <span class="nav-text">GraphChi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">1.6.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95A"><span class="nav-number">1.6.1.</span> <span class="nav-text">附录A</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95B"><span class="nav-number">1.6.2.</span> <span class="nav-text">附录B</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">黑标签统计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E5%AE%89%E6%8E%92%EF%BC%88%E6%9B%B4%E6%96%B0%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">实验安排（更新）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AD%98%E7%89%88%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">基于内存版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%A3%81%E7%9B%98%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.</span> <span class="nav-text">基于磁盘版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-0%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.1.</span> <span class="nav-text">1_0版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-0%E7%BB%9F%E8%AE%A1%E7%BB%93%E6%9E%9C"><span class="nav-number">1.3.2.</span> <span class="nav-text">2_0统计结果</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#wiki-topcats"><span class="nav-number">1.3.2.0.1.</span> <span class="nav-text">wiki-topcats</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#twitter-2010"><span class="nav-number">1.3.2.0.2.</span> <span class="nav-text">twitter-2010</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87"><span class="nav-number">1.4.</span> <span class="nav-text">论文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HyperANF"><span class="nav-number">1.4.1.</span> <span class="nav-text">HyperANF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Triangle-Enumeration"><span class="nav-number">1.4.2.</span> <span class="nav-text">Triangle Enumeration</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GraphChi"><span class="nav-number">1.5.</span> <span class="nav-text">GraphChi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">1.6.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95A"><span class="nav-number">1.6.1.</span> <span class="nav-text">附录A</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95B"><span class="nav-number">1.6.2.</span> <span class="nav-text">附录B</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
