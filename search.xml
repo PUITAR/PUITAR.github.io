@@ -1670,11 +1670,10 @@ R_{I/O} = \frac{传输大小}{T_{I/O}}</script><p><img src="/2022/06/14/OS%E6%9C
   <entry>
     <title>黑标签统计安排</title>
     <url>/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/</url>
-    <content><![CDATA[<h1 id="黑标签统计"><a href="#黑标签统计" class="headerlink" title="黑标签统计"></a>黑标签统计</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p>[TOC]</p>
-<h2 id="实验安排（更新）"><a href="#实验安排（更新）" class="headerlink" title="实验安排（更新）"></a>实验安排（更新）</h2><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/黑标签统计.png" alt></p>
+    <content><![CDATA[<h1 id="黑标签统计"><a href="#黑标签统计" class="headerlink" title="黑标签统计"></a>黑标签统计</h1><h2 id="实验安排（更新）"><a href="#实验安排（更新）" class="headerlink" title="实验安排（更新）"></a>实验安排（更新）</h2><p><img data-src="黑标签统计安排/黑标签统计.png" alt></p>
 <h2 id="基于内存版本"><a href="#基于内存版本" class="headerlink" title="基于内存版本"></a>基于内存版本</h2><p>基于内存版本的黑标签统计，在这里不做过多介绍。项目地址</p>
 <blockquote>
-<p>[基于内存黑标签统计]: <a href="https://github.com/PUITAR/BlackLabelCount">https://github.com/PUITAR/BlackLabelCount</a></p>
+<p>[基于内存黑标签统计]: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1BVSVRBUi9CbGFja0xhYmVsQ291bnQ=">https://github.com/PUITAR/BlackLabelCount<i class="fa fa-external-link-alt"></i></span></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:PUITAR/BlackLabelCount.git</span><br></pre></td></tr></table></figure>
 </blockquote>
 <h2 id="基于磁盘版本"><a href="#基于磁盘版本" class="headerlink" title="基于磁盘版本"></a>基于磁盘版本</h2><p>由于后续实验需要一个基准baseline，因此这里使用<code>RocksDB</code>作为基准工作的基础。</p>
@@ -1685,7 +1684,7 @@ R_{I/O} = \frac{传输大小}{T_{I/O}}</script><p><img src="/2022/06/14/OS%E6%9C
 <li>小世界模型图的读取和计算</li>
 </ul>
 <p>小世界网络生成</p>
-<p>[matlab生成小世界网络思路]: <a href="https://ww2.mathworks.cn/help/matlab/math/build-watts-strogatz-small-world-graph-model.html">https://ww2.mathworks.cn/help/matlab/math/build-watts-strogatz-small-world-graph-model.html</a></p>
+<p>[matlab生成小世界网络思路]: <span class="exturl" data-url="aHR0cHM6Ly93dzIubWF0aHdvcmtzLmNuL2hlbHAvbWF0bGFiL21hdGgvYnVpbGQtd2F0dHMtc3Ryb2dhdHotc21hbGwtd29ybGQtZ3JhcGgtbW9kZWwuaHRtbA==">https://ww2.mathworks.cn/help/matlab/math/build-watts-strogatz-small-world-graph-model.html<i class="fa fa-external-link-alt"></i></span></p>
 <p>生成的算法如附录B，实验先用已有数据集。</p>
 </blockquote>
 <p>和前面内存版本一样，只是获取一阶好友的方式由从内存取到从磁盘取。</p>
@@ -1694,24 +1693,29 @@ R_{I/O} = \frac{传输大小}{T_{I/O}}</script><p><img src="/2022/06/14/OS%E6%9C
 <h3 id="2-0统计结果"><a href="#2-0统计结果" class="headerlink" title="2_0统计结果"></a>2_0统计结果</h3><blockquote>
 <p>该版本是多线程版本，代码放在<strong>附录A</strong>中，其中计算时间和IO时间单位都是时钟周期数</p>
 </blockquote>
-<h4 id="wiki-topcats"><a href="#wiki-topcats" class="headerlink" title="wiki-topcats"></a>wiki-topcats</h4><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/表1.png"></p>
+<h4 id="wiki-topcats"><a href="#wiki-topcats" class="headerlink" title="wiki-topcats"></a>wiki-topcats</h4><p><img data-src="黑标签统计安排/表1.png"></p>
 <blockquote>
 <p>下图是wiki数据集在黑点比例为0.005的情况下，<strong>计算总时间</strong>和<strong>IO所用的时间</strong>，其中<u>纵轴单位是时钟周期</u></p>
 <p>[可视化链接]: <a href="https://puitar.github.io/echarts/wiki_chart1">https://puitar.github.io/echarts/wiki_chart1</a></p>
 </blockquote>
-<p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/wiki_clocks.png" style="zoom: 67%;"></p>
+<p><img data-src="黑标签统计安排/wiki_clocks.png" style="zoom: 67%;"></p>
 <blockquote>
 <p>下图是wiki数据集在黑点比例为0.005的情况下，<strong>IO所用时间占总体计算时间的占比</strong>的折线图，纵轴单位是“1”</p>
 <p>[可视化链接]: <a href="https://puitar.github.io/echarts/wiki_chart2">https://puitar.github.io/echarts/wiki_chart2</a></p>
 </blockquote>
-<p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/wiki_io_ratio.png" style="zoom:67%;"></p>
+<p><img data-src="黑标签统计安排/wiki_io_ratio.png" style="zoom:67%;"></p>
 <p>就wiki的数据集来看，当线程数量较大的时候的计算时间很长，而且IO占总时间的比例很大（大于30%）。但是，随着现成的数量减少，计算时间和IO占比都下降。可以推测，限制计算的瓶颈是磁盘的IO，而磁盘的IO瓶颈在图计算的随机读过程中充分体现，这种现象会随着线程数目的增加而加剧。</p>
-<h4 id="twitter-2010"><a href="#twitter-2010" class="headerlink" title="twitter-2010"></a>twitter-2010</h4><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/表2.png" alt></p>
+<h4 id="twitter-2010"><a href="#twitter-2010" class="headerlink" title="twitter-2010"></a>twitter-2010</h4><p><img data-src="黑标签统计安排/表2.png" alt></p>
 <blockquote>
 <p>[计算时间和IO时间柱状图]: <a href="https://puitar.github.io/echarts/twitter_chart1">https://puitar.github.io/echarts/twitter_chart1</a></p>
 <p>[IO时间/计算时间 占比折线图]: <a href="https://puitar.github.io/echarts/twitter_chart2">https://puitar.github.io/echarts/twitter_chart2</a></p>
 </blockquote>
-<h4 id><a href="#" class="headerlink" title=" "></a> </h4><h2 id="论文阅读"><a href="#论文阅读" class="headerlink" title="论文阅读"></a>论文阅读</h2><h3 id="HyperANF"><a href="#HyperANF" class="headerlink" title="HyperANF"></a>HyperANF</h3><blockquote>
+<h4 id="arabic-2005"><a href="#arabic-2005" class="headerlink" title="arabic-2005"></a>arabic-2005</h4><p><img data-src="黑标签统计安排/表3.png" alt></p>
+<blockquote>
+<p>[计算时间和IO时间柱状图]: <a href="https://puitar.github.io/echarts/arabic_chart1">https://puitar.github.io/echarts/arabic_chart1</a></p>
+<p>[IO时间/计算时间 占比折线图]: <a href="https://puitar.github.io/echarts/arabic_chart2">https://puitar.github.io/echarts/arabic_chart2</a></p>
+</blockquote>
+<h2 id="论文阅读"><a href="#论文阅读" class="headerlink" title="论文阅读"></a>论文阅读</h2><h3 id="HyperANF"><a href="#HyperANF" class="headerlink" title="HyperANF"></a>HyperANF</h3><blockquote>
 <p>HyperANF_ Approximating the Neighbourhood Function of Very Large Graphs  on a Budget</p>
 </blockquote>
 <h3 id="Triangle-Enumeration"><a href="#Triangle-Enumeration" class="headerlink" title="Triangle Enumeration"></a>Triangle Enumeration</h3><blockquote>
