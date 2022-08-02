@@ -937,6 +937,10 @@
 <p>[IO时间/计算时间 占比折线图]: <a href="https://puitar.github.io/echarts/arabic_chart2">https://puitar.github.io/echarts/arabic_chart2</a></p>
 </blockquote>
 <h4 id="enwiki-2021"><a href="#enwiki-2021" class="headerlink" title="enwiki-2021"></a>enwiki-2021</h4><p><img src="/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/表4.png" alt></p>
+<blockquote>
+<p>[计算时间和IO时间柱状图]: <a href="https://puitar.github.io/echarts/enwiki_chart1">https://puitar.github.io/echarts/enwiki_chart1</a></p>
+<p>[IO时间/计算时间 占比折线图]: <a href="https://puitar.github.io/echarts/enwiki_chart2">https://puitar.github.io/echarts/enwiki_chart2</a></p>
+</blockquote>
 <h2 id="论文阅读"><a href="#论文阅读" class="headerlink" title="论文阅读"></a>论文阅读</h2><h3 id="HyperANF"><a href="#HyperANF" class="headerlink" title="HyperANF"></a>HyperANF</h3><blockquote>
 <p>HyperANF_ Approximating the Neighbourhood Function of Very Large Graphs  on a Budget</p>
 </blockquote>
