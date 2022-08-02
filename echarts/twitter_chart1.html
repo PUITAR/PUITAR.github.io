@@ -1,0 +1,69 @@
+<!--
+	此示例下载自 https://echarts.apache.org/examples/zh/editor.html?c=dataset-simple0&code=PYBwLglsB2AEC8sDeAoWsA2BTA5l6AJgFzIC-ANGrGMMBpCCUhVQQIZhsDOWYTV6LsACuAJwDGWEgG0B6WNIDkIUcALDxYReViLAhdGB070BvpoBfU7boCSAeVOKAupXnylAFgAMgKjlA_X6BoL3MA2NwBOIIB2NwiInQBGAA5ooIAmQMiHOXQlRM9fcwBmF2iXXMio2ABWf0qUiLSnDMVo7L8dXNzw_0bIlrd_INiS2rqlaO9m2ET3UOisrthc5M6ax3k7KhZ0AA8AQQ2ILiZqAE8QKV1xDlxgUUPFWHXYQ529pnuAelfYABEscQw2USwsB4ADcsKI2BhYAAjf5AsEQLBcHRYNjiAAWsAA7hAMJCoYCALZsEAnAhUd7UYCwNiwcR0YQEuDAABmsHYnB4YAAdEIxJJoYc2VhmWxhPQuVQeKIEfsFEgjicSIoYaJbhRkArTsr_mrVqQANxAA
+	⚠ 请注意，该图表不是 Apache ECharts 官方示例，而是由用户代码生成的。请注意鉴别其内容。
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    option = {
+  legend: {},
+  tooltip: {},
+  dataset: {
+    source: [
+      ['product', '计算时间', 'IO时间'],
+      ['40个线程', 6099700000, 1819260000],
+      ['20个线程', 3414300000, 566660000],
+      ['10个线程', 3370610000, 306980000],
+      ['1个线程', 2407120000, 32610000],
+    ]
+  },
+  xAxis: { type: 'category' },
+  yAxis: {},
+  // Declare several bar series, each will be mapped
+  // to a column of dataset.source by default.
+  series: [{ type: 'bar' }, { type: 'bar' }]
+};
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
