@@ -946,7 +946,10 @@
 <p>[IO时间/计算时间 占比折线图]: <a href="https://puitar.github.io/echarts/enwiki_chart2">https://puitar.github.io/echarts/enwiki_chart2</a></p>
 </blockquote>
 <h2 id="论文阅读"><a href="#论文阅读" class="headerlink" title="论文阅读"></a>论文阅读</h2><h3 id="HyperANF"><a href="#HyperANF" class="headerlink" title="HyperANF"></a>HyperANF</h3><blockquote>
-<p>HyperANF_ Approximating the Neighbourhood Function of Very Large Graphs  on a Budget</p>
+<p><strong>文献名称：</strong>HyperANF_ Approximating the Neighbourhood Function of Very Large Graphs  on a Budget</p>
+</blockquote>
+<h4 id="HyperLogLog（HLL）"><a href="#HyperLogLog（HLL）" class="headerlink" title="HyperLogLog（HLL）"></a>HyperLogLog（HLL）</h4><blockquote>
+<p><strong>参考：</strong><a href="https://www.yuque.com/abser/aboutme/nfx0a4">HyperLogLog · 语雀 (yuque.com)</a></p>
 </blockquote>
 <h3 id="Triangle-Enumeration"><a href="#Triangle-Enumeration" class="headerlink" title="Triangle Enumeration"></a>Triangle Enumeration</h3><blockquote>
 <p>Improving I/O Complexity of Triangle Enumeration</p>
