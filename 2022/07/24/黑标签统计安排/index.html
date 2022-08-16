@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://puitar.github.io/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/表3.png">
 <meta property="og:image" content="https://puitar.github.io/2022/07/24/%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1%E5%AE%89%E6%8E%92/表4.png">
 <meta property="article:published_time" content="2022-07-24T04:09:02.000Z">
-<meta property="article:modified_time" content="2022-08-06T09:36:46.042Z">
+<meta property="article:modified_time" content="2022-08-16T11:19:35.645Z">
 <meta property="article:author" content="Puitar">
 <meta property="article:tag" content="并行计算">
 <meta property="article:tag" content="黑标签统计">
@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-08-06 17:36:46" itemprop="dateModified" datetime="2022-08-06T17:36:46+08:00">2022-08-06</time>
+                <time title="Modified: 2022-08-16 19:19:35" itemprop="dateModified" datetime="2022-08-16T19:19:35+08:00">2022-08-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -300,7 +300,31 @@
 </blockquote>
 <p>ICDE2023-VEND-524(RevisionOf-37)-C</p>
 <p>先看这篇文章Introduction部分Algorithm 2 Trigon的原理，有助于理解</p>
-<h2 id="GraphChi"><a href="#GraphChi" class="headerlink" title="GraphChi"></a>GraphChi</h2><p>（挂起）</p>
+<h2 id="优化版本"><a href="#优化版本" class="headerlink" title="优化版本"></a>优化版本</h2><blockquote>
+<p>伪代码</p>
+</blockquote>
+<ul>
+<li><p>需要<strong>两种边集文件</strong></p>
+<ul>
+<li><code>Partition</code>文件：对边以目的点进行排序（分interval）</li>
+<li><code>Edges</code>：对边以源点进行排序（不分interval）</li>
+</ul>
+</li>
+<li><p>对于边集<code>E</code>的某个子集<code>Esub</code>的两种操作：</p>
+<ul>
+<li><code>Esub.first</code>：表示边集的源点集合</li>
+<li><code>Esub.second</code>：表示边集的目的点集合</li>
+</ul>
+</li>
+<li><p>一个映射函数：</p>
+<p><code>FindTwoHopRange(S[i], P[i])</code>：找到<code>P[i]</code>中起点在<code>S[i]</code>中的边的中点集合</p>
+</li>
+<li><p>函数<code>Union(1, p, R)</code>的含义是</p>
+<script type="math/tex; mode=display">
+\bigcup_{i = 1}^{p}R_i</script></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 求点v的二阶范围内所有点，带去重效果 */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">FindTwoHopNeighbors</span>(<span class="params">v</span>) &#123;</span><br><span class="line">	<span class="title class_">Nv</span> ← <span class="title class_">Edges</span>[v].<span class="property">second</span>;						<span class="comment">// 从Edges文件种读取以v为源点的边集的目的点集合</span></span><br><span class="line">    <span class="keyword">for</span> each partition P[i] <span class="keyword">in</span> <span class="title class_">PartitionFile</span> &#123;</span><br><span class="line">        S[i] = <span class="title class_">Nv</span> ∩ P[i].<span class="property">first</span>;					<span class="comment">// 找到2阶在400-500范围内的一阶好友</span></span><br><span class="line">        R[i] = <span class="title class_">FindTwoHopRange</span>(S[i], P[i]); 	<span class="comment">// R[i]是v的在400-500范围内的二阶好友</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title class_">Fv</span> = &#123;v&#125; ∪ <span class="title class_">Nv</span> ∪ <span class="title class_">Union</span>(<span class="number">1</span>, p, R) 		   	   <span class="comment">// 二阶范围所有点为v、一阶好友、二阶好友</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Fv</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 统计二阶标签过程 */</span></span><br><span class="line"><span class="title function_">compute</span>(v, <span class="title class_">Fv</span>, lables);</span><br></pre></td></tr></table></figure>
+<p>由于上一阶段的统计发现IO占时间为70%到80%，因此<code>FindTwoHopNeighbors</code>可能对IO存在优化，使得整体有优化效果。</p>
 <h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="附录A"><a href="#附录A" class="headerlink" title="附录A"></a>附录A</h3><blockquote>
 <p>附录A是黑标签统计基于磁盘版本的代码</p>
 </blockquote>
@@ -398,7 +422,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">黑标签统计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E5%AE%89%E6%8E%92%EF%BC%88%E6%9B%B4%E6%96%B0%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">实验安排（更新）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AD%98%E7%89%88%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">基于内存版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%A3%81%E7%9B%98%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.</span> <span class="nav-text">基于磁盘版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-0%E7%89%88%E6%9C%AC%E6%A6%82%E8%BF%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">1_0版本概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-0%E7%BB%9F%E8%AE%A1%E7%BB%93%E6%9E%9C"><span class="nav-number">1.3.2.</span> <span class="nav-text">2_0统计结果</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#wiki-topcats"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">wiki-topcats</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#twitter-2010"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">twitter-2010</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#arabic-2005"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">arabic-2005</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#enwiki-2021"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">enwiki-2021</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB"><span class="nav-number">1.4.</span> <span class="nav-text">论文阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HyperANF"><span class="nav-number">1.4.1.</span> <span class="nav-text">HyperANF</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HyperLogLog%EF%BC%88HLL%EF%BC%89"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">HyperLogLog（HLL）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Triangle-Enumeration"><span class="nav-number">1.4.2.</span> <span class="nav-text">Triangle Enumeration</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GraphChi"><span class="nav-number">1.5.</span> <span class="nav-text">GraphChi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">1.6.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95A"><span class="nav-number">1.6.1.</span> <span class="nav-text">附录A</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95B"><span class="nav-number">1.6.2.</span> <span class="nav-text">附录B</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%BB%91%E6%A0%87%E7%AD%BE%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">黑标签统计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E5%AE%89%E6%8E%92%EF%BC%88%E6%9B%B4%E6%96%B0%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">实验安排（更新）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AD%98%E7%89%88%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">基于内存版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%A3%81%E7%9B%98%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.</span> <span class="nav-text">基于磁盘版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-0%E7%89%88%E6%9C%AC%E6%A6%82%E8%BF%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">1_0版本概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-0%E7%BB%9F%E8%AE%A1%E7%BB%93%E6%9E%9C"><span class="nav-number">1.3.2.</span> <span class="nav-text">2_0统计结果</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#wiki-topcats"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">wiki-topcats</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#twitter-2010"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">twitter-2010</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#arabic-2005"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">arabic-2005</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#enwiki-2021"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">enwiki-2021</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB"><span class="nav-number">1.4.</span> <span class="nav-text">论文阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HyperANF"><span class="nav-number">1.4.1.</span> <span class="nav-text">HyperANF</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HyperLogLog%EF%BC%88HLL%EF%BC%89"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">HyperLogLog（HLL）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Triangle-Enumeration"><span class="nav-number">1.4.2.</span> <span class="nav-text">Triangle Enumeration</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%89%88%E6%9C%AC"><span class="nav-number">1.5.</span> <span class="nav-text">优化版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">1.6.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95A"><span class="nav-number">1.6.1.</span> <span class="nav-text">附录A</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95B"><span class="nav-number">1.6.2.</span> <span class="nav-text">附录B</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

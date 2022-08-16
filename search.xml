@@ -956,7 +956,31 @@
 </blockquote>
 <p>ICDE2023-VEND-524(RevisionOf-37)-C</p>
 <p>先看这篇文章Introduction部分Algorithm 2 Trigon的原理，有助于理解</p>
-<h2 id="GraphChi"><a href="#GraphChi" class="headerlink" title="GraphChi"></a>GraphChi</h2><p>（挂起）</p>
+<h2 id="优化版本"><a href="#优化版本" class="headerlink" title="优化版本"></a>优化版本</h2><blockquote>
+<p>伪代码</p>
+</blockquote>
+<ul>
+<li><p>需要<strong>两种边集文件</strong></p>
+<ul>
+<li><code>Partition</code>文件：对边以目的点进行排序（分interval）</li>
+<li><code>Edges</code>：对边以源点进行排序（不分interval）</li>
+</ul>
+</li>
+<li><p>对于边集<code>E</code>的某个子集<code>Esub</code>的两种操作：</p>
+<ul>
+<li><code>Esub.first</code>：表示边集的源点集合</li>
+<li><code>Esub.second</code>：表示边集的目的点集合</li>
+</ul>
+</li>
+<li><p>一个映射函数：</p>
+<p><code>FindTwoHopRange(S[i], P[i])</code>：找到<code>P[i]</code>中起点在<code>S[i]</code>中的边的中点集合</p>
+</li>
+<li><p>函数<code>Union(1, p, R)</code>的含义是</p>
+<script type="math/tex; mode=display">
+\bigcup_{i = 1}^{p}R_i</script></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 求点v的二阶范围内所有点，带去重效果 */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">FindTwoHopNeighbors</span>(<span class="params">v</span>) &#123;</span><br><span class="line">	<span class="title class_">Nv</span> ← <span class="title class_">Edges</span>[v].<span class="property">second</span>;						<span class="comment">// 从Edges文件种读取以v为源点的边集的目的点集合</span></span><br><span class="line">    <span class="keyword">for</span> each partition P[i] <span class="keyword">in</span> <span class="title class_">PartitionFile</span> &#123;</span><br><span class="line">        S[i] = <span class="title class_">Nv</span> ∩ P[i].<span class="property">first</span>;					<span class="comment">// 找到2阶在400-500范围内的一阶好友</span></span><br><span class="line">        R[i] = <span class="title class_">FindTwoHopRange</span>(S[i], P[i]); 	<span class="comment">// R[i]是v的在400-500范围内的二阶好友</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title class_">Fv</span> = &#123;v&#125; ∪ <span class="title class_">Nv</span> ∪ <span class="title class_">Union</span>(<span class="number">1</span>, p, R) 		   	   <span class="comment">// 二阶范围所有点为v、一阶好友、二阶好友</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Fv</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 统计二阶标签过程 */</span></span><br><span class="line"><span class="title function_">compute</span>(v, <span class="title class_">Fv</span>, lables);</span><br></pre></td></tr></table></figure>
+<p>由于上一阶段的统计发现IO占时间为70%到80%，因此<code>FindTwoHopNeighbors</code>可能对IO存在优化，使得整体有优化效果。</p>
 <h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="附录A"><a href="#附录A" class="headerlink" title="附录A"></a>附录A</h3><blockquote>
 <p>附录A是黑标签统计基于磁盘版本的代码</p>
 </blockquote>
